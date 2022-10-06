@@ -213,7 +213,6 @@ namespace TestingClassesCA
                 Phone = "89558193476"
             };
             PrintTeacher(teach5);
-            Console.ReadLine();
         }
         static void PrintTeacher(Teacher teach)
         {
