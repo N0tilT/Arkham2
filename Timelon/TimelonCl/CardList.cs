@@ -9,34 +9,31 @@ namespace TimelonCl
 {
     public class CardList
     {
-        List<Card> cards = new List<Card>();
+        List<Card> _list = new List<Card>();
 
         public CardList()
-        {
-        }
+        {}
         public CardList(List<Card> list)
         {
-            cards = list;
+            _list = list;
         }
 
         public void Add(Card card)
         {
-            cards.Add(card);
+            _list.Add(card);
         }
 
         public void Delete(Card card)
         {
-            cards.Remove(card) ;
+            _list.Remove(card);
         }
 
         public void Sort()
-        {
-
-        }
+        {}
 
         public List<Card> All
         {
-            get { return cards; }
+            get { return _list; }
         }
 
         //сортировки

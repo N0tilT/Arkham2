@@ -11,9 +11,9 @@ namespace TimelonCl
     {
         public const int DEFAULT_PRIORITY = 5;
 
-        int id;
-        string name;
-        string description = "";
+        private int _id;
+        private string _name;
+        private string _description = "";
 
         /**
          * TODO: Сделать класс Priority
@@ -29,26 +29,27 @@ namespace TimelonCl
          *     Color.FromRgb(0, 255, 255)  //Бирюзовый
          * };
          */
-        int priority = DEFAULT_PRIORITY;
+        private int _priority = DEFAULT_PRIORITY;
 
         //bool favourite - избранное
         //DateTime datePlaned - когда нужно сделать
 
-        bool isDone = false;
+        private bool _isDone = false;
 
         //Когда карточку меняли последний раз
-        DateTime dateChanged;
+        private DateTime _lastChange;
 
         public Card(int id, string name, string desc = "", int priority = DEFAULT_PRIORITY, bool isDone = false)
         {
-            this.id = id;
-            this.name = name;
-            this.description = desc;
-            this.isDone = isDone;
-            this.priority = priority;
-            this.dateChanged = DateTime.Now; // TODO: Придумать дефолт значение для передачи в конструктор
+            _id = id;
+            _name = name;
+            _description = desc;
+            _isDone = isDone;
+            _priority = priority;
+            _lastChange = DateTime.Now; // TODO: Придумать дефолт значение для передачи в конструктор
         }
 
+        // Для тестов
         public static Card Random()
         {
             Card card = new Card(
@@ -59,56 +60,59 @@ namespace TimelonCl
                 Util.RandomBool()
             );
 
-            card.dateChanged = Util.RandomDateTime();
+            card._lastChange = Util.RandomDateTime();
 
             return card;
         }
 
-        public int ID
+        public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public string Description
         {
-            get { return description; }
-            set { description = value; }
+            get { return _description; }
+            set { _description = value; }
         }
 
         public int Priority
         {
-            get { return priority; }
-            set { priority = value; }
+            get { return _priority; }
+            set { _priority = value; }
         }
 
-        public bool Done
+        public bool IsDone
         {
-            get { return isDone; }
-            set { isDone = value; }
+            get { return _isDone; }
+            set { _isDone = value; }
         }
 
+        public DateTime LastChange
+        {
+            get { return _lastChange; }
+        }
+
+        // TODO: Переделать
         public Card Update()
         {
-            dateChanged = DateTime.Now;
+            _lastChange = DateTime.Now;
 
             return this;
         }
 
-        public DateTime GetDateChanged
-        {
-            get { return dateChanged; }
-        }
-
+        // Для тестов
+        // TODO: Использовать json?
         public override string ToString()
         {
-            return $"ID: {id}\nNAME: {name}\nDESC: {description}\nDONE: {isDone}\nPRIOR: {priority}\nCHANGED: {dateChanged}";
+            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nDONE: {IsDone}\nPRIOR: {Priority}\nCHANGED: {LastChange}";
         }
     }
 }
