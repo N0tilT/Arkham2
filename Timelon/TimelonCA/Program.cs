@@ -10,6 +10,14 @@ namespace TimelonCA
     {
         static void Main(string[] args)
         {
+            Tests tests = new Tests();
+
+            tests.CreateCardTest();
+
+            tests.CreateCardListTest();
+
+            Console.ReadKey();
+
         }
     }
 }

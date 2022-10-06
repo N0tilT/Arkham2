@@ -50,5 +50,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TimelonCl\TimelonCl.csproj">
+      <Project>{09b959a2-2abc-4552-863a-dcc4f8a8bce2}</Project>
+      <Name>TimelonCl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
