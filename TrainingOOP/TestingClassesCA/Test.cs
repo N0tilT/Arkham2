@@ -167,6 +167,7 @@ namespace TestingClassesCA
             {
                 Name = "Чернигова Марина Ивановна",
                 Degree = "Кандидат филологических наук",
+                Positions = "Доцент",
                 Workplace = "ТвГУ",
                 Experience = 6,
                 Phone = "89607183375"
@@ -176,6 +177,7 @@ namespace TestingClassesCA
             {
                 Name = "Увалов Александр Леонидович",
                 Degree = "Доктор математических наук",
+                Positions = "Декан",
                 Workplace = "ТвГTУ",
                 Experience = 16,
                 Phone = "89607186375"
@@ -184,20 +186,41 @@ namespace TestingClassesCA
             Teacher teach3 = new Teacher
             {
                 Name = "Смирнова Елена Дмитриевна",
-                Degree = "андидат педогогических наук",
+                Degree = "Кандидат педогогических наук",
+                Positions = "Старший преподаватель",
                 Workplace = "ТвГУ",
                 Experience = 14,
                 Phone = "89677193375"
             };
             PrintTeacher(teach3);
-
+            Teacher teach4 = new Teacher
+            {
+                Name = "Дятлов Иван Олегович",
+                Degree = "Без ученой степень",
+                Positions = "Старший преподаватель",
+                Workplace = "ТвГТУ",
+                Experience = 2,
+                Phone = "89578193475"
+            };
+            PrintTeacher(teach4);
+            Teacher teach5 = new Teacher
+            {
+                Name = "Печорин Роман Валерьевич",
+                Degree = "Доктор физико-математических наук",
+                Positions = "Ректор",
+                Workplace = "ТвГТУ",
+                Experience = 24,
+                Phone = "89558193476"
+            };
+            PrintTeacher(teach5);
+            Console.ReadLine();
         }
         static void PrintTeacher(Teacher teach)
         {
             Console.WriteLine("ФИО преподавателя: {0}, Ученая степень: {1}, Место работы: {2},\n" +
                 "Опыт работы: {3}, Ученая степень: {4}, Занимаемая должность: {5}, Контактный номер: {6}",
                 teach.Name, teach.Degree, teach.Workplace, teach.Experience,
-                teach.GetAcademicTitle, teach.GetPosition, teach.Phone);
+                teach.GetAcademicTitle, teach.Positions, teach.Phone);
             Console.WriteLine();
         }
 

@@ -16,25 +16,16 @@ namespace TrainingOOP
             Доцент,
             Профессор
         }
-        public enum Position //Занимаемые должности
-        {
-            Старший_проподаватель,
-            Доцент,
-            Декан,
-            Ректор,
-            Заведующий_кафедрой
-        }
+
 
         //Поля класса
         string name; //ФИО преподователя
         int experience; //опыт работы/стаж
         string phone; //номер телефона
         string degree; //учёная степень
-        //зависит от опыта работы
-        AcademicTitle title; //ученое звание
-        Position position; //должность
+        AcademicTitle title; //ученое звание, зависящее от ученой степени
+        string position; //должность
         string workplace; //место работы
-        //списком
 
         //Методы-свойства класса
         /// <summary>
@@ -45,11 +36,12 @@ namespace TrainingOOP
             get { return title; }
         }
         /// <summary>
-        /// Чтение должности преподавателя
+        /// Чтение-запись должности преподавателя
         /// </summary>
-        public Position GetPosition
+        public string Positions 
         {
             get { return position; }
+            set { position = value; }
         }
         /// <summary>
         /// Чтение-запись ФИО преподователя
