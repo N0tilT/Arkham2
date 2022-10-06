@@ -24,6 +24,9 @@ namespace TrainingOOP
         /// </summary>
         private double _imaginary;
 
+        /// <summary>
+        /// Объект для генерации псевдо-случайных чисел
+        /// </summary>
         private static Random rnd = new Random();
 
         /// <summary>
