@@ -10,70 +10,46 @@ namespace TimelonCA
 {
     class Tests
     {
-
-        Card card = new Card("");
-
-        public void CreateCardTest()
+        public void TestCustomCard()
         {
-            card = new Card("test1");
-            card.Description = "This is a test card";
-            card.Priority = 1;
-            card.Update();
-            PrintCard(card);
-            Thread.Sleep(500);
-            //CardDone(card);
+            Console.WriteLine("TestCustomCard:");
 
-            card = card.Random();
-            PrintCard(card);
+            Card card = new Card(13, "customName", "This is a custom card", 1);
 
-
+            Console.WriteLine(card.Update());
+            Console.WriteLine();
         }
 
-        private void CardDone(Card card)
+        public void TestRandomCard()
         {
-            card.Done = true;
-            card.Update();
+            Console.WriteLine("TestRandomCard:");
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(Card.Random());
+            }
+
+            Console.WriteLine();
         }
 
-
-        public void CreateCardListTest()
+        public void TestCardList()
         {
-            CardList cards = new CardList();
+            Console.WriteLine("TestCardList:");
 
-            cards.Add(card.Random());
+            CardList list = new CardList();
 
-            cards.Add(card.Random());
+            for (int i = 0; i < 5; i++)
+            {
+                list.Add(Card.Random());
+            }
 
-            cards.Add(card.Random());
+            // Для наглядности
+            foreach (Card card in list.All)
+            {
+                Console.WriteLine(card);
+            }
 
-            PrintCardList(cards);
-        }
-
-
-        private void PrintCardList(CardList cards)
-        {
-            List<Card> cards1 = cards.All;
-            Console.WriteLine("\n CardList \n");
-            foreach (Card card in cards1)
-                Console.Write(card.ID + " "+card.Name + " " + 
-                    card.Description + " " + 
-                    card.Done +" "+
-                    card.Priority+" "+
-                    card.GetDateChanged+"\n");
-        }
-
-        private void PrintCard(Card card)
-        {
-            Console.WriteLine("\nNew Card:\n" +
-                "Имя: {0}\n" +
-                "Описание: {1}\n" +
-                "Выполнена: {2}\n" +
-                "Приоритет: {3}\n" +
-                "Дата обновления: {4}\n" +
-                "ID: {5}",
-                card.Name,card.Description,
-                card.Done,card.Priority,
-                card.GetDateChanged,card.ID);
+            Console.WriteLine();
         }
     }
 }

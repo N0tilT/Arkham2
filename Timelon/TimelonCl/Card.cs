@@ -9,48 +9,59 @@ namespace TimelonCl
 {
     public class Card
     {
+        public const int DEFAULT_PRIORITY = 5;
+
         int id;
         string name;
         string description = "";
 
-        bool done = false;
+        /**
+         * TODO: Сделать класс Priority
+         * 
+         * Color prioritycolor;
+         * 
+         * List<Color> priorities = new List<Color>
+         * {
+         *     Color.FromRgb(255,0,0),   //Красный - максимальный
+         *     Color.FromRgb(255,125,0),   //Оранжевый
+         *     Color.FromRgb(255, 255, 0),     //Жёлтый
+         *     Color.FromRgb(0, 255, 0),   //Зелёный
+         *     Color.FromRgb(0, 255, 255)  //Бирюзовый
+         * };
+         */
+        int priority = DEFAULT_PRIORITY;
 
-        int priority = 5;  //1-5
+        //bool favourite - избранное
+        //DateTime datePlaned - когда нужно сделать
 
-        /*
-        Color prioritycolor;
+        bool isDone = false;
 
-        List<Color> priorities = new List<Color> 
-        { Color.FromRgb(255,0,0),   //Красный - максимальный
-            Color.FromRgb(255,125,0),   //Оранжевый
-            Color.FromRgb(255, 255, 0),     //Жёлтый
-            Color.FromRgb(0, 255, 0),   //Зелёный
-            Color.FromRgb(0, 255, 255)  //Бирюзовый
-        };
+        //Когда карточку меняли последний раз
+        DateTime dateChanged;
 
-        bool favourite - избранное
-        DateTime datePlaned - когда нужно сделать
-
-        */
-
-        DateTime dateChanged;   //Когда карточку меняли последний раз
-
-        static Random rnd = new Random();
-
-        public Card(string inputName)
+        public Card(int id, string name, string desc = "", int priority = DEFAULT_PRIORITY, bool isDone = false)
         {
-            dateChanged = DateTime.Now;
-            id = rnd.Next(100,999); //rework
-            name = inputName;
+            this.id = id;
+            this.name = name;
+            this.description = desc;
+            this.isDone = isDone;
+            this.priority = priority;
+            this.dateChanged = DateTime.Now; // TODO: Придумать дефолт значение для передачи в конструктор
         }
 
-        public Card Random()
+        public static Card Random()
         {
-            Card randcard = new Card(rnd.Next(0,100).ToString());
-            randcard.description = rnd.Next(0, 100).ToString();
-            randcard.priority = rnd.Next(1, 5);
-            randcard.SetDateChanged = new DateTime(2022, 10, rnd.Next(1, 31));
-            return randcard;
+            Card card = new Card(
+                Util.Random().Next(0, 1024),
+                Util.RandomString(8, 16),
+                Util.RandomString(16),
+                Util.Random().Next(1, 5),
+                Util.RandomBool()
+            );
+
+            card.dateChanged = Util.RandomDateTime();
+
+            return card;
         }
 
         public int ID
@@ -58,11 +69,13 @@ namespace TimelonCl
             get { return id; }
             set { id = value; }
         }
+
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
+
         public string Description
         {
             get { return description; }
@@ -72,18 +85,20 @@ namespace TimelonCl
         public int Priority
         {
             get { return priority; }
-            set { priority = value;}
+            set { priority = value; }
         }
 
         public bool Done
         {
-            get { return done; }
-            set { done = value; }
+            get { return isDone; }
+            set { isDone = value; }
         }
 
-        public void Update()
+        public Card Update()
         {
             dateChanged = DateTime.Now;
+
+            return this;
         }
 
         public DateTime GetDateChanged
@@ -91,12 +106,9 @@ namespace TimelonCl
             get { return dateChanged; }
         }
 
-        private DateTime SetDateChanged
+        public override string ToString()
         {
-            set { dateChanged = value; }
+            return $"ID: {id}\nNAME: {name}\nDESC: {description}\nDONE: {isDone}\nPRIOR: {priority}\nCHANGED: {dateChanged}";
         }
-        
-
-
     }
 }

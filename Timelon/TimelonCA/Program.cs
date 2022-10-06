@@ -12,12 +12,11 @@ namespace TimelonCA
         {
             Tests tests = new Tests();
 
-            tests.CreateCardTest();
-
-            tests.CreateCardListTest();
+            tests.TestCustomCard();
+            tests.TestRandomCard();
+            tests.TestCardList();
 
             Console.ReadKey();
-
         }
     }
 }

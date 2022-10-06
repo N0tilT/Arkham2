@@ -30,20 +30,15 @@ namespace TimelonWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Card card1 = new Card("");
-            cardlist.Add(card1.Random());
+            cardlist.Add(Card.Random());
 
             string tmp = "";
             List<Card> cards = cardlist.All;
+
             foreach (Card card in cards)
-                tmp += card.ID + " " + card.Name + " " +
-                    card.Description + " " +
-                    card.Done + " " +
-                    card.Priority + " " +
-                    card.GetDateChanged + "\n";
+                tmp += card + "\n";
+
             tbCards.Text = tmp;
-
-
         }
     }
 }
