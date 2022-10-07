@@ -29,7 +29,7 @@ namespace TrainingOOP
             { mas[i, j] = value; }
         }
 
-        //Ввод матрицы
+        //Ручной ввод матрицы
         /*
         public void MakeMatrix()
         {
