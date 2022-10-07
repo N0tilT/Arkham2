@@ -27,7 +27,7 @@ namespace TrainingOOP
         /// <summary>
         /// Объект для генерации псевдо-случайных чисел
         /// </summary>
-        private static Random _rnd = new Random();
+        private static readonly Random _rnd = new Random();
 
         /// <summary>
         /// Доступ к реальной части комплексного числа

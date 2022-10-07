@@ -256,6 +256,9 @@ namespace TestingClassesCA
             z3 = z1 * 4.0; Console.WriteLine(string.Format("z1 * 4 = {0}", z3));
             z3 = z1 / z2; Console.WriteLine(string.Format("z1 / z2 = {0}", z3));
             z3 = z1 / 4.0; Console.WriteLine(string.Format("z1 / 4 = {0}", z3));
+
+            z3 = z1 * (z2 * 2) + z2 / (z1 - z2) / 2;
+            Console.WriteLine(string.Format("z1 * (z2 * 2) + z2 / (z1 - z2) / 2 = {0}", z3));
             Console.WriteLine();
 
             // Случайные комплексные числа
