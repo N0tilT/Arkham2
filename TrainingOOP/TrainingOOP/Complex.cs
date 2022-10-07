@@ -10,7 +10,7 @@ namespace TrainingOOP
     /// Число real называется реальной частью,
     /// imaginary - мнимой частью комплексного числа.
     /// </summary>
-    public class Complex
+    public struct Complex
     {
         #region fields
 
@@ -27,24 +27,22 @@ namespace TrainingOOP
         /// <summary>
         /// Объект для генерации псевдо-случайных чисел
         /// </summary>
-        private static Random rnd = new Random();
+        private static Random _rnd = new Random();
 
         /// <summary>
         /// Доступ к реальной части комплексного числа
         /// </summary>
-        public double real
+        public double Real
         {
             get { return _real; }
-            set { _real = value; }
         }
 
         /// <summary>
         /// Доступ к мнимой части комплексного числа
         /// </summary>
-        public double imaginary
+        public double Imaginary
         {
             get { return _imaginary; }
-            set { _imaginary = value; }
         }
 
         #endregion
@@ -56,7 +54,7 @@ namespace TrainingOOP
         /// </summary>
         /// <param name="real">Реальная часть</param>
         /// <param name="imaginary">Мнимая часть</param>
-        public Complex(double real, double imaginary)
+        public Complex(double real = 0, double imaginary = 0)
         {
             _real = real;
             _imaginary = imaginary;
@@ -68,17 +66,8 @@ namespace TrainingOOP
         /// <param name="num">Комплексное число</param>
         public Complex(Complex num)
         {
-            _real = num.real;
-            _imaginary = num.imaginary;
-        }
-
-        /// <summary>
-        /// Конструктор нулевого комплексного числа
-        /// </summary>
-        public Complex()
-        {
-            _real = 0;
-            _imaginary = 0;
+            _real = num._real;
+            _imaginary = num._imaginary;
         }
 
         /// <summary>
@@ -89,8 +78,8 @@ namespace TrainingOOP
         {
             Complex num = new Complex();
 
-            num.real = rnd.NextDouble();
-            num.imaginary = rnd.NextDouble();
+            num._real = _rnd.NextDouble();
+            num._imaginary = _rnd.NextDouble();
 
             return num;
         }
@@ -106,8 +95,8 @@ namespace TrainingOOP
             Complex num = new Complex();
             double range = high - low;
 
-            num.real = low + range * rnd.NextDouble();
-            num.imaginary = low + range * rnd.NextDouble();
+            num._real = low + range * _rnd.NextDouble();
+            num._imaginary = low + range * _rnd.NextDouble();
 
             return num;
         }
@@ -123,7 +112,7 @@ namespace TrainingOOP
         /// <returns>Объект комплексного числа - результат сложения</returns>
         public Complex Plus(Complex num)
         {
-            return new Complex(_real + num.real, _imaginary + num.imaginary);
+            return new Complex(_real + num._real, _imaginary + num._imaginary);
         }
 
         /// <summary>
@@ -144,7 +133,7 @@ namespace TrainingOOP
         /// <returns>Объект комплексного числа - результат вычитания</returns>
         public Complex Minus(Complex num)
         {
-            return new Complex(_real - num.real, _imaginary - num.imaginary);
+            return new Complex(_real - num._real, _imaginary - num._imaginary);
         }
 
         /// <summary>
@@ -166,8 +155,8 @@ namespace TrainingOOP
         public Complex Multiply(Complex num)
         {
             return new Complex(
-                _real * num.real - _imaginary * num.imaginary,
-                _real * num.imaginary + _imaginary * num.real);
+                _real * num._real - _imaginary * num._imaginary,
+                _real * num._imaginary + _imaginary * num._real);
         }
 
         /// <summary>
@@ -179,8 +168,8 @@ namespace TrainingOOP
         {
             Complex res = new Complex();
 
-            res.real = _real * num;
-            res.imaginary = _imaginary * num;
+            res._real = _real * num;
+            res._imaginary = _imaginary * num;
 
             return res;
         }
@@ -214,11 +203,11 @@ namespace TrainingOOP
         /// <returns>Объект комплексного числа - результат деления</returns>
         public Complex Divide(Complex num)
         {
-            double value = num.real * num.real + num.imaginary * num.imaginary;
+            double value = num._real * num._real + num._imaginary * num._imaginary;
 
             return new Complex(
-                (_real * num.real + _imaginary * num.imaginary) / value,
-                (_imaginary * num.real - _real * num.imaginary) / value);
+                (_real * num._real + _imaginary * num._imaginary) / value,
+                (_imaginary * num._real - _real * num._imaginary) / value);
         }
 
         /// <summary>
@@ -230,8 +219,8 @@ namespace TrainingOOP
         {
             Complex res = new Complex();
 
-            res.real = _real / num;
-            res.imaginary = _imaginary / num;
+            res._real = _real / num;
+            res._imaginary = _imaginary / num;
 
             return res;
         }
@@ -265,7 +254,7 @@ namespace TrainingOOP
         /// <returns>Показатель идентичности</returns>
         public bool IsIdentical(Complex num)
         {
-            return _real == num.real && _imaginary == num.imaginary;
+            return _real == num._real && _imaginary == num._imaginary;
         }
 
         /// <summary>

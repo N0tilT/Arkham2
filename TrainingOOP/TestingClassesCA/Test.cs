@@ -244,9 +244,9 @@ namespace TestingClassesCA
             Console.WriteLine();
 
             Console.WriteLine("Основные поля:");
-            Console.WriteLine(string.Format("z1.real = {0}\nz1.imaginary = {1}", z1.real, z1.imaginary));
-            Console.WriteLine(string.Format("z2.real = {0}\nz2.imaginary = {1}", z2.real, z2.imaginary));
-            Console.WriteLine(string.Format("z3.real = {0}\nz3.imaginary = {1}", z3.real, z3.imaginary));
+            Console.WriteLine(string.Format("z1.real = {0}\nz1.imaginary = {1}", z1.Real, z1.Imaginary));
+            Console.WriteLine(string.Format("z2.real = {0}\nz2.imaginary = {1}", z2.Real, z2.Imaginary));
+            Console.WriteLine(string.Format("z3.real = {0}\nz3.imaginary = {1}", z3.Real, z3.Imaginary));
             Console.WriteLine();
 
             Console.WriteLine("Операции:");
