@@ -25,6 +25,9 @@ namespace TestingClassesCA
             Console.WriteLine("_____\nТестирование класса Complex\n_____");
             test.TestComplex();
 
+            Console.WriteLine("_____\nТестирование класса Matrix\n_____");
+            test.TestMatrix();
+
             Console.ReadKey();
         }
     }

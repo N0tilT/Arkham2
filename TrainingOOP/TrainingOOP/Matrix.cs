@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TrainingOOP
 {
-    class Matrix    //Вадим
+    public class Matrix    //Вадим
     {
         private int n;
         private double[,] mas;
@@ -28,8 +28,9 @@ namespace TrainingOOP
             set
             { mas[i, j] = value; }
         }
+
         //Ввод матрицы
-        //Перенести в класс тестов
+        /*
         public void MakeMatrix()
         {
             for (int i = 0; i < n; i++)
@@ -41,10 +42,12 @@ namespace TrainingOOP
                 }
             }
         }
+        */
+
         //Ввод случайной матрицы
-        //min max, проверки
         public void MakeRandMatrix(int min, int max)
         {
+            if (min >= max) throw new Exception("Неверный ввод диапазона для заполнения случайными числами");
             var rand = new Random();
             for (int i = 0; i < n; i++)
             {
@@ -55,19 +58,7 @@ namespace TrainingOOP
             }
             Thread.Sleep(11);
         }
-        //Вывод матрицы
-        //перенести в класс тестов
-        public void PrintMatrix()
-        {
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    Console.Write(mas[i, j] + " ");
-                }
-                Console.WriteLine();
-            }
-        }
+
         //Сложение матриц
         private static Matrix SummMatrix(Matrix a, Matrix b)
         {
@@ -85,6 +76,7 @@ namespace TrainingOOP
         {
             return SummMatrix(a, b);
         }
+
         //Вычитание матриц
         private static Matrix SubtMatrix(Matrix a, Matrix b)
         {
@@ -102,9 +94,9 @@ namespace TrainingOOP
         {
             return SubtMatrix(a, b);
         }
+
         //Умножение матрицы на число
-        //int b -> double b
-        private static Matrix MultIntMatrix(Matrix a, int b)
+        private static Matrix MultIntMatrix(Matrix a, double b)
         {
             Matrix answ = new Matrix(a.N);
             for (int i = 0; i < a.N; i++)
@@ -116,10 +108,11 @@ namespace TrainingOOP
             }
             return answ;
         }
-        public static Matrix operator *(Matrix a, int b)
+        public static Matrix operator *(Matrix a, double b)
         {
             return MultIntMatrix(a, b);
         }
+
         //Умножение матриц
         private static Matrix MultMatrix(Matrix a, Matrix b)
         {
@@ -140,6 +133,7 @@ namespace TrainingOOP
         {
             return MultMatrix(a, b);
         }
+
         //Возведение матрицы в степень
         private static Matrix PowMatrix(Matrix a, int b)
         {
@@ -151,9 +145,9 @@ namespace TrainingOOP
                 for (int i = 0; i < size; i++)
                     for (int j = 0; j < size; j++)
                     {
-                        int sum = 0;
+                        double sum = 0;
                         for (int k = 0; k < size; k++)
-                            sum += Convert.ToInt32(answ[i, k] * a[k, j]);
+                            sum += answ[i, k] * a[k, j];
                         tmp[i, j] = sum;
                     }
                 answ = tmp;
@@ -164,59 +158,47 @@ namespace TrainingOOP
         {
             return PowMatrix(a, b);
         }
-        //Вычислить определитель
-        // убрать большую часть комментариев
-        private static double DefMatrix(Matrix a)
+
+        //Функция расчета алгебаического дополнения элемента матрицы
+        private static double AlgComplementA(Matrix A, int k, int m)
         {
-            const double EPS = 1E-9;
-            double answ = 1;
-            Matrix tmp = new Matrix(a.N);
-            //проходим по строкам
-            for (int i = 0; i < a.N; i++)
+            double minor;
+            Matrix B = new Matrix(A.N - 1);
+            for (int i = 0; i < B.N; i++)
             {
-                //присваиваем k номер строки
-                int k = i;
-                //идем по строке от i+1 до конца
-                for (int j = i + 1; j < a.N; ++j)
-                    //проверяем
-                    if (Math.Abs(a[j, i]) > Math.Abs(a[k, i]))
-                        //если равенство выполняется то k присваиваем j
-                        k = j;
-                //если равенство выполняется то определитель приравниваем 0 и выходим из программы
-                if (Math.Abs(a[k, i]) < EPS)
+                for (int j = 0; j < B.N; j++)
                 {
-                    return answ = 0;
+                    int ii = (i >= k) ? i + 1 : i;
+                    int jj = (j >= m) ? j + 1 : j;
+                    B[i, j] = A[ii, jj];
                 }
-                for (int g = 0; g < a.N; ++g)
-                {
-                    tmp[0, g] = a[i, g];
-                    a[i, g] = a[k, g];
-                    a[k, g] = tmp[0, g];
-                }
-                //если i не равно k
-                if (i != k)
-                    //то меняем знак определителя
-                    answ = -answ;
-                //умножаем det на элемент a[i][i]
-                answ *= a[i, i];
-                //идем по строке от i+1 до конца
-                for (int j = i + 1; j < a.N; ++j)
-                    //каждый элемент делим на a[i][i]
-                    a[i, j] /= a[i, i];
-                //идем по столбцам
-                for (int j = 0; j < a.N; ++j)
-                    //проверяем
-                    if ((j != i) && (Math.Abs(a[j, i]) > EPS))
-                        //если да, то идем по k от i+1
-                        for (k = i + 1; k < a.N; ++k)
-                            a[j, k] -= a[i, k] * a[j, i];
             }
-            return answ;
+            minor = Determinant(B);
+            return (int)Math.Pow(-1, k) * minor;
         }
-        //не в инт
-        public static int operator !(Matrix a)
+
+        //Вычислить определитель
+        public static double Determinant(Matrix A)
         {
-            return Convert.ToInt32(DefMatrix(a));
+            double det = 0;
+            int lenA = A.N;
+            if (lenA == 1)  //Базовый случай. Определитель матрицы 1x1 равен её единственному элементу
+            {
+                det = A[0, 0];
+            }
+            else    //Для матриц 2х2 и большего размера применяем разложение по первому столбцу
+            {
+                for (int i = 0; i < A.N; i++)
+                {
+                    det += A[i, 0] * AlgComplementA(A, i, 0);
+                }
+            }
+            return det;
+        }
+
+        public static double operator !(Matrix a)
+        {
+            return Determinant(a);
         }
         //Транспонирование матрицы
         private static Matrix TranMatrix(Matrix a)

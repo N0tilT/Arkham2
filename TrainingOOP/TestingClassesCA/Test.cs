@@ -269,5 +269,93 @@ namespace TestingClassesCA
             Console.WriteLine(string.Format("z3 = {0}", z3));
             Console.WriteLine();
         }
+
+        /// <summary>
+        /// Тестирование класса Matrix
+        /// </summary>
+        public void TestMatrix()
+        {
+            //Ввод размерности квадратной матрицы
+            int nn = 3;
+
+            //Указание диапазона из которого будут выбираться случайные числа
+            int min = 1;
+            int max = 11;
+
+            //Число на которое умножаем матрицу
+            double b = 5;
+
+            //Число в какую степень возводим матрицу
+            int c = 2;
+
+
+            Matrix mass1 = new Matrix(nn);
+            mass1.MakeRandMatrix(min,max);
+            Console.WriteLine("Матрица A:");
+            PrintMatrix(mass1);
+            Console.WriteLine();
+
+            Matrix mass2 = new Matrix(nn);
+            mass2.MakeRandMatrix(min, max);
+            Console.WriteLine("Матрица B:");
+            PrintMatrix(mass2);
+            Console.WriteLine();
+
+            Matrix mass3 = new Matrix(nn);
+            Console.WriteLine("Сумма матриц A и B");
+            mass3 = mass1+mass2;
+            PrintMatrix(mass3);
+            Console.WriteLine();
+
+            Matrix mass4 = new Matrix(nn);
+            Console.WriteLine("Разность матриц A и B");
+            mass4 = mass1 - mass2;
+            PrintMatrix(mass4);
+            Console.WriteLine();
+
+            Matrix mass5 = new Matrix(nn);
+            Console.WriteLine($"Умножение матрицы A на число {b}");
+            mass5 = mass1 * b;
+            PrintMatrix(mass5);
+            Console.WriteLine();
+
+            Matrix mass6 = new Matrix(nn);
+            Console.WriteLine("Произведение матриц A и B");
+            mass6 = mass1 * mass2;
+            PrintMatrix(mass6);
+            Console.WriteLine();
+
+            Matrix mass7 = new Matrix(nn);
+            Console.WriteLine($"Возведение матрицы B в степень {c}");
+            mass7 = mass2 ^ c;
+            PrintMatrix(mass7);
+            Console.WriteLine();
+
+
+            Console.WriteLine("Определитель матрицы A");
+            double def1 = !mass1;
+            Console.WriteLine(def1);
+            Console.WriteLine();
+
+            Matrix mass8 = new Matrix(nn);
+            Console.WriteLine("Транспонирование матрицы B");
+            mass8 = ~mass2;
+            PrintMatrix(mass8);
+            Console.WriteLine();
+        }
+        /// <summary>
+        /// Вывод объекта класса Matrix
+        /// </summary>
+        public void PrintMatrix(Matrix mas)
+        {
+            for (int i = 0; i < mas.N; i++)
+            {
+                for (int j = 0; j < mas.N; j++)
+                {
+                    Console.Write(mas[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
