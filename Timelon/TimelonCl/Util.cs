@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace TimelonCl
 {
@@ -53,6 +54,16 @@ namespace TimelonCl
             }
 
             return str;
+        }
+
+        /// <summary>
+        /// Получить следующий случайный индекс заданной коллекции
+        /// </summary>
+        /// <param name="col">Коллекция</param>
+        /// <returns>Случайный индекс</returns>
+        public static int RandomCollectionIndex(ICollection col)
+        {
+            return _rnd.Next(col.Count);
         }
 
         /// <summary>

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace TimelonCl
 {
@@ -13,40 +8,34 @@ namespace TimelonCl
 
         private int _id;
         private string _name;
-        private string _description = "";
-
-        /**
-         * TODO: Сделать класс Priority
-         * 
-         * Color prioritycolor;
-         * 
-         * List<Color> priorities = new List<Color>
-         * {
-         *     Color.FromRgb(255,0,0),   //Красный - максимальный
-         *     Color.FromRgb(255,125,0),   //Оранжевый
-         *     Color.FromRgb(255, 255, 0),     //Жёлтый
-         *     Color.FromRgb(0, 255, 0),   //Зелёный
-         *     Color.FromRgb(0, 255, 255)  //Бирюзовый
-         * };
-         */
-        private int _priority = DEFAULT_PRIORITY;
+        private string _description;
+        private CardPriority _priority;
+        private bool _isDone;
 
         //bool favourite - избранное
         //DateTime datePlaned - когда нужно сделать
 
-        private bool _isDone = false;
-
         //Когда карточку меняли последний раз
         private DateTime _lastChange;
 
-        public Card(int id, string name, string desc = "", int priority = DEFAULT_PRIORITY, bool isDone = false)
+        public Card(int id, string name, string desc, PriorityId priority, bool isDone, DateTime change)
         {
             _id = id;
             _name = name;
             _description = desc;
+            _priority = new CardPriority(priority);
             _isDone = isDone;
-            _priority = priority;
-            _lastChange = DateTime.Now; // TODO: Придумать дефолт значение для передачи в конструктор
+            _lastChange = change;
+        }
+
+        public Card(int id, string name)
+        {
+            _id = id;
+            _name = name;
+            _description = "";
+            _priority = new CardPriority(PriorityId.DEFAULT);
+            _isDone = false;
+            _lastChange = DateTime.Now;
         }
 
         // Для тестов
@@ -56,11 +45,10 @@ namespace TimelonCl
                 Util.Random().Next(0, 1024),
                 Util.RandomString(8, 16),
                 Util.RandomString(16),
-                Util.Random().Next(1, 5),
-                Util.RandomBool()
+                CardPriority.RandomId(),
+                Util.RandomBool(),
+                Util.RandomDateTime()
             );
-
-            card._lastChange = Util.RandomDateTime();
 
             return card;
         }
@@ -77,16 +65,16 @@ namespace TimelonCl
             set { _name = value; }
         }
 
+        public CardPriority Priority
+        {
+            get { return _priority; }
+            set { _priority = value; }
+        }
+
         public string Description
         {
             get { return _description; }
             set { _description = value; }
-        }
-
-        public int Priority
-        {
-            get { return _priority; }
-            set { _priority = value; }
         }
 
         public bool IsDone
@@ -95,10 +83,7 @@ namespace TimelonCl
             set { _isDone = value; }
         }
 
-        public DateTime LastChange
-        {
-            get { return _lastChange; }
-        }
+        public DateTime LastChange => _lastChange;
 
         // TODO: Переделать
         public Card Update()

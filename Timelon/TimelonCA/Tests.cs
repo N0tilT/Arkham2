@@ -14,7 +14,7 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCustomCard:");
 
-            Card card = new Card(13, "customName", "This is a custom card", 1);
+            Card card = new Card(13, "customName", "This is a custom card", PriorityId.DEFAULT, false, DateTime.Now);
 
             Console.WriteLine(card.Update());
             Console.WriteLine();
