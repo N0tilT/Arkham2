@@ -26,17 +26,19 @@ namespace TimelonWPF
             InitializeComponent();
         }
 
-        CardList _list = new CardList();
+        CardProvider _list = new CardProvider();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _list.Add(Card.Random());
+            _list.Set(Card.Random());
 
             string tmp = "";
-            List<Card> list = _list.All;
+            List<Card> list = _list.All.Values.ToList();
 
             foreach (Card card in list)
+            {
                 tmp += card + "\n";
+            }
 
             tbCards.Text = tmp;
         }

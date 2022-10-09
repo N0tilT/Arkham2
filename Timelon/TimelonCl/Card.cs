@@ -4,13 +4,11 @@ namespace TimelonCl
 {
     public class Card
     {
-        public const int DEFAULT_PRIORITY = 5;
-
         private int _id;
         private string _name;
         private string _description;
         private CardPriority _priority;
-        private bool _isDone;
+        private bool _isCompleted;
 
         //bool favourite - избранное
         //DateTime datePlaned - когда нужно сделать
@@ -24,7 +22,7 @@ namespace TimelonCl
             _name = name;
             _description = desc;
             _priority = new CardPriority(priority);
-            _isDone = isDone;
+            _isCompleted = isDone;
             _lastChange = change;
         }
 
@@ -34,7 +32,7 @@ namespace TimelonCl
             _name = name;
             _description = "";
             _priority = new CardPriority(PriorityId.DEFAULT);
-            _isDone = false;
+            _isCompleted = false;
             _lastChange = DateTime.Now;
         }
 
@@ -77,10 +75,10 @@ namespace TimelonCl
             set { _description = value; }
         }
 
-        public bool IsDone
+        public bool IsCompleted
         {
-            get { return _isDone; }
-            set { _isDone = value; }
+            get { return _isCompleted; }
+            set { _isCompleted = value; }
         }
 
         public DateTime LastChange => _lastChange;
@@ -97,7 +95,7 @@ namespace TimelonCl
         // TODO: Использовать json?
         public override string ToString()
         {
-            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nDONE: {IsDone}\nPRIOR: {Priority}\nCHANGED: {LastChange}";
+            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nCOMPLETE: {IsCompleted}\nPRIOR: {Priority}\nCHANGED: {LastChange}";
         }
     }
 }

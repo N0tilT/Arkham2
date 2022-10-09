@@ -67,9 +67,9 @@ namespace TimelonCl
         /// <returns>Случайный идентификатор приоритета</returns>
         public static PriorityId RandomId()
         {
-            int index = Util.RandomCollectionIndex(Enum.GetValues(typeof(PriorityId)));
+            int[] val = (int[]) Enum.GetValues(typeof(PriorityId));
 
-            return (PriorityId) index;
+            return (PriorityId) Util.RandomCollectionIndex(val);
         }
 
         /// <summary>
@@ -93,12 +93,12 @@ namespace TimelonCl
         /// <summary>
         /// Доступ к имени приоритета
         /// </summary>
-        public string Name => NameList[(int)_id];
+        public string Name => NameList[(int) _id];
 
         /// <summary>
         /// Доступ к цвету приоритета
         /// </summary>
-        public Color Color => ColorList[(int)_id];
+        public Color Color => ColorList[(int) _id];
 
         public override string ToString()
         {

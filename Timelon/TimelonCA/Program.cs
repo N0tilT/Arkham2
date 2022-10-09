@@ -14,7 +14,7 @@ namespace TimelonCA
 
             tests.TestCustomCard();
             tests.TestRandomCard();
-            tests.TestCardList();
+            tests.TestCardProvider();
 
             Console.ReadKey();
         }
