@@ -16,13 +16,13 @@ namespace TimelonCl
         //Когда карточку меняли последний раз
         private DateTime _lastChange;
 
-        public Card(int id, string name, string desc, PriorityId priority, bool isDone, DateTime change)
+        public Card(int id, string name, string desc, PriorityId priority, bool isCompleted, DateTime change)
         {
             _id = id;
             _name = name;
             _description = desc;
             _priority = new CardPriority(priority);
-            _isCompleted = isDone;
+            _isCompleted = isCompleted;
             _lastChange = change;
         }
 
