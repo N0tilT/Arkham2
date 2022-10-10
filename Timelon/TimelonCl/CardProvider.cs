@@ -169,87 +169,40 @@ namespace TimelonCl
         /// </summary>
         private void Sort()
         {
-            SortByLastChange();
-            SortByPriority();
-            SortByCompletion();
-        }
-
-        /// <summary>
-        /// Отсортировать список идентификаторов
-        /// по убыванию даты изменения
-        /// (сначала свежие)
-        /// </summary>
-        private void SortByLastChange()
-        {
             _idByLastChange.Clear();
+            _idByPriority.Clear();
+            _idCompleted.Clear();
 
             foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastChange))
             {
                 _idByLastChange.Add(card.Key);
-            }
-        }
 
-        /// <summary>
-        /// Отсортировать список идентификаторов
-        /// по убыванию приоритета и даты изменения
-        /// (сначала приоритетные)
-        /// </summary>
-        private void SortByPriority()
-        {
-            _idByPriority.Clear();
-
-            // Наполнение _idByPriority из _idByLastChange (только с приоритетом)
-            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastChange))
-            {
-                if (card.Value.Priority.Id == PriorityId.DEFAULT)
+                // Наполнение _idByPriority (только с приоритетом)
+                if (card.Value.Priority.Id != PriorityId.DEFAULT)
                 {
-                    continue;
+                    _idByPriority.Add(card.Key);
                 }
 
-                _idByPriority.Add(card.Key);
+                // Наполнение _idCompleted (только невыполненные)
+                if (card.Value.IsCompleted != true)
+                {
+                    _idCompleted.Add(card.Key);
+                }
             }
 
-            // Остальные
+            // Невошедшие
+            // TODO: Зачем?
             foreach (int id in _idByLastChange)
             {
-                if (_idByPriority.Contains(id))
+                if (!_idByPriority.Contains(id))
                 {
-                    continue;
+                    _idByPriority.Add(id);
                 }
 
-                _idByPriority.Add(id);
-            }
-        }
-
-        /// <summary>
-        /// Отсортировать список идентификаторов
-        /// по статусу выполнения и убыванию даты изменения
-        /// (сначала невыполненные)
-        /// </summary>
-        private void SortByCompletion()
-        {
-            _idCompleted.Clear();
-
-            // Выборка завершенных из _idByLastChange и наполнение _idCompleted (только невыполненные)
-            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastChange))
-            {
-                if (card.Value.IsCompleted == true)
+                if (!_idCompleted.Contains(id))
                 {
-                    continue;
+                    _idCompleted.Add(id);
                 }
-
-                _idCompleted.Add(card.Key);
-            }
-
-            // Остальные
-            foreach (int id in _idByLastChange)
-            {
-                if (_idCompleted.Contains(id))
-                {
-                    continue;
-                }
-
-                _idCompleted.Add(id);
             }
         }
     }
