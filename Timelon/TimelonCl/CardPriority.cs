@@ -69,7 +69,7 @@ namespace TimelonCl
         {
             int[] val = (int[]) Enum.GetValues(typeof(PriorityId));
 
-            return (PriorityId) Util.RandomCollectionIndex(val);
+            return (PriorityId) Util.NextCollectionIndex(val);
         }
 
         /// <summary>
@@ -84,11 +84,7 @@ namespace TimelonCl
         /// <summary>
         /// Доступ к идентификатору приоритета
         /// </summary>
-        public PriorityId Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        public PriorityId Id => _id;
 
         /// <summary>
         /// Доступ к имени приоритета

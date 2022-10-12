@@ -14,7 +14,7 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCustomCard:");
 
-            Card card = new Card(13, "customName", "This is a custom card", PriorityId.DEFAULT, false, DateTime.Now);
+            Card card = new Card(13, "customName", "This is a custom new card");
 
             Console.WriteLine(card.Update());
             Console.WriteLine();
@@ -53,10 +53,10 @@ namespace TimelonCA
             }
 
             Console.WriteLine();
-            Console.WriteLine("Sorted by last change DateTime:");
+            Console.WriteLine("Sorted by last update DateTime:");
 
-            // Сортировка по дате последнего изменения
-            foreach (Card card in provider.GetListByLastChange())
+            // Сортировка по дате последнего обновления
+            foreach (Card card in provider.GetListByLastUpdate())
             {
                 Console.WriteLine(card);
             }

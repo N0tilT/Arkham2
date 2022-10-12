@@ -14,21 +14,21 @@ namespace TimelonCl
         private readonly Dictionary<int, Card> _pool = new Dictionary<int, Card>();
 
         /// <summary>
-        /// Отсортированный по убыванию даты изменения
+        /// Отсортированный по убыванию даты обновления
         /// список идентификаторов карт
         /// (сначала свежие)
         /// </summary>
-        private readonly List<int> _idByLastChange = new List<int>();
+        private readonly List<int> _idByLastUpdate = new List<int>();
 
         /// <summary>
-        /// Отсортированный по убыванию приоритета и даты изменения
+        /// Отсортированный по убыванию приоритета и даты обновления
         /// список идентификаторов карт
         /// (сначала приоритетные)
         /// </summary>
         private readonly List<int> _idByPriority = new List<int>();
 
         /// <summary>
-        /// Отсортированный по статусу выполнения и по убыванию даты изменения
+        /// Отсортированный по статусу выполнения и по убыванию даты обновления
         /// список идентификаторов карт
         /// (сначала невыполненные)
         /// </summary>
@@ -65,14 +65,14 @@ namespace TimelonCl
 
         /// <summary>
         /// Получить отсортированный по убыванию
-        /// даты изменения список карт
+        /// даты обновления список карт
         /// </summary>
         /// <returns>Список карт</returns>
-        public List<Card> GetListByLastChange()
+        public List<Card> GetListByLastUpdate()
         {
             List<Card> result = new List<Card>();
 
-            foreach (int id in _idByLastChange)
+            foreach (int id in _idByLastUpdate)
             {
                 result.Add(Get(id));
             }
@@ -82,7 +82,7 @@ namespace TimelonCl
 
         /// <summary>
         /// Получить отсортированный по убыванию
-        /// приоритета и даты изменения список карт
+        /// приоритета и даты обновления список карт
         /// </summary>
         /// <returns>Список карт</returns>
         public List<Card> GetListByPriority()
@@ -99,7 +99,7 @@ namespace TimelonCl
 
         /// <summary>
         /// Получить отсортированный по статусу выполнения
-        /// и по убыванию даты изменения список карт
+        /// и по убыванию даты обновления список карт
         /// </summary>
         /// <returns>Список карт</returns>
         public List<Card> GetListCompleted()
@@ -127,8 +127,7 @@ namespace TimelonCl
             foreach (KeyValuePair<int, Card> card in _pool.AsQueryable().Where(item =>
                 item.Value.Name.ToLower().Contains(content) ||
                 item.Value.Description.ToLower().Contains(content))
-            )
-            {
+            ) {
                 result.Add(card.Value);
             }
 
@@ -190,13 +189,13 @@ namespace TimelonCl
         /// </summary>
         private void Sort()
         {
-            _idByLastChange.Clear();
+            _idByLastUpdate.Clear();
             _idByPriority.Clear();
             _idCompleted.Clear();
 
-            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastChange))
+            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastUpdate))
             {
-                _idByLastChange.Add(card.Key);
+                _idByLastUpdate.Add(card.Key);
 
                 // Наполнение _idByPriority (только с приоритетом)
                 if (card.Value.Priority.Id != PriorityId.DEFAULT)
@@ -213,7 +212,7 @@ namespace TimelonCl
 
             // Невошедшие
             // TODO: Зачем?
-            foreach (int id in _idByLastChange)
+            foreach (int id in _idByLastUpdate)
             {
                 if (!_idByPriority.Contains(id))
                 {

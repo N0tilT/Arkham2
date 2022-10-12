@@ -14,23 +14,20 @@ namespace TimelonCl
         private static readonly Random _rnd = new Random();
 
         /// <summary>
-        /// Получить генератор псевдо-случайных чисел
+        /// Доступ к генератору псевдо-случайных чисел
         /// </summary>
         /// <returns>Объект генератора</returns>
-        public static Random Random()
-        {
-            return _rnd;
-        }
+        public static Random Random => _rnd;
 
         /// <summary>
         /// Получить следующее случайное булевое значение
         /// </summary>
         /// <returns>Случайное булевое значение</returns>
-        public static bool RandomBool()
+        public static bool NextBool()
         {
             return _rnd.Next(2) == 1;
         }
-        
+
         /// <summary>
         /// Получить следующую случайную строку заданной длины
         /// </summary>
@@ -38,7 +35,7 @@ namespace TimelonCl
         /// <param name="maxLength">Максимальная длина</param>
         /// <returns>Случайная строка</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static string RandomString(int minLength, int maxLength = 64)
+        public static string NextString(int minLength, int maxLength = 64)
         {
             if (minLength < 0 || minLength > maxLength)
             {
@@ -61,7 +58,7 @@ namespace TimelonCl
         /// </summary>
         /// <param name="col">Коллекция</param>
         /// <returns>Случайный индекс</returns>
-        public static int RandomCollectionIndex(ICollection col)
+        public static int NextCollectionIndex(ICollection col)
         {
             return _rnd.Next(col.Count);
         }
@@ -70,11 +67,13 @@ namespace TimelonCl
         /// Получить следующую случайную дату текущего года
         /// </summary>
         /// <returns>Случайная дата</returns>
-        public static DateTime RandomDateTime()
+        public static DateTime NextDateTime()
         {
-            DateTime today = DateTime.Today;
-
-            return new DateTime(today.Year, _rnd.Next(1, 12), _rnd.Next(1, 28));
+            int year = DateTime.Today.Year;
+            int month = _rnd.Next(1, 12);
+            int day = _rnd.Next(1, DateTime.DaysInMonth(year, month));
+            
+            return new DateTime(year, month, day);
         }
     }
 }

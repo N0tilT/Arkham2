@@ -8,85 +8,112 @@ namespace TimelonCl
         private string _name;
         private string _description;
         private CardPriority _priority;
+        private bool _isImportant;
         private bool _isCompleted;
 
-        //bool favourite - избранное
         //DateTime datePlaned - когда нужно сделать
 
         //Когда карточку меняли последний раз
-        private DateTime _lastChange;
+        private DateTime _lastUpdate;
 
-        public Card(int id, string name, string desc, PriorityId priority, bool isCompleted, DateTime change)
+        public Card(int id, string name, string desc, PriorityId priority, bool isImportant, bool isCompleted, DateTime change)
         {
-            _id = id;
-            _name = name;
-            _description = desc;
-            _priority = new CardPriority(priority);
-            _isCompleted = isCompleted;
-            _lastChange = change;
+            Id = id;
+            Name = name;
+            Description = desc;
+            Priority = new CardPriority(priority);
+            IsImportant = isImportant;
+            IsCompleted = isCompleted;
+
+            _lastUpdate = change;
         }
 
-        public Card(int id, string name)
+        public Card(int id, string name, string desc = "")
         {
-            _id = id;
-            _name = name;
-            _description = "";
-            _priority = new CardPriority(PriorityId.DEFAULT);
-            _isCompleted = false;
-            _lastChange = DateTime.Now;
+            Id = id;
+            Name = name;
+            Description = desc;
+            Priority = new CardPriority(PriorityId.DEFAULT);
+            IsImportant = false;
+            IsCompleted = false;
+
+            _lastUpdate = DateTime.Now;
         }
 
         // Для тестов
         public static Card Random()
         {
-            Card card = new Card(
-                Util.Random().Next(0, 1024),
-                Util.RandomString(8, 16),
-                Util.RandomString(16),
+            return new Card(
+                Util.Random.Next(0, 1024),
+                Util.NextString(4, 8),
+                Util.NextString(16, 32),
                 CardPriority.RandomId(),
-                Util.RandomBool(),
-                Util.RandomDateTime()
+                Util.NextBool(),
+                Util.NextBool(),
+                Util.NextDateTime()
             );
-
-            return card;
         }
 
         public int Id
         {
-            get { return _id; }
-            set { _id = value; }
+            get => _id;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("id не может быть отрицательным числом");
+                }
+                
+                _id = value;
+            }
         }
 
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get => _name;
+            set
+            {
+                value = value.Trim();
+                
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("name не может быть пустой строкой");
+                }
+
+                _name = value;
+            }
         }
 
         public CardPriority Priority
         {
-            get { return _priority; }
-            set { _priority = value; }
+            get => _priority;
+            set => _priority = value;
         }
 
         public string Description
         {
-            get { return _description; }
-            set { _description = value; }
+            get => _description;
+            set => _description = value.Trim();
+        }
+
+        public bool IsImportant
+        {
+            get => _isImportant;
+            set => _isImportant = value;
         }
 
         public bool IsCompleted
         {
-            get { return _isCompleted; }
-            set { _isCompleted = value; }
+            get => _isCompleted;
+            set => _isCompleted = value;
         }
 
-        public DateTime LastChange => _lastChange;
+        public DateTime LastUpdate => _lastUpdate;
 
         // TODO: Переделать
         public Card Update()
         {
-            _lastChange = DateTime.Now;
+            _lastUpdate = DateTime.Now;
 
             return this;
         }
@@ -95,7 +122,8 @@ namespace TimelonCl
         // TODO: Использовать json?
         public override string ToString()
         {
-            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nCOMPLETE: {IsCompleted}\nPRIOR: {Priority}\nCHANGED: {LastChange}";
+            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nPRIOR: {Priority}\n" +
+                $"IMPORTANT: {IsImportant}\nCOMPLETE: {IsCompleted}\nCHANGED: {LastUpdate}";
         }
     }
 }
