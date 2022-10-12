@@ -115,6 +115,27 @@ namespace TimelonCl
         }
 
         /// <summary>
+        /// Получить список карт по части названия или описания
+        /// </summary>
+        /// <param name="content">Часть названия или описания карты</param>
+        /// <returns>Список карт</returns>
+        public List<Card> SearchByContent(string content)
+        {
+            List<Card> result = new List<Card>();
+            content = content.ToLower();
+
+            foreach (KeyValuePair<int, Card> card in _pool.AsQueryable().Where(item =>
+                item.Value.Name.ToLower().Contains(content) ||
+                item.Value.Description.ToLower().Contains(content))
+            )
+            {
+                result.Add(card.Value);
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Сохранить карту
         /// </summary>
         /// <param name="card">Объект карты</param>
