@@ -16,23 +16,28 @@ namespace TimelonCl
         /// <summary>
         /// Отсортированный по убыванию даты обновления
         /// список идентификаторов карт
-        /// (сначала свежие)
+        /// (только невыполненные без приоритета)
         /// </summary>
-        private readonly List<int> _idByLastUpdate = new List<int>();
+        private readonly List<int> _idListDefault = new List<int>();
 
         /// <summary>
         /// Отсортированный по убыванию приоритета и даты обновления
         /// список идентификаторов карт
-        /// (сначала приоритетные)
+        /// (только невыполненные с приоритетом)
         /// </summary>
-        private readonly List<int> _idByPriority = new List<int>();
+        private readonly List<int> _idListPriority = new List<int>();
 
         /// <summary>
         /// Отсортированный по статусу выполнения и по убыванию даты обновления
         /// список идентификаторов карт
-        /// (сначала невыполненные)
+        /// (только выполненные)
         /// </summary>
-        private readonly List<int> _idCompleted = new List<int>();
+        private readonly List<int> _idListCompleted = new List<int>();
+
+        /// <summary>
+        /// Статус сортировки
+        /// </summary>
+        private bool _isSorted = false;
 
         /// <summary>
         /// Конструктор пустого провайдера
@@ -45,7 +50,10 @@ namespace TimelonCl
         /// <param name="list">Список карт</param>
         public CardProvider(List<Card> list)
         {
-            Set(list);
+            foreach (Card card in list)
+            {
+                Set(card);
+            }
         }
 
         /// <summary>
@@ -66,13 +74,19 @@ namespace TimelonCl
         /// <summary>
         /// Получить отсортированный по убыванию
         /// даты обновления список карт
+        /// (только невыполненные без приоритета)
         /// </summary>
         /// <returns>Список карт</returns>
-        public List<Card> GetListByLastUpdate()
+        public List<Card> GetListDefault()
         {
+            if (!_isSorted)
+            {
+                Sort();
+            }
+            
             List<Card> result = new List<Card>();
 
-            foreach (int id in _idByLastUpdate)
+            foreach (int id in _idListDefault)
             {
                 result.Add(Get(id));
             }
@@ -83,13 +97,19 @@ namespace TimelonCl
         /// <summary>
         /// Получить отсортированный по убыванию
         /// приоритета и даты обновления список карт
+        /// (только невыполненные с приоритетом)
         /// </summary>
         /// <returns>Список карт</returns>
-        public List<Card> GetListByPriority()
+        public List<Card> GetListPriority()
         {
+            if (!_isSorted)
+            {
+                Sort();
+            }
+
             List<Card> result = new List<Card>();
 
-            foreach (int id in _idByPriority)
+            foreach (int id in _idListPriority)
             {
                 result.Add(Get(id));
             }
@@ -100,13 +120,19 @@ namespace TimelonCl
         /// <summary>
         /// Получить отсортированный по статусу выполнения
         /// и по убыванию даты обновления список карт
+        /// (только выполненные)
         /// </summary>
         /// <returns>Список карт</returns>
         public List<Card> GetListCompleted()
         {
+            if (!_isSorted)
+            {
+                Sort();
+            }
+
             List<Card> result = new List<Card>();
 
-            foreach (int id in _idCompleted)
+            foreach (int id in _idListCompleted)
             {
                 result.Add(Get(id));
             }
@@ -140,48 +166,20 @@ namespace TimelonCl
         /// <param name="card">Объект карты</param>
         public void Set(Card card)
         {
+            _isSorted = false;
             _pool[card.Id] = card;
-
-            Sort();
-        }
-
-        /// <summary>
-        /// Сохранить несколько карт
-        /// </summary>
-        /// <param name="cardList">Список карт</param>
-        public void Set(List<Card> cardList)
-        {
-            foreach (Card card in cardList)
-            {
-                _pool[card.Id] = card;
-            }
-
-            Sort();
         }
 
         /// <summary>
         /// Удалить карту с заданным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор карты</param>
-        public void Remove(int id)
+        /// <returns>Статус успеха удаления</returns>
+        public bool Remove(int id)
         {
-            _pool.Remove(id);
+            _isSorted = false;
 
-            Sort();
-        }
-
-        /// <summary>
-        /// Удалить карты с заданными идентификаторами
-        /// </summary>
-        /// <param name="idList">Список идентификаторов карт</param>
-        public void Remove(List<int> idList)
-        {
-            foreach (int id in idList)
-            {
-                _pool.Remove(id);
-            }
-
-            Sort();
+            return _pool.Remove(id);
         }
 
         /// <summary>
@@ -189,41 +187,31 @@ namespace TimelonCl
         /// </summary>
         private void Sort()
         {
-            _idByLastUpdate.Clear();
-            _idByPriority.Clear();
-            _idCompleted.Clear();
+            _idListDefault.Clear();
+            _idListPriority.Clear();
+            _idListCompleted.Clear();
 
             foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastUpdate))
             {
-                _idByLastUpdate.Add(card.Key);
+                // Наполнение _idListCompleted (только выполненные)
+                if (card.Value.IsCompleted == true)
+                {
+                    _idListCompleted.Add(card.Key);
+                    continue;
+                }
 
-                // Наполнение _idByPriority (только с приоритетом)
+                // Наполнение _idListPriority (только невыполненные с приоритетом)
                 if (card.Value.Priority.Id != PriorityId.DEFAULT)
                 {
-                    _idByPriority.Add(card.Key);
+                    _idListPriority.Add(card.Key);
+                    continue;
                 }
 
-                // Наполнение _idCompleted (только невыполненные)
-                if (card.Value.IsCompleted != true)
-                {
-                    _idCompleted.Add(card.Key);
-                }
+                // Остальные в общий список
+                _idListDefault.Add(card.Key);
             }
 
-            // Невошедшие
-            // TODO: Зачем?
-            foreach (int id in _idByLastUpdate)
-            {
-                if (!_idByPriority.Contains(id))
-                {
-                    _idByPriority.Add(id);
-                }
-
-                if (!_idCompleted.Contains(id))
-                {
-                    _idCompleted.Add(id);
-                }
-            }
+            _isSorted = true;
         }
     }
 }

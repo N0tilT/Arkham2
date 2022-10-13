@@ -37,14 +37,11 @@ namespace TimelonCA
             Console.WriteLine("TestCardProvider:");
 
             CardProvider provider = new CardProvider();
-            List<Card> list = new List<Card>();
 
             for (int i = 0; i < 10; i++)
             {
-                list.Add(Card.Random());
+                provider.Set(Card.Random());
             }
-
-            provider.Set(list);
 
             // Все карточки
             foreach (KeyValuePair<int, Card> card in provider.All)
@@ -53,25 +50,25 @@ namespace TimelonCA
             }
 
             Console.WriteLine();
-            Console.WriteLine("Sorted by last update DateTime:");
+            Console.WriteLine("Default list sorted by last update DateTime:");
 
             // Сортировка по дате последнего обновления
-            foreach (Card card in provider.GetListByLastUpdate())
+            foreach (Card card in provider.GetListDefault())
             {
                 Console.WriteLine(card);
             }
 
             Console.WriteLine();
-            Console.WriteLine("Sorted by Priority:");
+            Console.WriteLine("List sorted by Priority:");
 
             // Сортировка по приоритету
-            foreach (Card card in provider.GetListByPriority())
+            foreach (Card card in provider.GetListPriority())
             {
                 Console.WriteLine(card);
             }
 
             Console.WriteLine();
-            Console.WriteLine("Sorted by completion:");
+            Console.WriteLine("Completed:");
 
             // Сортировка по статусу выполнения
             foreach (Card card in provider.GetListCompleted())
