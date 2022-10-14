@@ -96,6 +96,17 @@ namespace TimelonCl
         /// </summary>
         public Color Color => ColorList[(int) _id];
 
+        /// <summary>
+        /// Сравнить с другим приоритетом
+        /// TODO: Это вроде как уже имплементировано где-то, найти где
+        /// </summary>
+        /// <param name="priority">Приоритет</param>
+        /// <returns>Число, определяющее перемещение приоритета по списку</returns>
+        public int CompareTo(CardPriority priority)
+        {
+            return priority.Id > Id ? 1 : priority.Id < Id ? -1 : 0;
+        }
+
         public override string ToString()
         {
             return Name;

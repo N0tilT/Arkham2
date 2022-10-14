@@ -184,31 +184,42 @@ namespace TimelonCl
 
         /// <summary>
         /// Отсортировать списки идентификаторов по убыванию
+        /// TODO: Оценить скорость
         /// </summary>
         private void Sort()
         {
+            List<Card> listPriority = new List<Card>();
+            
             _idListDefault.Clear();
             _idListPriority.Clear();
             _idListCompleted.Clear();
 
             foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastUpdate))
             {
-                // Наполнение _idListCompleted (только выполненные)
+                // Наполнение списка идентификаторов для выполненных
                 if (card.Value.IsCompleted == true)
                 {
                     _idListCompleted.Add(card.Key);
                     continue;
                 }
 
-                // Наполнение _idListPriority (только невыполненные с приоритетом)
+                // Все приоритетные идут в отдельный список для дальнейшей сортировки
                 if (card.Value.Priority.Id != PriorityId.DEFAULT)
                 {
-                    _idListPriority.Add(card.Key);
+                    listPriority.Add(card.Value);
                     continue;
                 }
 
-                // Остальные в общий список
+                // Идентификаторы остальных в общий список
                 _idListDefault.Add(card.Key);
+            }
+
+            // Вторая сортировка приоритетных по их приоритету
+            listPriority.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+
+            foreach(Card card in listPriority)
+            {
+                _idListPriority.Add(card.Id);
             }
 
             _isSorted = true;
