@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelonCl", "TimelonCl.csproj", "{09B959A2-2ABC-4552-863A-DCC4F8A8BCE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelonCl", "TimelonCl\TimelonCl.csproj", "{09B959A2-2ABC-4552-863A-DCC4F8A8BCE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelonCA", "..\TimelonCA\TimelonCA.csproj", "{D9917A70-C688-45D1-AEE5-FBAF3A558202}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelonCA", "TimelonCA\TimelonCA.csproj", "{D9917A70-C688-45D1-AEE5-FBAF3A558202}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelonWPF", "..\TimelonWPF\TimelonWPF.csproj", "{4CE868DE-C688-447D-BE43-FCD11950CF7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelonWPF", "TimelonWPF\TimelonWPF.csproj", "{4CE868DE-C688-447D-BE43-FCD11950CF7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
