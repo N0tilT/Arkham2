@@ -28,19 +28,19 @@ namespace TimelonCA
             Console.WriteLine();
         }
 
-        public void TestCardProvider()
+        public void TestCardList()
         {
-            Console.WriteLine("TestCardProvider:");
+            Console.WriteLine("TestCardList:");
 
-            CardProvider provider = new CardProvider();
+            CardList list = new CardList("test");
 
             for (int i = 0; i < 10; i++)
             {
-                provider.Set(Card.Random());
+                list.Set(Card.Random());
             }
 
             // Все карточки
-            foreach (KeyValuePair<int, Card> card in provider.All)
+            foreach (KeyValuePair<int, Card> card in list.All)
             {
                 Console.WriteLine(card.Value);
             }
@@ -49,7 +49,7 @@ namespace TimelonCA
             Console.WriteLine("Default list sorted by last update DateTime:");
 
             // Сортировка по дате последнего обновления
-            foreach (Card card in provider.GetListDefault())
+            foreach (Card card in list.GetListDefault())
             {
                 Console.WriteLine(card);
             }
@@ -58,7 +58,7 @@ namespace TimelonCA
             Console.WriteLine("List sorted by Priority:");
 
             // Сортировка по приоритету
-            foreach (Card card in provider.GetListPriority())
+            foreach (Card card in list.GetListPriority())
             {
                 Console.WriteLine(card);
             }
@@ -67,9 +67,43 @@ namespace TimelonCA
             Console.WriteLine("Completed:");
 
             // Сортировка по статусу выполнения
-            foreach (Card card in provider.GetListCompleted())
+            foreach (Card card in list.GetListCompleted())
             {
                 Console.WriteLine(card);
+            }
+
+            Console.WriteLine();
+        }
+
+        public void TestCardListManager()
+        {
+            Console.WriteLine("TestCardListManager:");
+
+            List<CardList> all = new List<CardList>();
+
+            for(int i = 0; i < 3; i++)
+            {
+                CardList list = new CardList(Util.NextString(8, 16));
+
+                for (int j = 0; j < 5; j++)
+                {
+                    list.Set(Card.Random());
+                }
+
+                all.Add(list);
+            }
+
+            CardListManager manager = new CardListManager(all);
+
+            foreach (CardList list in manager.All)
+            {
+                Console.WriteLine();
+                Console.WriteLine("CARDLIST_NAME: " + list.Name);
+
+                foreach (KeyValuePair<int, Card> card in list.All)
+                {
+                    Console.WriteLine(card.Value);
+                }
             }
 
             Console.WriteLine();

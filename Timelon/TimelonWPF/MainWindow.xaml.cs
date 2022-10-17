@@ -15,7 +15,7 @@ namespace TimelonWPF
             InitializeComponent();
         }
 
-        CardProvider _provider = new CardProvider();
+        CardList _provider = new CardList();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

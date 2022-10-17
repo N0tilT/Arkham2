@@ -1,13 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TimelonCl
 {
     /// <summary>
-    /// Провайдер и хранилище карт
+    /// Список карт
     /// </summary>
-    public class CardProvider
+    public class CardList
     {
+        /// <summary>
+        /// Название списка
+        /// </summary>
+        private string _name;
+
         /// <summary>
         /// Хранилище карт
         /// </summary>
@@ -36,23 +42,48 @@ namespace TimelonCl
 
         /// <summary>
         /// Статус сортировки
+        /// TODO: Использовать enum для переключения статуса
         /// </summary>
         private bool _isSorted = false;
 
         /// <summary>
-        /// Конструктор пустого провайдера
+        /// Конструктор пустого списка
         /// </summary>
-        public CardProvider() { }
+        /// <param name="name">Название списка</param>
+        public CardList(string name)
+        {
+            Name = name;
+        }
 
         /// <summary>
-        /// Конструктор провайдера из заданного списка карт
+        /// Конструктор списка из заданного списка карт
         /// </summary>
+        /// <param name="name">Название списка</param>
         /// <param name="list">Список карт</param>
-        public CardProvider(List<Card> list)
+        public CardList(string name, List<Card> list) : this(name)
         {
             foreach (Card card in list)
             {
                 Set(card);
+            }
+        }
+
+        /// <summary>
+        /// Доступ к названию списка
+        /// </summary>
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                value = value.Trim();
+
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("name не может быть пустой строкой");
+                }
+
+                _name = value;
             }
         }
 

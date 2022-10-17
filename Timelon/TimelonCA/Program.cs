@@ -10,7 +10,8 @@ namespace TimelonCA
 
             tests.TestCustomCard();
             tests.TestRandomCard();
-            tests.TestCardProvider();
+            tests.TestCardList();
+            tests.TestCardListManager();
 
             Console.ReadKey();
         }
