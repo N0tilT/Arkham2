@@ -63,7 +63,7 @@ namespace TimelonCl
                 {
                     throw new ArgumentOutOfRangeException("id не может быть отрицательным числом");
                 }
-                
+
                 _id = value;
             }
         }
@@ -74,7 +74,7 @@ namespace TimelonCl
             set
             {
                 value = value.Trim();
-                
+
                 if (value.Length == 0)
                 {
                     throw new ArgumentException("name не может быть пустой строкой");

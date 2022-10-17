@@ -83,7 +83,7 @@ namespace TimelonCl
             {
                 Sort();
             }
-            
+
             List<Card> result = new List<Card>();
 
             foreach (int id in _idListDefault)
@@ -153,7 +153,8 @@ namespace TimelonCl
             foreach (KeyValuePair<int, Card> card in _pool.AsQueryable().Where(item =>
                 item.Value.Name.ToLower().Contains(content) ||
                 item.Value.Description.ToLower().Contains(content))
-            ) {
+            )
+            {
                 result.Add(card.Value);
             }
 
@@ -189,7 +190,7 @@ namespace TimelonCl
         private void Sort()
         {
             List<Card> listPriority = new List<Card>();
-            
+
             _idListDefault.Clear();
             _idListPriority.Clear();
             _idListCompleted.Clear();
@@ -217,7 +218,7 @@ namespace TimelonCl
             // Вторая сортировка приоритетных по их приоритету
             listPriority.Sort((a, b) => a.Priority.CompareTo(b.Priority));
 
-            foreach(Card card in listPriority)
+            foreach (Card card in listPriority)
             {
                 _idListPriority.Add(card.Id);
             }
