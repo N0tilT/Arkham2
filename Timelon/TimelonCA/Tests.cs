@@ -57,8 +57,8 @@ namespace TimelonCA
             Console.WriteLine();
             Console.WriteLine("List sorted by Priority:");
 
-            // Сортировка по приоритету
-            foreach (Card card in list.GetListPriority())
+            // Сортировка по важности
+            foreach (Card card in list.GetListImportant())
             {
                 Console.WriteLine(card);
             }

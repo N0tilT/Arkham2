@@ -22,16 +22,16 @@ namespace TimelonCl
         /// <summary>
         /// Отсортированный по убыванию даты обновления
         /// список идентификаторов карт
-        /// (только невыполненные без приоритета)
+        /// (только невыполненные обычные)
         /// </summary>
         private readonly List<int> _idListDefault = new List<int>();
 
         /// <summary>
-        /// Отсортированный по убыванию приоритета и даты обновления
+        /// Отсортированный по важности и убыванию даты обновления
         /// список идентификаторов карт
-        /// (только невыполненные с приоритетом)
+        /// (только невыполненные важные)
         /// </summary>
-        private readonly List<int> _idListPriority = new List<int>();
+        private readonly List<int> _idListImportant = new List<int>();
 
         /// <summary>
         /// Отсортированный по статусу выполнения и по убыванию даты обновления
@@ -105,7 +105,7 @@ namespace TimelonCl
         /// <summary>
         /// Получить отсортированный по убыванию
         /// даты обновления список карт
-        /// (только невыполненные без приоритета)
+        /// (только невыполненные обычные)
         /// </summary>
         /// <returns>Список карт</returns>
         public List<Card> GetListDefault()
@@ -126,12 +126,12 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Получить отсортированный по убыванию
-        /// приоритета и даты обновления список карт
-        /// (только невыполненные с приоритетом)
+        /// Получить отсортированный по важности
+        /// и по убыванию даты обновления список карт
+        /// (только невыполненные важные)
         /// </summary>
         /// <returns>Список карт</returns>
-        public List<Card> GetListPriority()
+        public List<Card> GetListImportant()
         {
             if (!_isSorted)
             {
@@ -140,7 +140,7 @@ namespace TimelonCl
 
             List<Card> result = new List<Card>();
 
-            foreach (int id in _idListPriority)
+            foreach (int id in _idListImportant)
             {
                 result.Add(Get(id));
             }
@@ -223,7 +223,7 @@ namespace TimelonCl
             List<Card> listPriority = new List<Card>();
 
             _idListDefault.Clear();
-            _idListPriority.Clear();
+            _idListImportant.Clear();
             _idListCompleted.Clear();
 
             foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastUpdate))
@@ -235,23 +235,15 @@ namespace TimelonCl
                     continue;
                 }
 
-                // Все приоритетные идут в отдельный список для дальнейшей сортировки
-                if (card.Value.Priority.Id != PriorityId.DEFAULT)
+                // Наполнение списка идентификаторов для важных
+                if (card.Value.IsImportant == true)
                 {
-                    listPriority.Add(card.Value);
+                    _idListImportant.Add(card.Key);
                     continue;
                 }
 
                 // Идентификаторы остальных в общий список
                 _idListDefault.Add(card.Key);
-            }
-
-            // Вторая сортировка приоритетных по их приоритету
-            listPriority.Sort((a, b) => a.Priority.CompareTo(b.Priority));
-
-            foreach (Card card in listPriority)
-            {
-                _idListPriority.Add(card.Id);
             }
 
             _isSorted = true;

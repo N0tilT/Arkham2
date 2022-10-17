@@ -7,7 +7,6 @@ namespace TimelonCl
         private int _id;
         private string _name;
         private string _description;
-        private CardPriority _priority;
         private bool _isImportant;
         private bool _isCompleted;
 
@@ -16,12 +15,11 @@ namespace TimelonCl
         //Когда карточку меняли последний раз
         private DateTime _lastUpdate;
 
-        public Card(int id, string name, string desc, PriorityId priority, bool isImportant, bool isCompleted, DateTime change)
+        public Card(int id, string name, string desc, bool isImportant, bool isCompleted, DateTime change)
         {
             Id = id;
             Name = name;
             Description = desc;
-            Priority = new CardPriority(priority);
             IsImportant = isImportant;
             IsCompleted = isCompleted;
 
@@ -33,7 +31,6 @@ namespace TimelonCl
             Id = id;
             Name = name;
             Description = desc;
-            Priority = new CardPriority(PriorityId.DEFAULT);
             IsImportant = false;
             IsCompleted = false;
 
@@ -47,7 +44,6 @@ namespace TimelonCl
                 Util.Random.Next(0, 1024),
                 Util.NextString(4, 8),
                 Util.NextString(16, 32),
-                CardPriority.RandomId(),
                 Util.NextBool(),
                 Util.NextBool(),
                 Util.NextDateTime()
@@ -84,12 +80,6 @@ namespace TimelonCl
             }
         }
 
-        public CardPriority Priority
-        {
-            get => _priority;
-            set => _priority = value;
-        }
-
         public string Description
         {
             get => _description;
@@ -122,7 +112,7 @@ namespace TimelonCl
         // TODO: Использовать json?
         public override string ToString()
         {
-            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nPRIOR: {Priority}\n" +
+            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\n" +
                 $"IMPORTANT: {IsImportant}\nCOMPLETE: {IsCompleted}\nCHANGED: {LastUpdate}";
         }
     }
