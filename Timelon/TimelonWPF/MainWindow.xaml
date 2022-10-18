@@ -11,9 +11,13 @@
         Background="Transparent"
         AllowsTransparency="True">
 
+    <!--TODO: Сделать так, чтобы картинки-кнопки отображались и работали-->
+    <!--TODO: Добавить функционал кнопкам-->
+    <!--TODO: Добавить информацю о карточках-->
+    
     <Border Background="#272537"
             CornerRadius="10">
-        <Grid>
+        <Grid Margin="10,0,-10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="240"/>
                 <ColumnDefinition/>
@@ -23,6 +27,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             
             <TextBlock Text="Timelon"
@@ -32,27 +37,78 @@
                        FontSize="22"/>
 
             <StackPanel Grid.Row="1">
-                <RadioButton Content="Home"
+                <RadioButton Content="Задачи"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="tree"
+                <RadioButton Content="Важные"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="Cat"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
-                <RadioButton Content="Dog"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                
             </StackPanel>
+
+            <!--<TextBlock Grid.Row ="2"
+                       Text ="Добавить список"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       FontSize="22"/>-->
+
+            <!--<Button Grid.Row="2"
+                    Width="25"
+                    Height="25"
+                    HorizontalAlignment="Right"
+                    Margin="10,0,5,0"
+                    Content="<Image Source="TimelonWPF/Images/btn-add-icon.png"/>">
+                
+            </Button>-->
+            
+            <TextBox Grid.Row="2"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="10,5,5,5"
+                     Style="{StaticResource AddListTextBox}"/>
+            
+            <!--TODO: По нажатию этой кнопки добавить событие - сгенерировать новый радиобатн в списке-->
+            
+            <StackPanel Orientation="Horizontal" 
+                        Grid.Row="2"
+                        HorizontalAlignment="Right">
+                <ContentControl Width="20" Margin="4" Content="{StaticResource IconAdd}"/>
+            </StackPanel>
+
+            <TextBox Grid.Row="2"
+                     Grid.Column="1"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="10,5,5,5"
+                     Style="{StaticResource AddCardTextBox}"/>
+            
+            <!--TODO: По нажатию этой кнопки добавить новую карточку в текущий список-->
+            
+            <StackPanel Orientation="Horizontal" 
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        HorizontalAlignment="Right">
+                <ContentControl Width="20" Margin="4" Content="{StaticResource IconAdd}"/>
+            </StackPanel>
+
+            <TextBox Grid.Column="1"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="10,5,5,5"
+                     Style="{StaticResource SearchTextBox}"/>
+
+            <!--По нажатию этой кнопки осуществить поиск по всем карточкам-->
+            <StackPanel Orientation="Horizontal" 
+                        Grid.Column="1"
+                        HorizontalAlignment="Right">
+                <ContentControl Width="20" Margin="4" Content="{StaticResource IconSearch}"/>
+            </StackPanel>
+            
         </Grid>
 
     </Border>

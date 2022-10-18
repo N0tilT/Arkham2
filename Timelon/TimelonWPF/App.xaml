@@ -7,6 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/AddListTextboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/AddCardTextboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/SearchTextboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
