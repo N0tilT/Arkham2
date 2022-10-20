@@ -226,7 +226,7 @@ namespace TimelonCl
             _idListImportant.Clear();
             _idListCompleted.Clear();
 
-            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.LastUpdate))
+            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.Date.Updated))
             {
                 // Наполнение списка идентификаторов для выполненных
                 if (card.Value.IsCompleted == true)

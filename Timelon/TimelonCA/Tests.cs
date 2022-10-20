@@ -12,7 +12,7 @@ namespace TimelonCA
 
             Card card = new Card(13, "customName", "This is a custom new card");
 
-            Console.WriteLine(card.Update());
+            Console.WriteLine(card);
             Console.WriteLine();
         }
 
