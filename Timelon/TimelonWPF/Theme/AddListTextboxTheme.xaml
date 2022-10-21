@@ -12,7 +12,8 @@
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             
-                            <TextBox Margin="1"
+                            <TextBox x:Name="InputText"
+                                     Margin="1"
                                      Text="{TemplateBinding Text}"
                                      BorderThickness="0"
                                      Background="Transparent"
@@ -21,7 +22,8 @@
                                      Foreground="#CFCFCF"
                                      x:Name="CreateList"/>
                             
-                            <TextBlock IsHitTestVisible="False"
+                            <TextBlock 
+                                       IsHitTestVisible="False"
                                        Text="Создать список"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
