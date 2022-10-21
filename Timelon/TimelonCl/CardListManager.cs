@@ -16,6 +16,7 @@ namespace TimelonCl
     {
         /// <summary>
         /// Списки карт
+        /// TODO: Использовать сортированный список или словарь
         /// </summary>
         private readonly List<CardList> _list = new List<CardList>();
 

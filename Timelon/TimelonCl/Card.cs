@@ -15,13 +15,12 @@ namespace TimelonCl
 
         /// <summary>
         /// Запланированная дата
-        /// (значение по-умолчанию равно дате создания)
         /// </summary>
         private DateTime? _planned = null;
 
         /// <summary>
         /// Дата последнего обновления
-        /// (значение по-умолчанию равно дате создания)
+        /// TODO: Значение по-умолчанию равно дате создания?
         /// </summary>
         private DateTime? _updated = null;
 
@@ -44,15 +43,8 @@ namespace TimelonCl
         {
             _created = created;
 
-            if (planned != null)
-            {
-                Planned = planned;
-            }
-
-            if (updated != null)
-            {
-                Updated = updated;
-            }
+            Planned = planned;
+            Updated = updated;
         }
 
         /// <summary>
