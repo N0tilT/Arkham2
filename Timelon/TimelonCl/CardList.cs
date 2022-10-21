@@ -226,7 +226,8 @@ namespace TimelonCl
             _idListImportant.Clear();
             _idListCompleted.Clear();
 
-            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.Date.Updated))
+            // HACK: Найти способ связать updated и created
+            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.Date.Updated ?? item.Value.Date.Created))
             {
                 // Наполнение списка идентификаторов для выполненных
                 if (card.Value.IsCompleted == true)
