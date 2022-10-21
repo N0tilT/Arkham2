@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Linq;
 
 namespace TimelonCl
 {
@@ -164,7 +163,7 @@ namespace TimelonCl
         public static Card Random()
         {
             return new Card(
-                Util.Random.Next(1024),
+                Util.UniqueId(typeof(Card)),
                 Util.NextString(4, 8),
                 Util.NextString(16, 32),
                 Util.NextBool(),

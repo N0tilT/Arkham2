@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
-using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace TimelonCl
 {
     /// <summary>
     /// Класс различных вспомогательных функций
-    /// TODO: Добавить статические счетчики
     /// </summary>
     public static class Util
     {
         /// <summary>
         /// Глобальный генератор псевдо-случайных чисел
         /// </summary>
-        private static readonly Random _rnd = new Random();
+        private static readonly Random _random = new Random();
+
+        /// <summary>
+        /// Глобальный список статических счетчиков
+        /// </summary>
+        private static readonly SortedList<string, int> _incrementor = new SortedList<string, int>();
 
         /// <summary>
         /// Доступ к генератору псевдо-случайных чисел
         /// </summary>
-        /// <returns>Объект генератора</returns>
-        public static Random Random => _rnd;
+        public static Random Random => _random;
+
+        /// <summary>
+        /// Доступ к списку статических счетчиков
+        /// </summary>
+        public static SortedList<string, int> Incrementor => _incrementor;
 
         /// <summary>
         /// Получить следующее случайное булевое значение
@@ -28,7 +35,7 @@ namespace TimelonCl
         /// <returns>Случайное булевое значение</returns>
         public static bool NextBool()
         {
-            return _rnd.Next(2) == 1;
+            return Random.Next(2) == 1;
         }
 
         /// <summary>
@@ -46,11 +53,11 @@ namespace TimelonCl
             }
 
             string str = "";
-            int length = _rnd.Next(minLength, maxLength);
+            int length = Random.Next(minLength, maxLength);
 
             for (int i = 0; i < length; i++)
             {
-                str += Convert.ToChar(_rnd.Next(0, 26) + 65);
+                str += Convert.ToChar(Random.Next(0, 26) + 65);
             }
 
             return str;
@@ -63,7 +70,7 @@ namespace TimelonCl
         /// <returns>Случайный индекс</returns>
         public static int NextCollectionIndex(ICollection col)
         {
-            return _rnd.Next(col.Count);
+            return Random.Next(col.Count);
         }
 
         /// <summary>
@@ -73,10 +80,27 @@ namespace TimelonCl
         public static DateTime NextDateTime()
         {
             int year = DateTime.Today.Year;
-            int month = _rnd.Next(1, 12);
-            int day = _rnd.Next(1, DateTime.DaysInMonth(year, month));
+            int month = Random.Next(1, 12);
+            int day = Random.Next(1, DateTime.DaysInMonth(year, month));
 
             return new DateTime(year, month, day);
+        }
+
+        /// <summary>
+        /// Получить уникальный идентификатор для указанного типа данных
+        /// </summary>
+        /// <param name="type">Задекларированный тип</param>
+        /// <returns>Уникальный идентификатор</returns>
+        public static int UniqueId(Type type)
+        {
+            string key = type.Name;
+            
+            if (!Incrementor.ContainsKey(key))
+            {
+                Incrementor.Add(key, 0);
+            }
+
+            return Incrementor[key]++;
         }
     }
 }
