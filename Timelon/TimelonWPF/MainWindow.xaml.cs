@@ -31,5 +31,7 @@ namespace TimelonWPF
 
             //tbCards.Text = tmp;
         }
+
+
     }
 }

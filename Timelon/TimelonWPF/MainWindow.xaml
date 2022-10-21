@@ -47,39 +47,30 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"/>
-                
+
             </StackPanel>
 
-            <!--<TextBlock Grid.Row ="2"
-                       Text ="Добавить список"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Foreground="White"
-                       FontSize="22"/>-->
-
-            <!--<Button Grid.Row="2"
-                    Width="25"
-                    Height="25"
-                    HorizontalAlignment="Right"
-                    Margin="10,0,5,0"
-                    Content="<Image Source="TimelonWPF/Images/btn-add-icon.png"/>">
-                
-            </Button>-->
-            
+            <!--Создать список-->
             <TextBox Grid.Row="2"
+                     Grid.Column="0"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="10,5,5,5"
                      Style="{StaticResource AddListTextBox}"/>
             
-            <!--TODO: По нажатию этой кнопки добавить событие - сгенерировать новый радиобатн в списке-->
             
-            <StackPanel Orientation="Horizontal" 
-                        Grid.Row="2"
-                        HorizontalAlignment="Right">
-                <ContentControl Width="20" Margin="4" Content="{StaticResource IconAdd}"/>
-            </StackPanel>
+            <!--TODO: По нажатию этой кнопки добавить событие - сгенерировать новый радиобатн в списке-->
 
+            <Button Height="20"
+                    Width="20"
+                    Margin="5"
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource AddButtonTheme}">
+            </Button>
+
+            <!--Создать карточку дела-->
+            
             <TextBox Grid.Row="2"
                      Grid.Column="1"
                      VerticalAlignment="Center"
@@ -88,14 +79,18 @@
                      Style="{StaticResource AddCardTextBox}"/>
             
             <!--TODO: По нажатию этой кнопки добавить новую карточку в текущий список-->
-            
-            <StackPanel Orientation="Horizontal" 
-                        Grid.Column="1"
-                        Grid.Row="2"
-                        HorizontalAlignment="Right">
-                <ContentControl Width="20" Margin="4" Content="{StaticResource IconAdd}"/>
-            </StackPanel>
 
+            <Button Height="20"
+                    Width="20"
+                    Margin="5"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource AddButtonTheme}">
+            </Button>
+
+            <!--Поиск-->
+            
             <TextBox Grid.Column="1"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
@@ -103,11 +98,13 @@
                      Style="{StaticResource SearchTextBox}"/>
 
             <!--По нажатию этой кнопки осуществить поиск по всем карточкам-->
-            <StackPanel Orientation="Horizontal" 
-                        Grid.Column="1"
-                        HorizontalAlignment="Right">
-                <ContentControl Width="20" Margin="4" Content="{StaticResource IconSearch}"/>
-            </StackPanel>
+            <Button Height="20"
+                    Width="20"
+                    Margin="5"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource SearchButtonTheme}">
+            </Button>
             
         </Grid>
 
