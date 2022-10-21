@@ -34,7 +34,7 @@ namespace TimelonCA
 
             CardList list = new CardList(Util.UniqueId(typeof(CardList)), "customName");
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 list.Set(Card.Random());
             }
@@ -46,28 +46,28 @@ namespace TimelonCA
             }
 
             Console.WriteLine();
-            Console.WriteLine("Default list sorted by last update DateTime:");
+            Console.WriteLine("Default list unsorted:");
 
-            // Сортировка по дате последнего обновления
-            foreach (Card card in list.GetListDefault())
+            // Несортировка по дате последнего обновления
+            foreach (Card card in list.GetListDefault(SortOrder.Unsorted))
             {
                 Console.WriteLine(card);
             }
 
             Console.WriteLine();
-            Console.WriteLine("List sorted by importance flag:");
+            Console.WriteLine("Important ascending:");
 
-            // Сортировка по важности
-            foreach (Card card in list.GetListImportant())
+            // Сортировка важных по дате обновления по возрастанию
+            foreach (Card card in list.GetListImportant(SortOrder.Ascending))
             {
                 Console.WriteLine(card);
             }
 
             Console.WriteLine();
-            Console.WriteLine("Completed:");
+            Console.WriteLine("Completed descending:");
 
-            // Сортировка по статусу выполнения
-            foreach (Card card in list.GetListCompleted())
+            // Сортировка выполненных по дате обновления по убыванию
+            foreach (Card card in list.GetListCompleted(SortOrder.Descending))
             {
                 Console.WriteLine(card);
             }

@@ -5,6 +5,17 @@ using System.Linq;
 namespace TimelonCl
 {
     /// <summary>
+    /// Статус / направление сортировки
+    /// </summary>
+    public enum SortOrder
+    {
+        Initial,
+        Unsorted,
+        Ascending,
+        Descending
+    }
+
+    /// <summary>
     /// Список карт
     /// </summary>
     public class CardList
@@ -25,21 +36,21 @@ namespace TimelonCl
         private readonly Dictionary<int, Card> _pool = new Dictionary<int, Card>();
 
         /// <summary>
-        /// Отсортированный по убыванию даты обновления
+        /// Отсортированный по дате обновления
         /// список идентификаторов карт
         /// (только невыполненные обычные)
         /// </summary>
         private readonly List<int> _idListDefault = new List<int>();
 
         /// <summary>
-        /// Отсортированный по важности и убыванию даты обновления
+        /// Отсортированный по важности и дате обновления
         /// список идентификаторов карт
         /// (только невыполненные важные)
         /// </summary>
         private readonly List<int> _idListImportant = new List<int>();
 
         /// <summary>
-        /// Отсортированный по статусу выполнения и по убыванию даты обновления
+        /// Отсортированный по статусу выполнения и дате обновления
         /// список идентификаторов карт
         /// (только выполненные)
         /// </summary>
@@ -47,9 +58,8 @@ namespace TimelonCl
 
         /// <summary>
         /// Статус сортировки
-        /// TODO: Использовать enum для переключения статуса
         /// </summary>
-        private bool _isSorted = false;
+        private SortOrder _status = SortOrder.Initial;
 
         /// <summary>
         /// Конструктор пустого списка
@@ -76,6 +86,9 @@ namespace TimelonCl
             }
         }
 
+        /// <summary>
+        /// Доступ к идентификатору списка
+        /// </summary>
         public int Id
         {
             get => _id;
@@ -115,6 +128,15 @@ namespace TimelonCl
         public Dictionary<int, Card> All => _pool;
 
         /// <summary>
+        /// Доступ к статусу сортировки
+        /// </summary>
+        public SortOrder Status
+        {
+            get => _status;
+            private set => _status = value;
+        }
+
+        /// <summary>
         /// Получить карту из хранилища по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор карты</param>
@@ -125,16 +147,17 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Получить отсортированный по убыванию
-        /// даты обновления список карт
+        /// Получить отсортированный
+        /// по дате обновления список карт
         /// (только невыполненные обычные)
         /// </summary>
+        /// <param name="order">Направление сортировки</param>
         /// <returns>Список карт</returns>
-        public List<Card> GetListDefault()
+        public List<Card> GetListDefault(SortOrder order = SortOrder.Descending)
         {
-            if (!_isSorted)
+            if (order != Status)
             {
-                Sort();
+                Sort(order);
             }
 
             List<Card> result = new List<Card>();
@@ -149,15 +172,16 @@ namespace TimelonCl
 
         /// <summary>
         /// Получить отсортированный по важности
-        /// и по убыванию даты обновления список карт
+        /// и дате обновления список карт
         /// (только невыполненные важные)
         /// </summary>
+        /// <param name="order">Направление сортировки</param>
         /// <returns>Список карт</returns>
-        public List<Card> GetListImportant()
+        public List<Card> GetListImportant(SortOrder order = SortOrder.Descending)
         {
-            if (!_isSorted)
+            if (order != Status)
             {
-                Sort();
+                Sort(order);
             }
 
             List<Card> result = new List<Card>();
@@ -172,15 +196,16 @@ namespace TimelonCl
 
         /// <summary>
         /// Получить отсортированный по статусу выполнения
-        /// и по убыванию даты обновления список карт
+        /// и дате обновления список карт
         /// (только выполненные)
         /// </summary>
+        /// <param name="order">Направление сортировки</param>
         /// <returns>Список карт</returns>
-        public List<Card> GetListCompleted()
+        public List<Card> GetListCompleted(SortOrder order = SortOrder.Descending)
         {
-            if (!_isSorted)
+            if (order != Status)
             {
-                Sort();
+                Sort(order);
             }
 
             List<Card> result = new List<Card>();
@@ -220,7 +245,7 @@ namespace TimelonCl
         /// <param name="card">Объект карты</param>
         public void Set(Card card)
         {
-            _isSorted = false;
+            Status = SortOrder.Initial;
             _pool[card.Id] = card;
         }
 
@@ -231,44 +256,69 @@ namespace TimelonCl
         /// <returns>Статус успеха удаления</returns>
         public bool Remove(int id)
         {
-            _isSorted = false;
+            Status = SortOrder.Initial;
 
             return _pool.Remove(id);
         }
 
         /// <summary>
-        /// Отсортировать списки идентификаторов по убыванию
+        /// Выбрать подходящий источник для указанного направления сортировки
+        /// </summary>
+        /// <param name="order">Направление сортировки</param>
+        /// <returns>Источник</returns>
+        private IEnumerable<KeyValuePair<int, Card>> Source(SortOrder order)
+        {
+            if (order == SortOrder.Unsorted)
+            {
+                return All;
+            }
+
+            if (order == SortOrder.Ascending)
+            {
+                return All.OrderBy(item => item.Value.Date.Updated);
+            }
+
+            return All.OrderByDescending(item => item.Value.Date.Updated);
+        }
+
+        /// <summary>
+        /// Определить идентификатор карты в один из списков для сортировки
+        /// </summary>
+        /// <param name="card">Карта</param>
+        private void Cache(Card card)
+        {
+            if (card.IsCompleted == true)
+            {
+                _idListCompleted.Add(card.Id);
+                return;
+            }
+
+            if (card.IsImportant == true)
+            {
+                _idListImportant.Add(card.Id);
+                return;
+            }
+
+            _idListDefault.Add(card.Id);
+        }
+
+        /// <summary>
+        /// Отсортировать списки идентификаторов
         /// TODO: Оценить скорость
         /// </summary>
-        private void Sort()
+        /// <param name="order">Направление сортировки</param>
+        private void Sort(SortOrder order)
         {
-            List<Card> listPriority = new List<Card>();
-
             _idListDefault.Clear();
             _idListImportant.Clear();
             _idListCompleted.Clear();
 
-            foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.Date.Updated))
+            foreach (KeyValuePair<int, Card> item in Source(order))
             {
-                // Наполнение списка идентификаторов для выполненных
-                if (card.Value.IsCompleted == true)
-                {
-                    _idListCompleted.Add(card.Key);
-                    continue;
-                }
-
-                // Наполнение списка идентификаторов для важных
-                if (card.Value.IsImportant == true)
-                {
-                    _idListImportant.Add(card.Key);
-                    continue;
-                }
-
-                // Идентификаторы остальных в общий список
-                _idListDefault.Add(card.Key);
+                Cache(item.Value);
             }
 
-            _isSorted = true;
+            Status = order;
         }
     }
 }
