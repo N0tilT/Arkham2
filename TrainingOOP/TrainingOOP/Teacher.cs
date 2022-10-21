@@ -26,6 +26,19 @@ namespace TrainingOOP
         AcademicTitle title; //ученое звание, зависящее от ученой степени
         string position; //должность
         string workplace; //место работы
+        static Student std3 = new Student
+        {
+            Name = "Вадим",
+            University = "ТвГТУ",
+            Faculty = "ФИТ",
+            StudingYears = 1,
+            SumDebt = 6
+        };
+        List<Student> _students = new List<Student>()
+        {
+             std3
+        };
+
 
         //Методы-свойства класса
         /// <summary>
