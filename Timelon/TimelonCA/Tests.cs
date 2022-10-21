@@ -32,7 +32,7 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCardList:");
 
-            CardList list = new CardList("test");
+            CardList list = new CardList(13, "customName");
 
             for (int i = 0; i < 10; i++)
             {
@@ -83,7 +83,7 @@ namespace TimelonCA
 
             for(int i = 0; i < 3; i++)
             {
-                CardList list = new CardList(Util.NextString(8, 16));
+                CardList list = new CardList(Util.Random.Next(1024), Util.NextString(8, 16));
 
                 for (int j = 0; j < 5; j++)
                 {
@@ -95,12 +95,12 @@ namespace TimelonCA
 
             CardListManager manager = new CardListManager(all);
 
-            foreach (CardList list in manager.All)
+            foreach (KeyValuePair<int, CardList> item in manager.All)
             {
                 Console.WriteLine();
-                Console.WriteLine("CARDLIST_NAME: " + list.Name);
+                Console.WriteLine("CARDLIST_NAME: " + item.Value.Name);
 
-                foreach (KeyValuePair<int, Card> card in list.All)
+                foreach (KeyValuePair<int, Card> card in item.Value.All)
                 {
                     Console.WriteLine(card.Value);
                 }

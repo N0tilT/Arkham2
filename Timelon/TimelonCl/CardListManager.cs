@@ -16,9 +16,8 @@ namespace TimelonCl
     {
         /// <summary>
         /// Списки карт
-        /// TODO: Использовать сортированный список или словарь
         /// </summary>
-        private readonly List<CardList> _list = new List<CardList>();
+        private readonly SortedList<int, CardList> _list = new SortedList<int, CardList>();
 
         /// <summary>
         /// Конструктор менеджера без списков
@@ -31,22 +30,25 @@ namespace TimelonCl
         /// <param name="list">Списки карт</param>
         public CardListManager(List<CardList> list)
         {
-            _list = list;
+            foreach (CardList item in list)
+            {
+                SetList(item);
+            }
         }
 
         /// <summary>
         /// Доступ к спискам карт
         /// </summary>
-        public List<CardList> All => _list;
+        public SortedList<int, CardList> All => _list;
 
         /// <summary>
-        /// Получить список карт по названию
+        /// Получить список карт по идентификатору
         /// </summary>
-        /// <param name="name">Название списка карт</param>
+        /// <param name="id">Идентификатор списка карт</param>
         /// <returns>Список карт</returns>
-        public CardList GetList(string name)
+        public CardList GetList(int id)
         {
-            return _list.Find(item => item.Name == name);
+            return _list[id];
         }
 
         /// <summary>
@@ -55,43 +57,17 @@ namespace TimelonCl
         /// <param name="list">Список карт</param>
         public void SetList(CardList list)
         {
-            int index = _list.FindIndex(item => item.Name == list.Name);
-
-            if (index == -1)
-            {
-                _list.Add(list);
-                return;
-            }
-
-            _list.Insert(index, list);
+            _list[list.Id] = list;
         }
 
         /// <summary>
-        /// Удалить список карт по его названию
+        /// Удалить список карт по его идентификатору
         /// </summary>
-        /// <param name="name">Название списка карт</param>
+        /// <param name="id">Идентификатор списка карт</param>
         /// <returns>Статус успешности удаления</returns>
-        public bool RemoveList(string name)
+        public bool RemoveList(int id)
         {
-            int index = _list.FindIndex(item => item.Name == name);
-
-            if (index == -1)
-            {
-                return false;
-            }
-
-            _list.RemoveAt(index);
-            return true;
-        }
-
-        /// <summary>
-        /// Проверить, существует ли список карт с указанным названием
-        /// </summary>
-        /// <param name="name">Название списка карт</param>
-        /// <returns>Статус проверки</returns>
-        public bool Exists(string name)
-        {
-            return _list.Any(item => item.Name == name);
+            return _list.Remove(id);
         }
     }
 }

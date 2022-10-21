@@ -7,6 +7,7 @@ namespace TimelonCl
 {
     /// <summary>
     /// Класс различных вспомогательных функций
+    /// TODO: Добавить статические счетчики
     /// </summary>
     public static class Util
     {

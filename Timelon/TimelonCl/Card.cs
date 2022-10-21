@@ -164,7 +164,7 @@ namespace TimelonCl
         public static Card Random()
         {
             return new Card(
-                Util.Random.Next(0, 1024),
+                Util.Random.Next(1024),
                 Util.NextString(4, 8),
                 Util.NextString(16, 32),
                 Util.NextBool(),
@@ -221,13 +221,16 @@ namespace TimelonCl
 
         public DateTimeContainer Date => _date;
 
-        // Для тестов
         // TODO: Использовать xml?
         public override string ToString()
         {
-            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\n" +
-                $"IMPORTANT: {IsImportant}\nCOMPLETE: {IsCompleted}\n" +
-                Date.ToString();
+            string result = $"ID: {Id}\nNAME: {Name}\nDESC: {Description}";
+
+            result += IsImportant ? $"\nIMPORTANT: {IsImportant}" : "";
+            result += IsCompleted ? $"\nCOMPLETED: {IsCompleted}" : "";
+            result += "\n" + Date;
+
+            return result;
         }
     }
 }

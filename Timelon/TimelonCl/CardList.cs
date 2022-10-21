@@ -10,6 +10,11 @@ namespace TimelonCl
     public class CardList
     {
         /// <summary>
+        /// Уникальный идентификатор
+        /// </summary>
+        private int _id;
+        
+        /// <summary>
         /// Название списка
         /// </summary>
         private string _name;
@@ -49,22 +54,39 @@ namespace TimelonCl
         /// <summary>
         /// Конструктор пустого списка
         /// </summary>
+        /// <param name="id">Уникальный идентификатор</param>
         /// <param name="name">Название списка</param>
-        public CardList(string name)
+        public CardList(int id, string name)
         {
+            Id = id;
             Name = name;
         }
 
         /// <summary>
         /// Конструктор списка из заданного списка карт
         /// </summary>
+        /// <param name="id">Уникальный идентификатор</param>
         /// <param name="name">Название списка</param>
         /// <param name="list">Список карт</param>
-        public CardList(string name, List<Card> list) : this(name)
+        public CardList(int id, string name, List<Card> list) : this(id, name)
         {
             foreach (Card card in list)
             {
                 Set(card);
+            }
+        }
+
+        public int Id
+        {
+            get => _id;
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("id не может быть отрицательным числом");
+                }
+
+                _id = value;
             }
         }
 
@@ -226,7 +248,6 @@ namespace TimelonCl
             _idListImportant.Clear();
             _idListCompleted.Clear();
 
-            // HACK: Найти способ связать updated и created
             foreach (KeyValuePair<int, Card> card in _pool.OrderByDescending(item => item.Value.Date.Updated))
             {
                 // Наполнение списка идентификаторов для выполненных
