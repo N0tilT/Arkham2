@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace TimelonCl
 {
     /// <summary>
     /// Контейнер с датами
-    /// TODO: Добавить ToString()
     /// </summary>
     public class DateTimeContainer
     {
@@ -14,15 +14,15 @@ namespace TimelonCl
         private readonly DateTime _created;
 
         /// <summary>
+        /// Дата последнего обновления
+        /// (значение по-умолчанию равно дате создания)
+        /// </summary>
+        private DateTime _updated;
+
+        /// <summary>
         /// Запланированная дата
         /// </summary>
         private DateTime? _planned = null;
-
-        /// <summary>
-        /// Дата последнего обновления
-        /// TODO: Значение по-умолчанию равно дате создания?
-        /// </summary>
-        private DateTime? _updated = null;
 
         /// <summary>
         /// Конструктор по-умолчанию
@@ -31,20 +31,22 @@ namespace TimelonCl
         public DateTimeContainer(DateTime created)
         {
             _created = created;
+
+            Updated = created;
         }
 
         /// <summary>
         /// Конструктор с дополнительными датами
         /// </summary>
         /// <param name="created">Дата создания</param>
-        /// <param name="planned">Запланированная дата или null</param>
         /// <param name="updated">Дата последнего обновления или null</param>
-        public DateTimeContainer(DateTime created, DateTime? planned, DateTime? updated)
+        /// <param name="planned">Запланированная дата или null</param>
+        public DateTimeContainer(DateTime created, DateTime? updated, DateTime? planned)
         {
             _created = created;
 
+            Updated = updated ?? created;
             Planned = planned;
-            Updated = updated;
         }
 
         /// <summary>
@@ -56,6 +58,23 @@ namespace TimelonCl
         /// Доступ к дате создания
         /// </summary>
         public DateTime Created => _created;
+
+        /// <summary>
+        /// Доступ к дате последнего обновления
+        /// </summary>
+        public DateTime Updated
+        {
+            get => _updated;
+            set
+            {
+                if (value < _created)
+                {
+                    throw new ArgumentOutOfRangeException("updated не может быть раньше, чем created");
+                }
+
+                _updated = value;
+            }
+        }
 
         /// <summary>
         /// Доступ к запланированной дате
@@ -81,31 +100,12 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Доступ к дате последнего обновления
+        /// Проверить, задана ли дата последнего обновления
         /// </summary>
-        public DateTime? Updated
+        /// <returns>Статус проверки</returns>
+        public bool HasUpdated()
         {
-            get => _updated;
-            set
-            {
-                if (value == null)
-                {
-                    _updated = value;
-                    return;
-                }
-
-                if (value < _created)
-                {
-                    throw new ArgumentOutOfRangeException("updated не может быть раньше, чем created");
-                }
-
-                if (HasPlanned() && value > Planned)
-                {
-                    throw new ArgumentOutOfRangeException("updated не может быть позже, чем planned");
-                }
-
-                _updated = value;
-            }
+            return Updated != Created;
         }
 
         /// <summary>
@@ -117,13 +117,14 @@ namespace TimelonCl
             return Planned != null;
         }
 
-        /// <summary>
-        /// Проверить, задана ли дата последнего обновления
-        /// </summary>
-        /// <returns>Статус проверки</returns>
-        public bool HasUpdated()
+        public override string ToString()
         {
-            return Updated != null;
+            string result = $"CREATED: {Created}";
+
+            result += HasUpdated() ? $"\nUPDATED: {Updated}" : "";
+            result += HasPlanned() ? $"\nPLANNED: {Planned}" : "";
+
+            return result;
         }
     }
 
@@ -175,7 +176,7 @@ namespace TimelonCl
         public int Id
         {
             get => _id;
-            set
+            private set
             {
                 if (value < 0)
                 {
@@ -191,14 +192,12 @@ namespace TimelonCl
             get => _name;
             set
             {
-                value = value.Trim();
-
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("name не может быть пустой строкой");
                 }
 
-                _name = value;
+                _name = value.Trim();
             }
         }
 
@@ -226,8 +225,9 @@ namespace TimelonCl
         // TODO: Использовать xml?
         public override string ToString()
         {
-            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\nIMPORTANT: {IsImportant}\nCOMPLETE: {IsCompleted}\n" +
-                $"CREATED: {Date.Created}\nPLANNED: {Date.Planned}\nUPDATED: {Date.Updated}";
+            return $"ID: {Id}\nNAME: {Name}\nDESC: {Description}\n" +
+                $"IMPORTANT: {IsImportant}\nCOMPLETE: {IsCompleted}\n" +
+                Date.ToString();
         }
     }
 }
