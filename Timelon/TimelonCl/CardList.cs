@@ -17,8 +17,6 @@ namespace TimelonCl
 
     /// <summary>
     /// Список карт
-    /// TODO: Сортировка по дате создания?
-    /// TODO: Поиск по временному промежутку
     /// </summary>
     public class CardList : Unique<CardList>
     {
@@ -237,13 +235,34 @@ namespace TimelonCl
         /// <returns>Список карт</returns>
         public List<Card> SearchByContent(string content)
         {
-            List<Card> result = new List<Card>();
-            content = content.ToLower();
+            content = content.Trim().ToLower();
 
-            foreach (KeyValuePair<int, Card> card in _pool.AsQueryable().Where(item =>
-                item.Value.Name.ToLower().Contains(content) ||
-                item.Value.Description.ToLower().Contains(content))
-            )
+            List<Card> result = new List<Card>();
+            IEnumerable<KeyValuePair<int, Card>> source = _pool.AsQueryable().Where(
+                item => item.Value.Name.ToLower().Contains(content) ||
+                item.Value.Description.ToLower().Contains(content));
+
+            foreach (KeyValuePair<int, Card> card in source)
+            {
+                result.Add(card.Value);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Получить список карт по дате обновления в заданном промежутке
+        /// </summary>
+        /// <param name="minDate">Начало</param>
+        /// <param name="maxDate">Конец</param>
+        /// <returns>Список карт</returns>
+        public List<Card> SearchByDateUpdated(DateTime minDate, DateTime maxDate)
+        {
+            List<Card> result = new List<Card>();
+            IEnumerable<KeyValuePair<int, Card>> source = _pool.AsQueryable().Where(
+                item => minDate <= item.Value.Date.Updated && maxDate >= item.Value.Date.Updated);
+
+            foreach (KeyValuePair<int, Card> card in source)
             {
                 result.Add(card.Value);
             }
