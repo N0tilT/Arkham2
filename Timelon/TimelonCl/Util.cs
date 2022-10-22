@@ -75,6 +75,7 @@ namespace TimelonCl
 
         /// <summary>
         /// Получить следующую случайную дату текущего года
+        /// TODO: Добавить возможность задавать временные рамки
         /// </summary>
         /// <returns>Случайная дата</returns>
         public static DateTime NextDateTime()

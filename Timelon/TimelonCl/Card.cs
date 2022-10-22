@@ -220,7 +220,6 @@ namespace TimelonCl
 
         public DateTimeContainer Date => _date;
 
-        // TODO: Использовать xml?
         public override string ToString()
         {
             string result = $"ID: {Id}\nNAME: {Name}\nDESC: {Description}";

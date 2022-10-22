@@ -17,6 +17,8 @@ namespace TimelonCl
 
     /// <summary>
     /// Список карт
+    /// TODO: Сортировка по дате создания?
+    /// TODO: Поиск по временному промежутку
     /// </summary>
     public class CardList
     {
