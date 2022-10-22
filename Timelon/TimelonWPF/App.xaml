@@ -10,7 +10,6 @@
                 <ResourceDictionary Source="Theme/AddButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/SearchButtonTheme.xaml"/>
                 
-                <ResourceDictionary Source="Theme/AddListTextboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/AddCardTextboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/SearchTextboxTheme.xaml"/>
                 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,54 +13,160 @@ namespace TimelonWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        static string nextListName = "123123";
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        CardList _provider = new CardList("test");
+        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        //Хранилище подсписков
+        CardListManager listManager = new CardListManager(new List<CardList>()
+        { 
+            new CardList(Util.UniqueId(typeof(Card)), "Задачи"),
+            new CardList(Util.UniqueId(typeof(Card)), "Важные" )
+        });
+
+        static string selectedList = "Задачи";
+        static int selectedListID = 0;
+
+        //CardList _provider = new CardList(1,"test");
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _provider.Set(Card.Random());
+
+        //    string tmp = "";
+        //    List<Card> list = _provider.All.Values.ToList();
+
+        //    foreach (Card card in list)
+        //    {
+        //        tmp += card + "\n";
+        //    }
+
+        //    //tbCards.Text = tmp;
+        //}
+
+        private void AddListButton_Click(object sender, RoutedEventArgs e)
         {
-            _provider.Set(Card.Random());
-
-            string tmp = "";
-            List<Card> list = _provider.All.Values.ToList();
-
-            foreach (Card card in list)
+            foreach(RadioButton btn in MenuPanel.Children)
             {
-                tmp += card + "\n";
+                btn.IsChecked = false;
             }
 
-            //tbCards.Text = tmp;
+            AddListToMenu(AddListTextbox.Text);
+
+            
+
+            CardList nextList = new CardList(listManager.All.Count, AddListTextbox.Text);
+
+            //Добавляем подсписок в хранилище
+            listManager.SetList(nextList);
+
+            ShowList(nextList);
+
+            AddListTextbox.Text = "";
+
         }
 
-        private void Button_Click_AddList(object sender, RoutedEventArgs e)
+        private void ShowList(CardList nextList)
+        {
+            CardsPanel.Children.Clear();
+
+            selectedList = nextList.Name;
+            selectedListID = nextList.Id;
+
+            foreach(Card card in nextList.GetListDefault())
+            {
+                AddCardToMenu(card.Name);
+            }
+
+        }
+
+        private void AddListToMenu(string text)
         {
             RadioButton nextList = new RadioButton();
             nextList.Height = 50;
             nextList.Foreground = new SolidColorBrush(Colors.White);
             nextList.FontSize = 14;
-            //nextList.Content = "123123";
-
-            Style tbStyle = (Style)AddListTextbox.FindResource("AddListTextBox");
-
-            nextList.Content = nextListName;
-
+            nextList.Content = text;
+            nextList.IsChecked = true;
             nextList.Style = (Style)TaskButton.FindResource("MenuButtonTheme");
-
-            MessageBox.Show(nextList.Content.ToString());
-
+            nextList.Click += ListMenuButton_Click;
             MenuPanel.Children.Add(nextList);
-
-            //nextList.Style = (Style)Resources["MenuButtonTheme"];
-
         }
 
-        private void AddListTextbox_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+
+        private void AddListTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            nextListName = AddListTextbox.Text;
+            TemplateList.Visibility = AddListTextbox.Text == "" ? Visibility.Visible : Visibility.Hidden;
+        }
+
+
+        private void AddCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddCardToMenu(AddCardTextbox.Text);
+            listManager.GetList(selectedListID).Set(new Card(Util.UniqueId(typeof(Card)), AddCardTextbox.Text, ""));
+            ShowList(listManager.GetList(selectedListID));
+
+            AddCardTextbox.Text = "";
+        }
+
+        private void AddCardToMenu(string text)
+        {
+            RadioButton nextCard = new RadioButton();
+            nextCard.Height = 50;
+            nextCard.Foreground = new SolidColorBrush(Colors.White);
+            nextCard.FontSize = 14;
+            nextCard.Content = text;
+
+            nextCard.Style = (Style)TaskButton.FindResource("MenuButtonTheme");
+
+            CardsPanel.Children.Add(nextCard);
+        }
+
+        private void AddCardTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TemplateCard.Visibility = AddCardTextbox.Text == "" ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton nextCard = new RadioButton();
+            nextCard.Height = 50;
+            nextCard.Foreground = new SolidColorBrush(Colors.White);
+            nextCard.FontSize = 14;
+            nextCard.Content = SearchTextbox.Text;
+
+            nextCard.Style = (Style)TaskButton.FindResource("MenuButtonTheme");
+
+            CardsPanel.Children.Add(nextCard);
+
+            SearchTextbox.Text = "";
+        }
+
+        private void SearchTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TemplateSearch.Visibility = SearchTextbox.Text == "" ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void ListMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton selectedList = sender as RadioButton;
+
+            SortedList<int, CardList> pool = listManager.All;
+
+            for (int i = 0; i < pool.Count; i++)
+            {
+                if(pool[i].Name == (string)selectedList.Content)
+                {
+                    selectedListID = pool[i].Id;
+                    break;
+                }
+            }
+            ShowList(listManager.GetList(selectedListID));
+
         }
     }
 }
