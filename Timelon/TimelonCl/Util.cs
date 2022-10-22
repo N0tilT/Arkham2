@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Threading;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace TimelonCl
 {
@@ -22,7 +22,7 @@ namespace TimelonCl
         {
             int result = _incrementor;
 
-            System.Threading.Interlocked.Increment(ref _incrementor);
+            Interlocked.Increment(ref _incrementor);
             return result;
         }
     }
@@ -87,17 +87,36 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Получить следующую случайную дату текущего года
-        /// TODO: Добавить возможность задавать временные рамки
+        /// Получить следующие случайные дату и время текущего года
         /// </summary>
-        /// <returns>Случайная дата</returns>
+        /// <returns>Случайные дата и время</returns>
         public static DateTime NextDateTime()
         {
             int year = DateTime.Today.Year;
-            int month = Random.Next(1, 12);
-            int day = Random.Next(1, DateTime.DaysInMonth(year, month));
 
-            return new DateTime(year, month, day);
+            DateTime minDate = new DateTime(year, 1, 1);
+            DateTime maxDate = new DateTime(year, 12, DateTime.DaysInMonth(year, 12));
+
+            return NextDateTime(minDate, maxDate);
+        }
+
+        /// <summary>
+        /// Получить следующие случайные дату и время в заданном промежутке
+        /// </summary>
+        /// <param name="minDate">Начало</param>
+        /// <param name="maxDate">Конец</param>
+        /// <returns>Случайные дата и время</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static DateTime NextDateTime(DateTime minDate, DateTime maxDate)
+        {
+            if (minDate >= maxDate)
+            {
+                throw new ArgumentException("minDate не может быть позже, чем maxDate");
+            }
+            
+            int range = (int)(maxDate - minDate).TotalSeconds;
+
+            return minDate.AddSeconds(Random.Next(range));
         }
     }
 }
