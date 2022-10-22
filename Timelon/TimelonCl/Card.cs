@@ -24,23 +24,12 @@ namespace TimelonCl
         private DateTime? _planned = null;
 
         /// <summary>
-        /// Конструктор по-умолчанию
-        /// </summary>
-        /// <param name="created">Дата создания</param>
-        public DateTimeContainer(DateTime created)
-        {
-            _created = created;
-
-            Updated = created;
-        }
-
-        /// <summary>
-        /// Конструктор с дополнительными датами
+        /// Конструктор
         /// </summary>
         /// <param name="created">Дата создания</param>
         /// <param name="updated">Дата последнего обновления или null</param>
         /// <param name="planned">Запланированная дата или null</param>
-        public DateTimeContainer(DateTime created, DateTime? updated, DateTime? planned)
+        public DateTimeContainer(DateTime created, DateTime? updated = null, DateTime? planned = null)
         {
             _created = created;
 
@@ -127,48 +116,57 @@ namespace TimelonCl
         }
     }
 
-    public class Card
+    public class Card : Unique<Card>
     {
         private int _id;
         private string _name;
-        private string _description;
-        private bool _isImportant;
-        private bool _isCompleted;
+        private DateTimeContainer _date;
 
-        private readonly DateTimeContainer _date;
+        private string _description = String.Empty;
+        private bool _isImportant = false;
+        private bool _isCompleted = false;
 
-        public Card(int id, string name, string desc, bool isImportant, bool isCompleted, DateTimeContainer date)
+        public Card(int id, string name, DateTimeContainer date, string description, bool isImportant, bool isCompleted)
         {
             Id = id;
             Name = name;
-            Description = desc;
+            Date = date;
+
+            Description = description;
             IsImportant = isImportant;
             IsCompleted = isCompleted;
-
-            _date = date;
         }
 
-        public Card(int id, string name, string desc = "")
+        public Card(int id, string name, DateTimeContainer date)
         {
             Id = id;
             Name = name;
-            Description = desc;
-            IsImportant = false;
-            IsCompleted = false;
+            Date = date;
+        }
 
-            _date = DateTimeContainer.Now;
+        /// <summary>
+        /// Создать новую карту
+        /// </summary>
+        /// <param name="name">Название</param>
+        /// <param name="created">Дата создания или null</param>
+        /// <returns>Новая карта</returns>
+        public static Card Make(string name, DateTime? created = null)
+        {
+            DateTimeContainer date = new DateTimeContainer(created ?? DateTime.Now);
+
+            return new Card(UniqueId(), name, date);
         }
 
         // Для тестов
         public static Card Random()
         {
             return new Card(
-                Util.UniqueId(typeof(Card)),
+                UniqueId(),
                 Util.NextString(4, 8),
+                new DateTimeContainer(Util.NextDateTime()),
                 Util.NextString(16, 32),
                 Util.NextBool(),
-                Util.NextBool(),
-                new DateTimeContainer(Util.NextDateTime())
+                Util.NextBool()
             );
         }
 
@@ -200,6 +198,12 @@ namespace TimelonCl
             }
         }
 
+        public DateTimeContainer Date
+        {
+            get => _date;
+            private set => _date = value;
+        }
+
         public string Description
         {
             get => _description;
@@ -218,15 +222,13 @@ namespace TimelonCl
             set => _isCompleted = value;
         }
 
-        public DateTimeContainer Date => _date;
-
         public override string ToString()
         {
-            string result = $"ID: {Id}\nNAME: {Name}\nDESC: {Description}";
+            string result = $"ID: {Id}\nNAME: {Name}\n{Date}";
 
+            result += !String.IsNullOrWhiteSpace(Description) ? $"\nDESC: {Description}" : "";
             result += IsImportant ? $"\nIMPORTANT: {IsImportant}" : "";
             result += IsCompleted ? $"\nCOMPLETED: {IsCompleted}" : "";
-            result += "\n" + Date;
 
             return result;
         }

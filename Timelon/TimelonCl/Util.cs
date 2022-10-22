@@ -5,6 +5,29 @@ using System.Collections.Generic;
 namespace TimelonCl
 {
     /// <summary>
+    /// Абстрактный класс для безопасной генерации уникальных идентификаторов
+    /// </summary>
+    public abstract class Unique<T>
+    {
+        /// <summary>
+        /// Счетчик
+        /// </summary>
+        private static int _incrementor = 0;
+
+        /// <summary>
+        /// Получить следующий уникальный идентификатор
+        /// </summary>
+        /// <returns>Уникальный идентификатор</returns>
+        protected static int UniqueId()
+        {
+            int result = _incrementor;
+
+            System.Threading.Interlocked.Increment(ref _incrementor);
+            return result;
+        }
+    }
+
+    /// <summary>
     /// Класс различных вспомогательных функций
     /// </summary>
     public static class Util
@@ -15,19 +38,9 @@ namespace TimelonCl
         private static readonly Random _random = new Random();
 
         /// <summary>
-        /// Глобальный список статических счетчиков
-        /// </summary>
-        private static readonly SortedList<string, int> _incrementor = new SortedList<string, int>();
-
-        /// <summary>
         /// Доступ к генератору псевдо-случайных чисел
         /// </summary>
         public static Random Random => _random;
-
-        /// <summary>
-        /// Доступ к списку статических счетчиков
-        /// </summary>
-        public static SortedList<string, int> Incrementor => _incrementor;
 
         /// <summary>
         /// Получить следующее случайное булевое значение
@@ -85,23 +98,6 @@ namespace TimelonCl
             int day = Random.Next(1, DateTime.DaysInMonth(year, month));
 
             return new DateTime(year, month, day);
-        }
-
-        /// <summary>
-        /// Получить уникальный идентификатор для указанного типа данных
-        /// </summary>
-        /// <param name="type">Задекларированный тип</param>
-        /// <returns>Уникальный идентификатор</returns>
-        public static int UniqueId(Type type)
-        {
-            string key = type.Name;
-            
-            if (!Incrementor.ContainsKey(key))
-            {
-                Incrementor.Add(key, 0);
-            }
-
-            return Incrementor[key]++;
         }
     }
 }

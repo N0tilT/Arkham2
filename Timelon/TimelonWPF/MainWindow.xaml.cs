@@ -24,8 +24,8 @@ namespace TimelonWPF
         //Хранилище подсписков
         CardListManager listManager = new CardListManager(new List<CardList>()
         { 
-            new CardList(Util.UniqueId(typeof(Card)), "Задачи"),
-            new CardList(Util.UniqueId(typeof(Card)), "Важные" )
+            CardList.Make("Задачи"),
+            CardList.Make("Важные")
         });
 
         static string selectedList = "Задачи";
@@ -107,7 +107,7 @@ namespace TimelonWPF
         private void AddCardButton_Click(object sender, RoutedEventArgs e)
         {
             AddCardToMenu(AddCardTextbox.Text);
-            listManager.GetList(selectedListID).Set(new Card(Util.UniqueId(typeof(Card)), AddCardTextbox.Text, ""));
+            listManager.GetList(selectedListID).Set(Card.Make(AddCardTextbox.Text));
             ShowList(listManager.GetList(selectedListID));
 
             AddCardTextbox.Text = "";

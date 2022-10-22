@@ -10,7 +10,9 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCustomCard:");
 
-            Card card = new Card(Util.UniqueId(typeof(Card)), "customName", "This is a custom new card");
+            Card card = Card.Make("customName");
+
+            card.Description = "This is a custom new card";
 
             Console.WriteLine(card);
             Console.WriteLine();
@@ -32,7 +34,7 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCardList:");
 
-            CardList list = new CardList(Util.UniqueId(typeof(CardList)), "customName");
+            CardList list = CardList.Make("customName");
 
             for (int i = 0; i < 20; i++)
             {
@@ -83,7 +85,7 @@ namespace TimelonCA
 
             for(int i = 0; i < 3; i++)
             {
-                CardList list = new CardList(Util.UniqueId(typeof(CardList)), Util.NextString(8, 16));
+                CardList list = CardList.Make(Util.NextString(8, 16));
 
                 for (int j = 0; j < 5; j++)
                 {

@@ -20,7 +20,7 @@ namespace TimelonCl
     /// TODO: Сортировка по дате создания?
     /// TODO: Поиск по временному промежутку
     /// </summary>
-    public class CardList
+    public class CardList : Unique<CardList>
     {
         /// <summary>
         /// Уникальный идентификатор
@@ -86,6 +86,16 @@ namespace TimelonCl
             {
                 Set(card);
             }
+        }
+
+        /// <summary>
+        /// Создать новый список карт
+        /// </summary>
+        /// <param name="name">Название</param>
+        /// <returns>Новый список карт</returns>
+        public static CardList Make(string name)
+        {
+            return new CardList(UniqueId(), name);
         }
 
         /// <summary>
