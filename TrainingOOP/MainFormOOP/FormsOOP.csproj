@@ -99,6 +99,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StudentWF.resx">
+      <DependentUpon>StudentWF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeacherWF.resx">
+      <DependentUpon>TeacherWF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VehicleWF.resx">
+      <DependentUpon>VehicleWF.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

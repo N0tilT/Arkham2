@@ -41,7 +41,6 @@ namespace MainFormOOP
             this.label5 = new System.Windows.Forms.Label();
             this.bCalculate = new System.Windows.Forms.Button();
             this.Rezult = new System.Windows.Forms.TextBox();
-            this.comboBoxOperations = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // Size
@@ -136,7 +135,8 @@ namespace MainFormOOP
             // 
             // bCalculate
             // 
-            this.bCalculate.Location = new System.Drawing.Point(647, 26);
+            this.bCalculate.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bCalculate.Location = new System.Drawing.Point(647, 34);
             this.bCalculate.Name = "bCalculate";
             this.bCalculate.Size = new System.Drawing.Size(188, 59);
             this.bCalculate.TabIndex = 10;
@@ -155,28 +155,11 @@ namespace MainFormOOP
             this.Rezult.Size = new System.Drawing.Size(779, 342);
             this.Rezult.TabIndex = 11;
             // 
-            // comboBoxOperations
-            // 
-            this.comboBoxOperations.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.comboBoxOperations.FormattingEnabled = true;
-            this.comboBoxOperations.Items.AddRange(new object[] {
-            "Сложение матриц",
-            "Вычитание матриц",
-            "Умножение матрицы на число",
-            "Возведение мвтрицы в степень",
-            "Транспонирование матрицы",
-            "Поиск определителя"});
-            this.comboBoxOperations.Location = new System.Drawing.Point(647, 116);
-            this.comboBoxOperations.Name = "comboBoxOperations";
-            this.comboBoxOperations.Size = new System.Drawing.Size(188, 36);
-            this.comboBoxOperations.TabIndex = 12;
-            // 
             // MatrixWF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 652);
-            this.Controls.Add(this.comboBoxOperations);
             this.Controls.Add(this.Rezult);
             this.Controls.Add(this.bCalculate);
             this.Controls.Add(this.label5);
@@ -210,6 +193,5 @@ namespace MainFormOOP
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button bCalculate;
         private System.Windows.Forms.TextBox Rezult;
-        private System.Windows.Forms.ComboBox comboBoxOperations;
     }
 }

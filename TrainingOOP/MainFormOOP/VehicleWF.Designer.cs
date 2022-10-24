@@ -29,12 +29,47 @@ namespace MainFormOOP
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.ShowInfo = new System.Windows.Forms.Button();
+            this.VehicleInfo = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // ShowInfo
+            // 
+            this.ShowInfo.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ShowInfo.Location = new System.Drawing.Point(37, 29);
+            this.ShowInfo.Name = "ShowInfo";
+            this.ShowInfo.Size = new System.Drawing.Size(368, 71);
+            this.ShowInfo.TabIndex = 0;
+            this.ShowInfo.Text = "Информация об автомобиле";
+            this.ShowInfo.UseVisualStyleBackColor = true;
+            this.ShowInfo.Click += new System.EventHandler(this.ShowInfo_Click);
+            // 
+            // VehicleInfo
+            // 
+            this.VehicleInfo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.VehicleInfo.Location = new System.Drawing.Point(37, 123);
+            this.VehicleInfo.Multiline = true;
+            this.VehicleInfo.Name = "VehicleInfo";
+            this.VehicleInfo.Size = new System.Drawing.Size(742, 467);
+            this.VehicleInfo.TabIndex = 1;
+            // 
+            // VehicleWF
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(809, 617);
+            this.Controls.Add(this.VehicleInfo);
+            this.Controls.Add(this.ShowInfo);
+            this.Name = "VehicleWF";
             this.Text = "Vehicle";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button ShowInfo;
+        private System.Windows.Forms.TextBox VehicleInfo;
     }
 }

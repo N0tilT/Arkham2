@@ -29,12 +29,48 @@ namespace MainFormOOP
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.buttonStudents = new System.Windows.Forms.Button();
+            this.StudentInfo = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // buttonStudents
+            // 
+            this.buttonStudents.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStudents.Location = new System.Drawing.Point(28, 27);
+            this.buttonStudents.Name = "buttonStudents";
+            this.buttonStudents.Size = new System.Drawing.Size(221, 57);
+            this.buttonStudents.TabIndex = 0;
+            this.buttonStudents.Text = "Студенты";
+            this.buttonStudents.UseVisualStyleBackColor = true;
+            this.buttonStudents.Click += new System.EventHandler(this.buttonStudents_Click);
+            // 
+            // StudentInfo
+            // 
+            this.StudentInfo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StudentInfo.Location = new System.Drawing.Point(28, 104);
+            this.StudentInfo.Multiline = true;
+            this.StudentInfo.Name = "StudentInfo";
+            this.StudentInfo.ReadOnly = true;
+            this.StudentInfo.Size = new System.Drawing.Size(719, 325);
+            this.StudentInfo.TabIndex = 1;
+            // 
+            // StudentWF
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(792, 488);
+            this.Controls.Add(this.StudentInfo);
+            this.Controls.Add(this.buttonStudents);
+            this.Name = "StudentWF";
             this.Text = "Student";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button buttonStudents;
+        private System.Windows.Forms.TextBox StudentInfo;
     }
 }
