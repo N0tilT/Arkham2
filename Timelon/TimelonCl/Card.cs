@@ -203,7 +203,6 @@ namespace TimelonCl
             get => _date;
             private set => _date = value;
         }
-
         public string Description
         {
             get => _description;

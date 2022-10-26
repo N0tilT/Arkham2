@@ -12,6 +12,9 @@
                 
                 <ResourceDictionary Source="Theme/AddCardTextboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/SearchTextboxTheme.xaml"/>
+
+                <ResourceDictionary Source="Theme/CardTheme.xaml"/>
+                
                 
                 <ResourceDictionary Source="Theme/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>

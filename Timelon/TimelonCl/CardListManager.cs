@@ -62,5 +62,21 @@ namespace TimelonCl
         {
             return _list.Remove(id);
         }
+
+        public CardList GlobalSearchByContent(string content)
+        {
+            List<Card> result = new List<Card>();
+
+            for (int i = 0; i < _list.Count; i++)
+            {
+                CardList cardList = _list.Values[i]; 
+                List<Card> found = cardList.SearchByContent(content);
+                foreach (Card card in found) result.Add(card);
+            }
+
+
+            return new CardList(0,"GlobalSearchResult",result);
+        }
+
     }
 }
