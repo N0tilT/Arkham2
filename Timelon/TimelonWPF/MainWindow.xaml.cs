@@ -16,6 +16,7 @@ namespace TimelonWPF
         public MainWindow()
         {
             InitializeComponent();
+            Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(layoutRoot_MouseLeftButtonDown);
         }
 
         //Хранилище подсписков
@@ -32,6 +33,12 @@ namespace TimelonWPF
 
 
         #region ClickEvents
+
+        void layoutRoot_MouseLeftButtonDown(object sender, EventArgs e)
+        {
+            this.DragMove();
+        }
+
 
         /// <summary>
         /// Нажатие кнопки "Добавить список" в меню

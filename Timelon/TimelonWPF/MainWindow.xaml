@@ -30,8 +30,7 @@
             </Grid.RowDefinitions>
 
             <!--Фон для списка карточек-->
-            <Rectangle Grid.Column="0" Grid.RowSpan="3"/>
-
+            <Rectangle Grid.Column="0" Grid.Row="1"  Grid.RowSpan="2"/>
             <!--Фон для списка карточек-->
             <Rectangle Grid.Column="1" Grid.RowSpan="3">
                 <Rectangle.Fill>
@@ -47,11 +46,18 @@
             <Rectangle Grid.Column="2" Grid.RowSpan="3"/>
 
             <!--Заглавие-->
-            <TextBlock Text="Timelon"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Foreground="White"
-                       FontSize="22" Margin="81,23,81,22"/>
+            <Border x:Name ="Title">
+                <TextBlock x:Name="TitleText"
+                           Text="Timelon"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Stretch"
+                           TextAlignment="Center"
+                           Padding="20"
+                           Foreground="White"
+                           FontSize="22"/>
+            </Border>
+                
+            
 
             <!--Меню списков-->
             <StackPanel x:Name="MenuPanel"
