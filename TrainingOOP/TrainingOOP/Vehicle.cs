@@ -224,6 +224,7 @@ namespace TrainingOOP
         {
             set { if (Enum.GetNames(_transmissions).Contains(value.ToString())) _transmissionType = value; }
         }
+
         public SteeringWheelPosition GetSteeringWheelPosition
         {
             get { return _steeringWheel; }
@@ -278,6 +279,7 @@ namespace TrainingOOP
                 else throw new PTSException(PTSTYPE_INCORRECT);
             }
         }
+
         public int NumberOfOwners
         {
             get { return _numberOfOwners; }

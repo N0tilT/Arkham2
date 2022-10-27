@@ -63,7 +63,12 @@ namespace TimelonCl
             return _list.Remove(id);
         }
 
-        public CardList GlobalSearchByContent(string content)
+        /// <summary>
+        /// Поиск по части названия или описания по всем подспискам
+        /// </summary>
+        /// <param name="content">искомое значение</param>
+        /// <returns>Список найденных карт</returns>
+        public List<Card> GlobalSearchByContent(string content)
         {
             List<Card> result = new List<Card>();
 
@@ -74,7 +79,7 @@ namespace TimelonCl
             }
 
 
-            return new CardList(0,"GlobalSearchResult",result);
+            return result;
         }
 
     }

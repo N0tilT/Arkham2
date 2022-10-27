@@ -82,7 +82,7 @@ namespace TimelonWPF
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
 
-            CardList searchResult = listManager.GlobalSearchByContent(SearchTextbox.Text);
+            List<Card> searchResult = listManager.GlobalSearchByContent(SearchTextbox.Text);
 
             ShowSearchResult(searchResult);
 
@@ -200,9 +200,9 @@ namespace TimelonWPF
 
         }
 
-        private void ShowSearchResult(CardList searchResult)
+        private void ShowSearchResult(List<Card> searchResult)
         {
-            foreach (Card card in searchResult.All.Values)
+            foreach (Card card in searchResult)
             {
                 ShowFoundCard(card);
             }
