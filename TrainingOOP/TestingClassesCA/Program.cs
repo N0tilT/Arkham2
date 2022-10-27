@@ -17,7 +17,7 @@ namespace TestingClassesCA
 
             Console.WriteLine("_____\nТестирование класса Teacher\n_____");
             test.TeacherTest();
-
+            /*
             Console.WriteLine("_____\nТестирование класса Vehicle\n_____");
             test.TestVehicleProps();
             test.TestVehicleUsed();
@@ -27,7 +27,7 @@ namespace TestingClassesCA
 
             Console.WriteLine("_____\nТестирование класса Matrix\n_____");
             test.TestMatrix();
-
+            */
             Console.ReadKey();
         }
     }

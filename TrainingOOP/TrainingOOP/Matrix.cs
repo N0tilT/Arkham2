@@ -9,6 +9,7 @@ namespace TrainingOOP
 {
     public class Matrix    //Вадим
     {
+        #region fields
         private int n;
         private double[,] mas;
         public int N
@@ -28,7 +29,9 @@ namespace TrainingOOP
             set
             { mas[i, j] = value; }
         }
+        #endregion
 
+        #region constructors
         //Ручной ввод матрицы
         /*
         public void MakeMatrix()
@@ -58,7 +61,9 @@ namespace TrainingOOP
             }
             Thread.Sleep(11);
         }
+        #endregion
 
+        #region functions
         //Сложение матриц
         private static Matrix SummMatrix(Matrix a, Matrix b)
         {
@@ -218,5 +223,6 @@ namespace TrainingOOP
         {
             return TranMatrix(a);
         }
+        #endregion
     }
 }

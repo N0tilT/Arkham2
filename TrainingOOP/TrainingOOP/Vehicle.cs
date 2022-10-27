@@ -14,6 +14,7 @@ namespace TrainingOOP
     /// </summary>
     public class Vehicle
     {
+        #region exceptions
         const string VIN_TOO_SHORT =
             "Введённый VIN слишком короткий. Необходимая длина - 17 символов";
         const string VIN_TOO_LONG =
@@ -40,7 +41,9 @@ namespace TrainingOOP
             "Неверно введено состояние автомобиля";
         const string PTSTYPE_INCORRECT =
             "Неверно введён тип ПТС";
+        #endregion
 
+        #region enum
         public enum Used
         {
             новый,
@@ -102,188 +105,191 @@ namespace TrainingOOP
             фургон,
             внедорожник
         }
-        Color color;
-        string vin;
-        string gosID;
-        string brand;
-        string model;
-        int releaseYear;
-        Body body;
-        Type bodys = typeof(Body);
-        int numberOfDoors;
-        EngineType engineType;
-        Type engines = typeof(EngineType);
-        DriveType driveType;
-        Type drives = typeof(DriveType);
-        Transmission transmissionType;
-        Type transmissions = typeof(Transmission);
-        SteeringWheelPosition steeringWheel;
-        Type steering = typeof(SteeringWheelPosition);
-        int mileage;
+        #endregion
 
-        Used used;
+        #region fields
+        Color _color;
+        string _vin;
+        string _gosID;
+        string _brand;
+        string _model;
+        int _releaseYear;
+        Body _body;
+        Type _bodys = typeof(Body);
+        int _numberOfDoors;
+        EngineType _engineType;
+        Type _engines = typeof(EngineType);
+        DriveType _driveType;
+        Type _drives = typeof(DriveType);
+        Transmission _transmissionType;
+        Type _transmissions = typeof(Transmission);
+        SteeringWheelPosition _steeringWheel;
+        Type _steering = typeof(SteeringWheelPosition);
+        int _mileage;
 
-        Condition condition;
-        Type conditions = typeof(Condition);
-        PTS pts;
-        Type ptstypes = typeof(PTS);
-        int numberOfOwners;
+        Used _used;
+
+        Condition _condition;
+        Type _conditions = typeof(Condition);
+        PTS _pts;
+        Type _ptstypes = typeof(PTS);
+        int _numberOfOwners;
 
 
         public Color Getcolor 
         {
-            get { return color; }
+            get { return _color; }
         }
         public Color Setcolor
         {
-            set { color = Color.FromName(value.ToString());}
+            set { _color = Color.FromName(value.ToString());}
         }
         public string VIN 
         {
-            get { return vin; }
-            set { if (vin == null) vin = value; } 
+            get { return _vin; }
+            set { if (_vin == null) _vin = value; } 
         }
         public string GosID 
         {
-            get { return gosID; }
-            set { if (gosID == null) gosID = value; }
+            get { return _gosID; }
+            set { if (_gosID == null) _gosID = value; }
         }
 
         public string Brand 
         {
-            get { return brand; }
-            set { if (brand == null) brand = value; } 
+            get { return _brand; }
+            set { if (_brand == null) _brand = value; } 
         }
         public string Model
         {
-            get { return model; }
-            set { if (model == null) model = value; }
+            get { return _model; }
+            set { if (_model == null) _model = value; }
         }
 
         public int ReleaseYear
         {
-            get { return releaseYear; }
+            get { return _releaseYear; }
             set 
-            { if (value > 1890 || value < 2022) releaseYear = value;
+            { if (value > 1890 || value < 2022) _releaseYear = value;
                 else throw new YearException(YEAR_INCORRECT);
             }
         }
         public Body GetBody 
         {
-            get { return body; }
+            get { return _body; }
         }
         public Body SetBody
         {
-            set { if (Enum.GetNames(bodys).Contains(value.ToString())) body = value;
+            set { if (Enum.GetNames(_bodys).Contains(value.ToString())) _body = value;
                 else throw new BodyException(BODY_INCORRECT);
             }
         }
 
         public int NumberOfDoors 
         {
-            get {return numberOfDoors; }
+            get {return _numberOfDoors; }
             set {
                 
-                if (value > 1) numberOfDoors = value;
+                if (value > 1) _numberOfDoors = value;
                 else throw new DoorsException(DOOR_INCORRECT);
             } 
         }
 
         public EngineType GetEngineType 
         { 
-            get { return engineType; }
+            get { return _engineType; }
         }
         public EngineType SetEngineType
         {
-            set{ if (Enum.GetNames(engines).Contains(value.ToString())) engineType = value;
+            set{ if (Enum.GetNames(_engines).Contains(value.ToString())) _engineType = value;
                 else throw new EngineTypeException(ENGINETYPE_INCORRECT);
             }
         }
 
         public DriveType GetDriveType
         { 
-            get { return driveType; }
+            get { return _driveType; }
         }
         public DriveType SetDriveType
         {
-            set { if (Enum.GetNames(drives).Contains(value.ToString())) driveType = value; }
+            set { if (Enum.GetNames(_drives).Contains(value.ToString())) _driveType = value; }
         }
 
         public Transmission GetTransmissionType
         {
-            get { return transmissionType; }
+            get { return _transmissionType; }
         }
         public Transmission SetTransmissionType
         {
-            set { if (Enum.GetNames(transmissions).Contains(value.ToString())) transmissionType = value; }
+            set { if (Enum.GetNames(_transmissions).Contains(value.ToString())) _transmissionType = value; }
         }
         public SteeringWheelPosition GetSteeringWheelPosition
         {
-            get { return steeringWheel; }
+            get { return _steeringWheel; }
         }
         public SteeringWheelPosition SetSteeringWheelPosition
         {
-            set { if (Enum.GetNames(steering).Contains(value.ToString())) steeringWheel = value; }
+            set { if (Enum.GetNames(_steering).Contains(value.ToString())) _steeringWheel = value; }
         }
         public int Mileage 
         {
-            get {return mileage; }
+            get {return _mileage; }
             set {if (value > 0)
                 {
-                    mileage = value;
-                    used = Used.с_пробегом;
+                    _mileage = value;
+                    _used = Used.с_пробегом;
                 }
                 else if (value == 0)
                 {
-                    mileage = value;
-                    used = Used.новый;
+                    _mileage = value;
+                    _used = Used.новый;
                 }
                 else throw new MileageException(MILEAGE_INCORRECT);
             } 
         }
         public Used GetUsed
         { 
-            get { return used; } 
+            get { return _used; } 
         }
 
         public Condition GetCondition
         {
-            get { return condition; }
+            get { return _condition; }
         }
         public Condition SetCondition
         {
-            set { if (Enum.GetNames(conditions).Contains(value.ToString()))
+            set { if (Enum.GetNames(_conditions).Contains(value.ToString()))
                 {
-                    condition = value;
-                    if (condition == Condition.Не_требует_ремонта) used = Used.новый;
-                    else used = Used.с_пробегом;
+                    _condition = value;
+                    if (_condition == Condition.Не_требует_ремонта) _used = Used.новый;
+                    else _used = Used.с_пробегом;
                 }
                 else throw new ConditionException(CONDITION_INCORRECT);
             }
         }
         public PTS GetPTS
         {
-            get { return pts; }
+            get { return _pts; }
         }
         public PTS SetPTS
         {
-            set { if (Enum.GetNames(ptstypes).Contains(value.ToString())) pts = value;
+            set { if (Enum.GetNames(_ptstypes).Contains(value.ToString())) _pts = value;
                 else throw new PTSException(PTSTYPE_INCORRECT);
             }
         }
         public int NumberOfOwners
         {
-            get { return numberOfOwners; }
+            get { return _numberOfOwners; }
             set { if (value >= 0)
                 {
-                    numberOfOwners = value;
-                    if (numberOfOwners == 0) used = Used.новый;
-                    else used = Used.с_пробегом;
+                    _numberOfOwners = value;
+                    if (_numberOfOwners == 0) _used = Used.новый;
+                    else _used = Used.с_пробегом;
                 }
                 else throw new OwnersException(OWNERS_INCORRECT);
             } 
         }
-
+        #endregion
     }
 
     [Serializable]

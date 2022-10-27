@@ -132,6 +132,7 @@ namespace TestingClassesCA
                 StudingYears = 6,
                 SumDebt = 2
             };
+            Teacher.AddStud(std1);
             PrintStudentProps(std1);
             Student std2 = new Student
             {
@@ -141,6 +142,7 @@ namespace TestingClassesCA
                 StudingYears = 2,
                 SumDebt = 0
             };
+            Teacher.AddStud(std2);
             PrintStudentProps(std2);
             Student std3 = new Student
             {
@@ -150,6 +152,7 @@ namespace TestingClassesCA
                 StudingYears = 1,
                 SumDebt = 6
             };
+            Teacher.AddStud(std3);
             PrintStudentProps(std3);
         }
 
@@ -170,7 +173,8 @@ namespace TestingClassesCA
                 Positions = "Доцент",
                 Workplace = "ТвГУ",
                 Experience = 6,
-                Phone = "89607183375"
+                Phone = "89607183375",
+                Idstud = {0,1,2,3}
             };
             PrintTeacher(teach1);
             Teacher teach2 = new Teacher
@@ -180,7 +184,8 @@ namespace TestingClassesCA
                 Positions = "Декан",
                 Workplace = "ТвГTУ",
                 Experience = 16,
-                Phone = "89607186375"
+                Phone = "89607186375",
+                Idstud = {0,2}
             };
             PrintTeacher(teach2);
             Teacher teach3 = new Teacher
@@ -200,7 +205,8 @@ namespace TestingClassesCA
                 Positions = "Старший преподаватель",
                 Workplace = "ТвГТУ",
                 Experience = 2,
-                Phone = "89578193475"
+                Phone = "89578193475",
+                Idstud = {1,3}
             };
             PrintTeacher(teach4);
             Teacher teach5 = new Teacher
@@ -220,9 +226,29 @@ namespace TestingClassesCA
                 "Опыт работы: {3}, Ученая степень: {4}, Занимаемая должность: {5}, Контактный номер: {6}",
                 teach.Name, teach.Degree, teach.Workplace, teach.Experience,
                 teach.GetAcademicTitle, teach.Positions, teach.Phone);
+            if (teach.Idstud.Count != 0)
+            {
+                Console.Write("Принадлежащая группа студентов: ");
+                PrintStuds(teach.Idstud);
+                Console.WriteLine();
+            }
             Console.WriteLine();
         }
 
+        static void PrintStuds(List<int> i)
+        {
+            int a;
+            for (int j = 0; j < i.Count; j++)
+            {
+                a = i[j];
+                PrintStud(Teacher.StudList[a]);
+            }
+        }
+
+        static void PrintStud(Student std)
+        {
+            Console.Write(std.Name + " ");
+        }
         /// <summary>
         /// Тестирование класса Complex
         /// </summary>

@@ -14,7 +14,7 @@ namespace TrainingOOP
     /// </summary>
     public class Student
     {
-
+        #region enums
         public enum Stage //список перечислений форм обучения
         {
             бакалавриат,
@@ -27,16 +27,19 @@ namespace TrainingOOP
             имеет_задолженности,
             отчислен
         }
-        //поля 
-        string name; //Имя 
-        string univer; //Университет
-        string facult = ""; //Факультет(закрытое поле)
-        int years; //Суммарные годы обучения
-        int course; //Курс
-        int sumdebt; //Число долгов
-        Stage stage;
-        Status status;
+        #endregion
 
+        #region fields
+        //поля 
+        string _name; //Имя 
+        string _univer; //Университет
+        string _facult = ""; //Факультет(закрытое поле)
+        int _years; //Суммарные годы обучения
+        int _course; //Курс
+        int _sumdebt; //Число долгов
+        Stage _stage;
+        Status _status;
+        
         //методы - свойства
 
         /// <summary>
@@ -44,38 +47,38 @@ namespace TrainingOOP
         /// </summary>
         public Status GetStatus
         {
-            get { return status; }
+            get { return _status; }
         }
         /// <summary>
         /// информация о форме обучения студента
         /// </summary>
         public Stage GetStage
         {
-            get { return stage; }
+            get { return _stage; }
         }
         /// <summary>
         /// информация о имени студента
         /// </summary>
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
         /// <summary>
         /// информация о названии университета
         /// </summary>
         public string University
         {
-            get { return univer; }
-            set { univer = value; }
+            get { return _univer; }
+            set { _univer = value; }
         }
         /// <summary>
         /// информация о названии факультета
         /// </summary>
         public string Faculty
         {
-            get { return facult; }
-            set { if (facult == "") facult = value; }
+            get { return _facult; }
+            set { if (_facult == "") _facult = value; }
         }
 
         const int maxbac = 4; //максимальные года обучения на бакалавриат
@@ -87,25 +90,25 @@ namespace TrainingOOP
         /// </summary>
         public int StudingYears
         {
-            get { return years; }
+            get { return _years; }
             set
             {
-                if (value > 0 && value <= maxyears) years = value;
+                if (value > 0 && value <= maxyears) _years = value;
 
-                if (years <= maxbac)
+                if (_years <= maxbac)
                 {
-                    stage = Stage.бакалавриат;
-                    course = years;
+                    _stage = Stage.бакалавриат;
+                    _course = _years;
                 }
-                else if (years <= maxmag)
+                else if (_years <= maxmag)
                 {
-                    stage = Stage.магистратура;
-                    course = years - maxbac;
+                    _stage = Stage.магистратура;
+                    _course = _years - maxbac;
                 }
                 else
                 {
-                    stage = Stage.аспирантура;
-                    course = years - maxmag;
+                    _stage = Stage.аспирантура;
+                    _course = _years - maxmag;
                 }
             }
         }
@@ -115,21 +118,22 @@ namespace TrainingOOP
         /// </summary>
         public int GetCourse
         {
-            get { return course; }
+            get { return _course; }
         }
         const int maxdebt = 3; // максимальное число долгов, при котором не происходит отчисление
         public int SumDebt
         {
-            get { return sumdebt; }
+            get { return _sumdebt; }
             set
             {
-                if (value >= 0) sumdebt = value;
+                if (value >= 0) _sumdebt = value;
                 {
-                    if (sumdebt == 0) status = (Status)0; //Статус 'аттестован' в другой форме записи
-                    else if (sumdebt <= maxdebt) status = Status.имеет_задолженности;
-                    else status = Status.отчислен;
+                    if (_sumdebt == 0) _status = (Status)0; //Статус 'аттестован' в другой форме записи
+                    else if (_sumdebt <= maxdebt) _status = Status.имеет_задолженности;
+                    else _status = Status.отчислен;
                 }
             }
         }
+        #endregion
     }
 }
