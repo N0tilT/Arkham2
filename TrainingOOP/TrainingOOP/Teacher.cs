@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrainingOOP
-{/// <summary>
-/// Класс, задающий общую информацию о преподавателе Вуза
-/// </summary>
+{
+    /// <summary>
+    /// Класс, задающий общую информацию о преподавателе Вуза
+    /// </summary>
     public class Teacher
     {
         #region enums
@@ -43,6 +44,9 @@ namespace TrainingOOP
         {
              std0
         };
+        #endregion
+
+        #region propirties
         //Методы-свойства класса
         /// <summary>
         /// Чтение ученого звания преподавателя
@@ -123,7 +127,7 @@ namespace TrainingOOP
         }
         #endregion
 
-        #region functions
+        #region methods
         /// <summary>
         /// Добавление студента в список
         /// </summary>
@@ -133,5 +137,4 @@ namespace TrainingOOP
         }
         #endregion
     }
-
 }

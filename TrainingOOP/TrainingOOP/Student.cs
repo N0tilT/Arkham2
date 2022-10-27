@@ -39,7 +39,9 @@ namespace TrainingOOP
         int _sumdebt; //Число долгов
         Stage _stage;
         Status _status;
-        
+        #endregion
+
+        #region propirties
         //методы - свойства
 
         /// <summary>

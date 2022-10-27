@@ -12,6 +12,9 @@ namespace TrainingOOP
         #region fields
         private int n;
         private double[,] mas;
+        #endregion
+
+        #region propirties
         public int N
         {
             get { return n; }
@@ -63,7 +66,7 @@ namespace TrainingOOP
         }
         #endregion
 
-        #region functions
+        #region methods
         //Сложение матриц
         private static Matrix SummMatrix(Matrix a, Matrix b)
         {

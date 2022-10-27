@@ -134,8 +134,9 @@ namespace TrainingOOP
         PTS _pts;
         Type _ptstypes = typeof(PTS);
         int _numberOfOwners;
+        #endregion
 
-
+        #region propirties
         public Color Getcolor 
         {
             get { return _color; }
