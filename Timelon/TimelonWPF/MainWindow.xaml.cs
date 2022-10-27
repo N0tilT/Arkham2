@@ -101,14 +101,15 @@ namespace TimelonWPF
 
             SortedList<int, CardList> pool = listManager.All;
 
-            for (int i = 0; i < pool.Count; i++)
+            foreach (KeyValuePair<int,CardList> item  in pool)
             {
-                if (pool[i].Name == (string)selectedList.Content)
+                if(item.Value.Name == (string)selectedList.Content)
                 {
-                    selectedListID = pool[i].Id;
+                    selectedListID = item.Key;
                     break;
                 }
             }
+
             ShowList(listManager.GetList(selectedListID));
 
         }
@@ -121,14 +122,15 @@ namespace TimelonWPF
             RadioButton selectedCardbtn = sender as RadioButton;
             CardList cardList = listManager.GetList(selectedListID);
 
-            for (int i = 0; i < cardList.All.Count; i++)
+            foreach(KeyValuePair<int,Card> item in cardList.All)
             {
-                if (cardList.All[i].Name == (string)selectedCardbtn.Content)
+                if(item.Value.Name == (string)selectedCardbtn.Content)
                 {
-                    selectedCard = cardList.All[i];
+                    selectedCard = item.Value;
                     break;
                 }
             }
+
 
             ShowCard(selectedCard);
 

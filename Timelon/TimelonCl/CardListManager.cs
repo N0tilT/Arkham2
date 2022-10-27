@@ -67,10 +67,9 @@ namespace TimelonCl
         {
             List<Card> result = new List<Card>();
 
-            for (int i = 0; i < _list.Count; i++)
+            foreach(KeyValuePair<int,CardList> item in _list)
             {
-                CardList cardList = _list.Values[i]; 
-                List<Card> found = cardList.SearchByContent(content);
+                List<Card> found = item.Value.SearchByContent(content);
                 foreach (Card card in found) result.Add(card);
             }
 
