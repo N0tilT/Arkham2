@@ -36,7 +36,7 @@ namespace MainFormOOP
             // ShowInfo
             // 
             this.ShowInfo.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ShowInfo.Location = new System.Drawing.Point(37, 29);
+            this.ShowInfo.Location = new System.Drawing.Point(12, 21);
             this.ShowInfo.Name = "ShowInfo";
             this.ShowInfo.Size = new System.Drawing.Size(368, 71);
             this.ShowInfo.TabIndex = 0;
@@ -47,7 +47,7 @@ namespace MainFormOOP
             // VehicleInfo
             // 
             this.VehicleInfo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.VehicleInfo.Location = new System.Drawing.Point(37, 123);
+            this.VehicleInfo.Location = new System.Drawing.Point(12, 112);
             this.VehicleInfo.Multiline = true;
             this.VehicleInfo.Name = "VehicleInfo";
             this.VehicleInfo.Size = new System.Drawing.Size(742, 467);
@@ -57,11 +57,11 @@ namespace MainFormOOP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 617);
+            this.ClientSize = new System.Drawing.Size(773, 597);
             this.Controls.Add(this.VehicleInfo);
             this.Controls.Add(this.ShowInfo);
             this.Name = "VehicleWF";
-            this.Text = "Vehicle";
+            this.Text = "Автомобили";
             this.ResumeLayout(false);
             this.PerformLayout();
 

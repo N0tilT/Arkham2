@@ -38,9 +38,9 @@ namespace MainFormOOP
             this.buttonTeacher.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonTeacher.Location = new System.Drawing.Point(25, 21);
             this.buttonTeacher.Name = "buttonTeacher";
-            this.buttonTeacher.Size = new System.Drawing.Size(223, 71);
+            this.buttonTeacher.Size = new System.Drawing.Size(352, 70);
             this.buttonTeacher.TabIndex = 0;
-            this.buttonTeacher.Text = "Преподаватели";
+            this.buttonTeacher.Text = "Данные о преподавателях";
             this.buttonTeacher.UseVisualStyleBackColor = true;
             this.buttonTeacher.Click += new System.EventHandler(this.buttonTeacher_Click);
             // 
@@ -63,7 +63,7 @@ namespace MainFormOOP
             this.Controls.Add(this.TeacherText);
             this.Controls.Add(this.buttonTeacher);
             this.Name = "TeacherWF";
-            this.Text = "Teacher";
+            this.Text = "Преподаватели";
             this.ResumeLayout(false);
             this.PerformLayout();
 

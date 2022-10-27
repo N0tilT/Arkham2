@@ -36,33 +36,33 @@ namespace MainFormOOP
             // buttonStudents
             // 
             this.buttonStudents.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStudents.Location = new System.Drawing.Point(28, 27);
+            this.buttonStudents.Location = new System.Drawing.Point(12, 23);
             this.buttonStudents.Name = "buttonStudents";
-            this.buttonStudents.Size = new System.Drawing.Size(221, 57);
+            this.buttonStudents.Size = new System.Drawing.Size(274, 70);
             this.buttonStudents.TabIndex = 0;
-            this.buttonStudents.Text = "Студенты";
+            this.buttonStudents.Text = "Список студентов";
             this.buttonStudents.UseVisualStyleBackColor = true;
             this.buttonStudents.Click += new System.EventHandler(this.buttonStudents_Click);
             // 
             // StudentInfo
             // 
             this.StudentInfo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.StudentInfo.Location = new System.Drawing.Point(28, 104);
+            this.StudentInfo.Location = new System.Drawing.Point(12, 109);
             this.StudentInfo.Multiline = true;
             this.StudentInfo.Name = "StudentInfo";
             this.StudentInfo.ReadOnly = true;
-            this.StudentInfo.Size = new System.Drawing.Size(719, 325);
+            this.StudentInfo.Size = new System.Drawing.Size(643, 296);
             this.StudentInfo.TabIndex = 1;
             // 
             // StudentWF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 488);
+            this.ClientSize = new System.Drawing.Size(676, 417);
             this.Controls.Add(this.StudentInfo);
             this.Controls.Add(this.buttonStudents);
             this.Name = "StudentWF";
-            this.Text = "Student";
+            this.Text = "Студенты";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -44,19 +44,19 @@ namespace MainFormOOP
         }
         private void PrintVehicleInfo(Vehicle vehicle1)
         {
-            VehicleInfo.Text = "КАРТОЧКА АВТОМОБИЛЯ:"+ Environment.NewLine + vehicle1.Brand + vehicle1.Model + vehicle1.GetUsed + Environment.NewLine +
-                              "Год выпуска:" + vehicle1.ReleaseYear + Environment.NewLine +
-                              "Пробег:" + vehicle1.Mileage + Environment.NewLine +
-                              "Кузов:" + vehicle1.GetBody + vehicle1.NumberOfDoors + Environment.NewLine +
-                              "Цвет:" + vehicle1.Getcolor + Environment.NewLine +
-                              "Двигатель:" + vehicle1.GetEngineType + Environment.NewLine +
-                              "КПП:" + vehicle1.GetTransmissionType + Environment.NewLine +
-                              "Привод:" + vehicle1.GetDriveType + Environment.NewLine +
-                              "Руль:" + vehicle1.GetSteeringWheelPosition + Environment.NewLine +
-                              "Состояние:" + vehicle1.GetCondition + Environment.NewLine +
-                              "Владельцы:" + vehicle1.NumberOfOwners + " владелец"+ Environment.NewLine +
-                              "ПТС:" + vehicle1.GetPTS + Environment.NewLine +
-                              "VIN:"+ vehicle1.VIN + Environment.NewLine +
+            VehicleInfo.Text = "КАРТОЧКА АВТОМОБИЛЯ:"+ "\r\n" + vehicle1.Brand + vehicle1.Model + vehicle1.GetUsed + "\r\n" +
+                              "Год выпуска:" + vehicle1.ReleaseYear + "\r\n" +
+                              "Пробег:" + vehicle1.Mileage + "\r\n" +
+                              "Кузов:" + vehicle1.GetBody + vehicle1.NumberOfDoors + "\r\n" +
+                              "Цвет:" + vehicle1.Getcolor + "\r\n" +
+                              "Двигатель:" + vehicle1.GetEngineType + "\r\n" +
+                              "КПП:" + vehicle1.GetTransmissionType + "\r\n" +
+                              "Привод:" + vehicle1.GetDriveType + "\r\n" +
+                              "Руль:" + vehicle1.GetSteeringWheelPosition + "\r\n" +
+                              "Состояние:" + vehicle1.GetCondition + "\r\n" +
+                              "Владельцы:" + vehicle1.NumberOfOwners + " владелец"+ "\r\n" +
+                              "ПТС:" + vehicle1.GetPTS + "\r\n" +
+                              "VIN:"+ vehicle1.VIN + "\r\n" +
                               "Гос.номер:"+ vehicle1.GosID;
         }
     }

@@ -102,7 +102,7 @@ namespace MainFormOOP
             this.Controls.Add(this.bMatrix);
             this.Controls.Add(this.bComplex);
             this.Name = "Main";
-            this.Text = "Form1";
+            this.Text = "Меню";
             this.ResumeLayout(false);
 
         }

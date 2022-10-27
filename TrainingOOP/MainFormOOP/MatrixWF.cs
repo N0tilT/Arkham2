@@ -24,45 +24,45 @@ namespace MainFormOOP
             {
                 Matrix mass1 = new Matrix(int.Parse(Size.Text));
                 mass1.MakeRandMatrix(int.Parse(Min.Text), int.Parse(Max.Text));
-                Rezult.Text = Rezult.Text + "Матрица A:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Матрица A:" + "\r\n";
                 PrintMatrix(mass1);
 
                 Matrix mass2 = new Matrix(int.Parse(Size.Text));
                 mass2.MakeRandMatrix(int.Parse(Min.Text), int.Parse(Max.Text));
-                Rezult.Text = Rezult.Text + "Матрица B:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Матрица B:" + "\r\n";
                 PrintMatrix(mass2);
 
                 Matrix mass3 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Сумма матриц A и В:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Сумма матриц A и В:" + "\r\n";
                 mass3 = mass1 + mass2;
                 PrintMatrix(mass3);
 
                 Matrix mass4 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Разность матриц А и В:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Разность матриц А и В:" + "\r\n";
                 mass4 = mass1 - mass2;
                 PrintMatrix(mass4);
 
                 Matrix mass5 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Умножение матрицы А на число:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Умножение матрицы А на число:" + "\r\n";
                 mass5 = mass1 * int.Parse(Mult.Text);
                 PrintMatrix(mass5);
 
                 Matrix mass6 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Произведение матриц А и В:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Произведение матриц А и В:" + "\r\n";
                 mass6 = mass1 * mass2;
                 PrintMatrix(mass6);
 
                 Matrix mass7 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Возведение матрицы B в степень" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Возведение матрицы B в степень" + "\r\n";
                 mass7 = mass2 ^ int.Parse(Pow.Text);
                 PrintMatrix(mass7);
 
-                Rezult.Text = Rezult.Text + "Определитель матрицы А:" + Environment.NewLine;
+                Rezult.Text = Rezult.Text + "Определитель матрицы А:" + "\r\n";
                 double def1 = !mass1;
-                Rezult.Text +=  def1 + Environment.NewLine+Environment.NewLine;
+                Rezult.Text +=  def1 + "\r\n" + "\r\n";
 
                 Matrix mass8 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text += "Транспонирование матрицы B" + Environment.NewLine;
+                Rezult.Text += "Транспонирование матрицы B" + "\r\n";
                 mass8 = ~mass2;
                 PrintMatrix(mass8);
             }
@@ -81,9 +81,9 @@ namespace MainFormOOP
                     s=(mas[i, j] + " ");
                     Rezult.Text += s;
                 }
-                Rezult.Text += Environment.NewLine;
+                Rezult.Text += "\r\n";
             }
-            Rezult.Text += Environment.NewLine;  
+            Rezult.Text += "\r\n";  
         }
     }
 }
