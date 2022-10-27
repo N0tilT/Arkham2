@@ -84,6 +84,9 @@
     <Compile Include="VehicleWF.Designer.cs">
       <DependentUpon>VehicleWF.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ComplexWF.resx">
+      <DependentUpon>ComplexWF.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
