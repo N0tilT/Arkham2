@@ -159,7 +159,13 @@ WPF |+|
 
 CardListManager |+|
 
-GlobalSearchByContent()
+CardList GlobalSearchByContent()
 Поиск по названию или описанию по всем спискам
  
 
+Oct 27, 2022
+WPF |+|
+Возможность перемещения окна зажатием мыши
+
+CardListManager |/\|
+CardList GlobalSearchByContent() -> List<Card> GlobalSearchByContent() |/\|
