@@ -25,8 +25,6 @@ namespace TestingClassesCA
             //test.TestVehicleProps();
             //test.TestVehicleUsed();
 
-
-
             //Console.WriteLine("_____\nТестирование класса Matrix\n_____");
             //test.TestMatrix();
 

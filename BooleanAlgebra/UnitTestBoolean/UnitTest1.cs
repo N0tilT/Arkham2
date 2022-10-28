@@ -12,9 +12,9 @@ namespace UnitTestBoolean
         {
             TruthTable table = new TruthTable(2);
 
-            Assert.AreEqual("0 0 \n" +
-                            "0 1 \n" +
-                            "1 0 \n" +
+            Assert.AreEqual("0 0\n" +
+                            "0 1\n" +
+                            "1 0\n" +
                             "1 1", table.ToString());
 
             table = new TruthTable(4);
