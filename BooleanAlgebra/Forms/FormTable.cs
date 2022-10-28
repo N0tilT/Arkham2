@@ -22,9 +22,12 @@ namespace Forms
         {
             try
             {
-                int count = int.Parse(BoolN.Text);
-                TruthTable table = new TruthTable(count);
-                Rezult.Text = Convert.ToString(table);
+                int count1 = int.Parse(BoolN.Text);
+                int count2 = int.Parse(BoolN2.Text);
+                TruthTable table1 = new TruthTable(count1);
+                TruthTable table2 = new TruthTable(count2);
+                Rezult.Text = Convert.ToString(table1);
+                Rezult2.Text = Convert.ToString(table2);
             }
             catch (Exception)
             {
