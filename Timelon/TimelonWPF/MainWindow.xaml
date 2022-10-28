@@ -84,12 +84,7 @@
             <StackPanel x:Name="CardsPanel"
                         Grid.Column="1"
                         Grid.Row="1">
-                <RadioButton Height="50"
-                             Foreground="Black"
-                             FontSize="14"
-                             Content="123"
-                             Style="{StaticResource CardTheme}"
-                             Click="Card_Click"/>
+                
             </StackPanel>
             
             <!--Заглавие-->
