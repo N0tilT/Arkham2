@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingClassesCA", "Testing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsOOP", "MainFormOOP\FormsOOP.csproj", "{BB36E454-BD29-4B76-8FE5-F15EC4CB9F9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{4BCD0091-D742-4359-A22D-627376CA6A11}"
+	ProjectSection(ProjectDependencies) = postProject
+		{882E4CBE-5B1E-4FB4-94E5-39AC47A6C3FF} = {882E4CBE-5B1E-4FB4-94E5-39AC47A6C3FF}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{BB36E454-BD29-4B76-8FE5-F15EC4CB9F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB36E454-BD29-4B76-8FE5-F15EC4CB9F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB36E454-BD29-4B76-8FE5-F15EC4CB9F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BCD0091-D742-4359-A22D-627376CA6A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BCD0091-D742-4359-A22D-627376CA6A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BCD0091-D742-4359-A22D-627376CA6A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BCD0091-D742-4359-A22D-627376CA6A11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

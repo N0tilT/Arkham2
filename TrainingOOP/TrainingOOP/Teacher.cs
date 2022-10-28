@@ -121,7 +121,7 @@ namespace TrainingOOP
         /// <summary>
         /// Чтение списка студентов
         /// </summary>
-        public static List<Student> StudList
+        public List<Student> StudList
         {
             get { return _students; }
         }

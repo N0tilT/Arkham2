@@ -14,9 +14,7 @@ namespace TestingClassesCA
     /// </summary>
     class Test
     {
-        //Ошибка set { if (brand == "") brand = value; }
-        //Ошибка if (numberOfOwners == 1) used = Used.новый;
-
+        #region Vehicle
         /// <summary>
         /// Тестирование свойств объектов
         /// класса Vehicle
@@ -117,7 +115,9 @@ namespace TestingClassesCA
         {
             Console.WriteLine("Состояние автомобиля: {0}",vehicleUsed.GetUsed);
         }
+        #endregion
 
+        #region Student
         /// <summary>
         /// Тестирование свойств объектов
         /// класса Student
@@ -164,6 +164,9 @@ namespace TestingClassesCA
                 std.GetCourse, std.GetStatus);
             Console.WriteLine();
         }
+        #endregion
+
+        #region Teacher
         public void TeacherTest()
         {
             Teacher teach1 = new Teacher
@@ -229,26 +232,18 @@ namespace TestingClassesCA
             if (teach.Idstud.Count != 0)
             {
                 Console.Write("Принадлежащая группа студентов: ");
-                PrintStuds(teach.Idstud);
+                for (int j = 0; j < teach.Idstud.Count; j++)
+                {
+                    Console.Write(teach.StudList[teach.Idstud[j]].Name + " ");
+                } 
                 Console.WriteLine();
             }
             Console.WriteLine();
-        }
 
-        static void PrintStuds(List<int> i)
-        {
-            int a;
-            for (int j = 0; j < i.Count; j++)
-            {
-                a = i[j];
-                PrintStud(Teacher.StudList[a]);
-            }
         }
+        #endregion
 
-        static void PrintStud(Student std)
-        {
-            Console.Write(std.Name + " ");
-        }
+        #region Complex
         /// <summary>
         /// Тестирование класса Complex
         /// </summary>
@@ -298,7 +293,9 @@ namespace TestingClassesCA
             Console.WriteLine(string.Format("z3 = {0}", z3));
             Console.WriteLine();
         }
+        #endregion
 
+        #region Matrix
         /// <summary>
         /// Тестирование класса Matrix
         /// </summary>
@@ -360,7 +357,6 @@ namespace TestingClassesCA
             PrintMatrix(mass7);
             Console.WriteLine();
 
-
             Console.WriteLine("Определитель матрицы A");
             double def1 = !mass1;
             Console.WriteLine(def1);
@@ -386,5 +382,6 @@ namespace TestingClassesCA
                 Console.WriteLine();
             }
         }
+        #endregion
     }
 }

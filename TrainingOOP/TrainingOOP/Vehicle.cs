@@ -14,7 +14,7 @@ namespace TrainingOOP
     /// </summary>
     public class Vehicle
     {
-        #region exceptions
+        #region exceptionconst 
         const string VIN_TOO_SHORT =
             "Введённый VIN слишком короткий. Необходимая длина - 17 символов";
         const string VIN_TOO_LONG =
@@ -293,6 +293,7 @@ namespace TrainingOOP
         #endregion
     }
 
+#region exceptions
     [Serializable]
     internal class ConditionException : Exception
     {
@@ -452,4 +453,6 @@ namespace TrainingOOP
         {
         }
     }
+    #endregion
+
 }
