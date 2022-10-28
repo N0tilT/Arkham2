@@ -217,7 +217,7 @@ namespace TimelonWPF
             nextFoundCard.FontSize = 14;
             nextFoundCard.Content = card.Name;
 
-            nextFoundCard.Style = (Style)TaskButton.FindResource("CardTheme");
+            nextFoundCard.Style = (Style)TaskButton.FindResource("FoundCardTheme");
             nextFoundCard.Click += Card_Click;
             CardsPanel.Children.Add(nextFoundCard);
         }
