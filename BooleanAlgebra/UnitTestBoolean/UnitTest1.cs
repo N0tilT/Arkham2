@@ -12,31 +12,31 @@ namespace UnitTestBoolean
         {
             TruthTable table = new TruthTable(2);
 
-            Assert.AreEqual("0 0\n" +
-                            "0 1\n" +
-                            "1 0\n" +
+            Assert.AreEqual("0 0\r\n" +
+                            "0 1\r\n" +
+                            "1 0\r\n" +
                             "1 1", table.ToString());
 
             table = new TruthTable(4);
-            Assert.AreEqual("0 0 0 0\n" +
-                            "0 0 0 1\n" +
-                            "0 0 1 0\n" +
-                            "0 0 1 1\n" +
-                            "0 1 0 0\n" +
-                            "0 1 0 1\n" +
-                            "0 1 1 0\n" +
-                            "0 1 1 1\n" +
-                            "1 0 0 0\n" +
-                            "1 0 0 1\n" +
-                            "1 0 1 0\n" +
-                            "1 0 1 1\n" +
-                            "1 1 0 0\n" +
-                            "1 1 0 1\n" +
-                            "1 1 1 0\n" +
+            Assert.AreEqual("0 0 0 0\r\n" +
+                            "0 0 0 1\r\n" +
+                            "0 0 1 0\r\n" +
+                            "0 0 1 1\r\n" +
+                            "0 1 0 0\r\n" +
+                            "0 1 0 1\r\n" +
+                            "0 1 1 0\r\n" +
+                            "0 1 1 1\r\n" +
+                            "1 0 0 0\r\n" +
+                            "1 0 0 1\r\n" +
+                            "1 0 1 0\r\n" +
+                            "1 0 1 1\r\n" +
+                            "1 1 0 0\r\n" +
+                            "1 1 0 1\r\n" +
+                            "1 1 1 0\r\n" +
                             "1 1 1 1", table.ToString());
 
             table = new TruthTable(1);
-            Assert.AreEqual("0\n" +
+            Assert.AreEqual("0\r\n" +
                             "1", table.ToString());
 
 
@@ -47,13 +47,13 @@ namespace UnitTestBoolean
         {
             
             TruthTable table = new TruthTable(1).Negate();
-            Assert.AreEqual("0\n" +
+            Assert.AreEqual("0\r\n" +
                             "1", table.Negate().ToString()); // 0 1 | 0 1 | 0 0 | 0 1 0 0 | 0 1 0 1 |0 1 1 0 | 0 1 1 1 |1 0 0 0 |1 0 0 1 |1 0 1 0 |1 0 1 1 |1 1 0 0 |1 1 0 1 |1 1 1 0 |1 1 1 1
             
             table = new TruthTable(2);
-            Assert.AreEqual("1 1\n" +
-                            "1 0\n" +
-                            "0 1\n" +
+            Assert.AreEqual("1 1\r\n" +
+                            "1 0\r\n" +
+                            "0 1\r\n" +
                             "0 0", table.Negate().ToString()); // 1 1 |1 0 |0 1 |0 0 |0 1 0 0 |0 1 0 1 |0 1 1 0 |0 1 1 1 |1 0 0 0 |1 0 0 1 |1 0 1 0 |1 0 1 1 |1 1 0 0 |1 1 0 1 |1 1 1 0 |1 1 1 1 
         }
 

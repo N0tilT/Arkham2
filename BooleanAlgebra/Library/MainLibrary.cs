@@ -222,7 +222,7 @@ namespace Library
 
         public override string ToString()
         {
-            return string.Join("\n", Table.Select(x => x.ToString()));
+            return string.Join("\r\n", Table.Select(x => x.ToString()));
         }
     }
 }
