@@ -297,4 +297,21 @@ namespace UnitTests
             Assert.AreEqual("132,681081081081 - 14,8864864864865i", (z1 * (z2 * 2) + z2 / (z1 - z2) / 2).ToString());
         }
     }
+
+    [TestClass]
+    public class PolinomUnitTest
+    {  
+        static double[] k = { 6, -5, 2 };
+        Polinom pol = new Polinom(k);
+
+        [TestMethod]
+        public void Test_Polinom()
+        {
+            Assert.AreEqual(k, pol.Koef);
+            Assert.AreEqual(2, pol.N);
+        }
+
+    }
+
+
 }
