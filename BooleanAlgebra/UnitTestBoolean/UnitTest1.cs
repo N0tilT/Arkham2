@@ -2,7 +2,7 @@
 using System;
 using Library;
 
-namespace UnitTestAlgebra
+namespace UnitTestBoolean
 {
     [TestClass]
     public class TruthTableUnitTest
@@ -12,11 +12,11 @@ namespace UnitTestAlgebra
         {
             TruthTable table = new TruthTable(2);
 
-            Assert.AreEqual("0 0\n" +
-                            "0 1\n" +
-                            "1 0\n" +
+            Assert.AreEqual("0 0 \n" +
+                            "0 1 \n" +
+                            "1 0 \n" +
                             "1 1", table.ToString());
-            
+
             table = new TruthTable(4);
             Assert.AreEqual("0 0 0 0\n" +
                             "0 0 0 1\n" +
@@ -34,7 +34,7 @@ namespace UnitTestAlgebra
                             "1 1 0 1\n" +
                             "1 1 1 0\n" +
                             "1 1 1 1", table.ToString());
-            
+
             table = new TruthTable(1);
             Assert.AreEqual("0\n" +
                             "1", table.ToString());
@@ -72,3 +72,4 @@ namespace UnitTestAlgebra
         */
     }
 }
+
