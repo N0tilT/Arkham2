@@ -29,7 +29,7 @@ namespace MainFormOOP
                 Experience = 6,
                 Phone = "89607183375"
             };
-            TeacherText.Text += PrintTeacher(teach1) + Environment.NewLine;
+            PrintTeacher(teach1);
             Teacher teach2 = new Teacher
             {
                 Name = "Увалов Александр Леонидович",
@@ -39,7 +39,7 @@ namespace MainFormOOP
                 Experience = 16,
                 Phone = "89607186375"
             };
-            TeacherText.Text += PrintTeacher(teach2) + Environment.NewLine;
+            PrintTeacher(teach2);
             Teacher teach3 = new Teacher
             {
                 Name = "Смирнова Елена Дмитриевна",
@@ -49,7 +49,7 @@ namespace MainFormOOP
                 Experience = 14,
                 Phone = "89677193375"
             };
-            TeacherText.Text += PrintTeacher(teach3) + Environment.NewLine;
+            PrintTeacher(teach3);
             Teacher teach4 = new Teacher
             {
                 Name = "Дятлов Иван Олегович",
@@ -59,7 +59,7 @@ namespace MainFormOOP
                 Experience = 2,
                 Phone = "89578193475"
             };
-            TeacherText.Text += PrintTeacher(teach4) + Environment.NewLine;
+            PrintTeacher(teach4);
             Teacher teach5 = new Teacher
             {
                 Name = "Печорин Роман Валерьевич",
@@ -69,13 +69,13 @@ namespace MainFormOOP
                 Experience = 24,
                 Phone = "89558193476"
             };
-            TeacherText.Text+=PrintTeacher(teach5)+Environment.NewLine;
+            PrintTeacher(teach5);
         }
-        private string PrintTeacher(Teacher teach)
+        private void PrintTeacher(Teacher teach)
         {
-            return "ФИО преподавателя: " + teach.Name + ", Ученая степень: " + teach.Degree + ", Место работы: " + teach.Workplace +
+            TeacherText.Text += "ФИО преподавателя: " + teach.Name + ", Ученая степень: " + teach.Degree + ", Место работы: " + teach.Workplace +
                 Environment.NewLine + "Опыт работы: " + teach.Experience + " г."+", Ученая степень: " + teach.GetAcademicTitle +
-                ", Занимаемая должность: " + teach.Positions + ", Контактный номер: " + teach.Phone + Environment.NewLine;
+                ", Занимаемая должность: " + teach.Positions + ", Контактный номер: " + teach.Phone + Environment.NewLine+ "\r\n";
         }
     }
 }
