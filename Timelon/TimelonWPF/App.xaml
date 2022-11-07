@@ -16,7 +16,7 @@
                 <ResourceDictionary Source="Theme/CardTheme.xaml"/>
                 <ResourceDictionary Source="Theme/FoundCardTheme.xaml"/>
 
-
+                <ResourceDictionary Source="Theme/CardCheckedIndicatorTheme.xaml"/>
                 <ResourceDictionary Source="Theme/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

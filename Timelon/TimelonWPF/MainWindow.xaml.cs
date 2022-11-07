@@ -49,6 +49,7 @@ namespace TimelonWPF
             {
                 btn.IsChecked = false;
             }
+            if (AddListTextbox.Text == "") return;
 
             AddListToMenu(AddListTextbox.Text);
 
@@ -69,6 +70,8 @@ namespace TimelonWPF
         /// </summary>
         private void AddCardButton_Click(object sender, RoutedEventArgs e)
         {
+            if (AddCardTextbox.Text == "") return;
+
             AddCardToMenu(AddCardTextbox.Text);
             listManager.GetList(selectedListID).Set(Card.Make(AddCardTextbox.Text));
             ShowList(listManager.GetList(selectedListID));
@@ -81,11 +84,10 @@ namespace TimelonWPF
         /// </summary>
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SearchTextbox.Text == "") return;
             List<Card> searchResult = listManager.GlobalSearchByContent(SearchTextbox.Text);
 
             ShowSearchResult(searchResult);
-
             
 
             SearchTextbox.Text = "";
@@ -238,13 +240,18 @@ namespace TimelonWPF
 
             int index = 0;
 
-            foreach (Border element in CardInfo.Children)
+            for (int i = 0; i < CardInfo.Children.Count; i++)
             {
-                Grid grid = (Grid)element.Child;
+                object obj = CardInfo.Children[i];
+                if(obj.GetType() != typeof(Border))break;
+                Border border = (Border)CardInfo.Children[i];
+                Grid grid = (Grid)border.Child;
                 TextBox tb = (TextBox)grid.Children[1];
                 tb.Text = cardInfo[index];
                 index++;
             }
+
+
         }
         #endregion
 
@@ -277,5 +284,32 @@ namespace TimelonWPF
         }
         #endregion
 
+        private void Card_Selected(object sender, RoutedEventArgs e)
+        {
+            RadioButton selected = sender as RadioButton;
+            Grid parentgrid = (Grid)selected.Parent;
+            selected = (RadioButton)parentgrid.Children[1];
+            if (selected.IsChecked == true) selected.IsChecked = false;
+        }
+
+        private void Check_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton check = sender as RadioButton;
+            if (check.IsChecked == false) check.IsChecked = true;
+            else check.IsChecked = true;
+        }
+
+        private void CardDone_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (KeyValuePair<int, Card> item in selectedList.All)
+            {
+                if (item.Value.Name == (string)selectedCard.Name)
+                {
+                    selectedCard.IsCompleted = true;
+                    break;
+                }
+            }
+            ShowCard(selectedCard);
+        }
     }
 }

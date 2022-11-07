@@ -12,15 +12,13 @@
         AllowsTransparency="True">
 
 
-    <!--TODO: Добавить информацю о карточках-->
-
     <Border Background="#272537"
             CornerRadius="10">
         <Grid Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="240"/>
                 <ColumnDefinition/>
-                <ColumnDefinition x:Name="CardInfoColumn" Width="0"/>
+                <ColumnDefinition x:Name="CardInfoColumn" Width="240"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -56,8 +54,8 @@
                            Foreground="White"
                            FontSize="22"/>
             </Border>
-                
-            
+
+
 
             <!--Меню списков-->
             <StackPanel x:Name="MenuPanel"
@@ -79,14 +77,23 @@
                              Click="ListMenuButton_Click"/>
 
             </StackPanel>
-    
+
             <!--Меню карточек-->
-            <StackPanel x:Name="CardsPanel"
-                        Grid.Column="1"
+            <ScrollViewer Grid.Column="1"
                         Grid.Row="1">
-                
-            </StackPanel>
+                <StackPanel x:Name="CardsPanel">
+
+                    <RadioButton
+                            Height="50"
+                            Foreground="Black"
+                            FontSize="14"
+                            Content="test"
+                            Style="{StaticResource CardTheme}" Grid.ColumnSpan="2"/>
+
+                </StackPanel>
+            </ScrollViewer>
             
+
             <!--Заглавие-->
             <TextBlock Text="Информация о задаче"
                        Grid.Column="2"
@@ -94,7 +101,7 @@
                        HorizontalAlignment="Center"
                        Foreground="White"
                        FontSize="20"/>
-            
+
             <!--Меню информации о карточке-->
             <StackPanel x:Name="CardInfo"
                         Grid.Column="2"
@@ -231,7 +238,7 @@
                         Grid.Row="2"
                         Margin="10,10,1,10">
                     <Grid>
-                        <!--Шаблон заполнения "Создать спсисок"-->
+                        <!--Шаблон заполнения "Создать список"-->
                         <TextBlock x:Name="CardDescriptionTemplate"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
@@ -255,8 +262,9 @@
                     </Grid>
 
                 </Border>
+                <Button Content="Выполнить задачу" Click="CardDone_Click"/>
             </StackPanel>
-            
+
             <!--Поля ввода-->
             <!--Создать список-->
             <Border CornerRadius="10"
@@ -290,7 +298,7 @@
                 </Grid>
 
             </Border>
-            
+
             <!--Кнопка создания списка-->
             <Button x:Name="AddListButton"
                     Height="20"
@@ -318,7 +326,7 @@
                                 Margin="10,0,0,0"
                                 FontSize="11"
                                 Foreground="#FFD2D2D2"/>
-                    
+
                     <!--Поле ввода названия задачи-->
                     <TextBox x:Name="AddCardTextbox"
                              Width="380"
@@ -336,7 +344,7 @@
                 </Grid>
 
             </Border>
-            
+
             <!--Кнопка добавления дела-->
             <Button x:Name="AddCardButton"
                     Height="20"
