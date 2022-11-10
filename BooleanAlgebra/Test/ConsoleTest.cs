@@ -20,6 +20,7 @@ namespace Test
             }
 
             TestTruthTable(count);
+            Console.ReadLine();
         }
 
         private static void TestTruthTable(int count)
@@ -29,7 +30,21 @@ namespace Test
             TruthTable table = new TruthTable(count);
 
             Console.WriteLine(table);
-            Console.ReadLine();
+
+            Console.WriteLine("Negate All:");
+            Console.WriteLine(table.Negate());
+
+            Console.WriteLine("ROW 0:");
+            Console.WriteLine(table.Row(0));
+
+            Console.WriteLine("GRID 0:");
+            Console.WriteLine(table.Grid(0));
+
+            Console.WriteLine("OR:");
+            Console.WriteLine(table.Or());
+
+            Console.WriteLine("AND:");
+            Console.WriteLine(table.And());
         }
     }
 }
