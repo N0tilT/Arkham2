@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogicalEvaluate.cs" />
+    <Compile Include="LogicalParser.cs" />
     <Compile Include="MainLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
