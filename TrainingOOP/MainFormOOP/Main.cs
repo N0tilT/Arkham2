@@ -48,5 +48,11 @@ namespace MainFormOOP
             VehicleWF f = new VehicleWF();
             f.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PolynomWF f = new PolynomWF();
+            f.Show();
+        }
     }
 }

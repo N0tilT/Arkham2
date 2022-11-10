@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PolynomWF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PolynomWF.Designer.cs">
+      <DependentUpon>PolynomWF.cs</DependentUpon>
+    </Compile>
     <Compile Include="MatrixWF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MatrixWF.resx">
       <DependentUpon>MatrixWF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PolynomWF.resx">
+      <DependentUpon>PolynomWF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
