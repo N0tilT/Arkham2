@@ -109,6 +109,26 @@ namespace Library
         }
 
         /// <summary>
+        /// Применить операцию эквализации
+        /// TODO: эквализация?
+        /// </summary>
+        /// <returns>Статус операции</returns>
+        public bool Equalite()
+        {
+            bool result = List[0];
+
+            foreach (bool item in List.Skip(1))
+            {
+                if (result != item)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Применить операцию конъюнкции
         /// </summary>
         /// <returns>Статус операции</returns>
@@ -135,6 +155,22 @@ namespace Library
             foreach (bool item in List.Skip(1))
             {
                 result |= item;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Применить операцию исключающей дизъюнкции
+        /// </summary>
+        /// <returns>Статус операции</returns>
+        public bool Xor()
+        {
+            bool result = List[0];
+
+            foreach (bool item in List.Skip(1))
+            {
+                result = (result & !item) | (!result & item);
             }
 
             return result;
@@ -271,6 +307,28 @@ namespace Library
         }
 
         /// <summary>
+        /// Применить операцию эквализации к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Equalite(int indexX, int indexY)
+        {
+            Sensor X = Grid(indexX);
+            Sensor Y = Grid(indexY);
+
+            int count = X.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { X.List[i], Y.List[i] }).Equalite();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
         /// Применить операцию конъюнкции
         /// </summary>
         /// <returns>Кортеж из статусов операции</returns>
@@ -343,6 +401,28 @@ namespace Library
             for (int i = 0; i < count; i++)
             {
                 list[i] = Sensor.Custom(new bool[] { X.List[i], Y.List[i] }).Or();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
+        /// Применить операцию исключающей дизъюнкции к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Xor(int indexX, int indexY)
+        {
+            Sensor X = Grid(indexX);
+            Sensor Y = Grid(indexY);
+
+            int count = X.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { X.List[i], Y.List[i] }).Xor();
             }
 
             return Sensor.Custom(list);

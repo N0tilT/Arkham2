@@ -43,11 +43,11 @@ namespace Test
             Console.WriteLine("GRID(0):");
             Console.WriteLine(table.Grid(0));
 
-            Console.WriteLine("OR:");
-            Console.WriteLine(table.Or());
+            Console.WriteLine("IMPLICATE(0, 1):");
+            Console.WriteLine(table.Implicate(0, 1));
 
-            Console.WriteLine("OR(0, 1):");
-            Console.WriteLine(table.Or(0, 1));
+            Console.WriteLine("EQUALITE(0, 1):");
+            Console.WriteLine(table.Equalite(0, 1));
 
             Console.WriteLine("AND:");
             Console.WriteLine(table.And());
@@ -55,8 +55,14 @@ namespace Test
             Console.WriteLine("AND(0, 1):");
             Console.WriteLine(table.And(0, 1));
 
-            Console.WriteLine("IMPLICATE(0, 1):");
-            Console.WriteLine(table.Implicate(0, 1));
+            Console.WriteLine("OR:");
+            Console.WriteLine(table.Or());
+
+            Console.WriteLine("OR(0, 1):");
+            Console.WriteLine(table.Or(0, 1));
+
+            Console.WriteLine("XOR(0, 1):");
+            Console.WriteLine(table.Xor(0, 1));
         }
     }
 }
