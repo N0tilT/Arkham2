@@ -31,20 +31,28 @@ namespace Test
 
             Console.WriteLine(table);
 
-            Console.WriteLine("Negate All:");
+            Console.WriteLine("Negate:");
             Console.WriteLine(table.Negate());
 
-            Console.WriteLine("ROW 0:");
+            Console.WriteLine("Negate(0):");
+            Console.WriteLine(table.Negate(0));
+
+            Console.WriteLine("ROW(0):");
             Console.WriteLine(table.Row(0));
 
-            Console.WriteLine("GRID 0:");
+            Console.WriteLine("GRID(0):");
             Console.WriteLine(table.Grid(0));
 
             Console.WriteLine("OR:");
             Console.WriteLine(table.Or());
+            Console.WriteLine("OR(0, 1):");
+            Console.WriteLine(table.Or(0, 1));
 
             Console.WriteLine("AND:");
             Console.WriteLine(table.And());
+
+            Console.WriteLine("AND(0, 1):");
+            Console.WriteLine(table.And(0, 1));
         }
     }
 }

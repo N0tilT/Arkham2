@@ -223,6 +223,17 @@ namespace Library
         }
 
         /// <summary>
+        /// Применить операцию отрицания к указанному столбцу
+        /// </summary>
+        /// <returns>Столбец (кортеж) с противоположными значениями</returns>
+        public Sensor Negate(int index)
+        {
+            Sensor sensor = Grid(index);
+
+            return sensor.Negate();
+        }
+
+        /// <summary>
         /// Применить операцию конъюнкции
         /// </summary>
         /// <returns>Кортеж из статусов операции</returns>
@@ -240,6 +251,28 @@ namespace Library
         }
 
         /// <summary>
+        /// Применить операцию конъюнкции к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor And(int indexX, int indexY)
+        {
+            Sensor X = Grid(indexX);
+            Sensor Y = Grid(indexY);
+
+            int count = X.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { X.List[i], Y.List[i] }).And();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
         /// Применить операцию дизъюнкции
         /// </summary>
         /// <returns>Кортеж из статусов операции</returns>
@@ -251,6 +284,28 @@ namespace Library
             for (int i = 0; i < count; i++)
             {
                 list[i] = Row(i).Or();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
+        /// Применить операцию дизъюнкции к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Or(int indexX, int indexY)
+        {
+            Sensor X = Grid(indexX);
+            Sensor Y = Grid(indexY);
+
+            int count = X.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { X.List[i], Y.List[i] }).Or();
             }
 
             return Sensor.Custom(list);
