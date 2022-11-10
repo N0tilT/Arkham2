@@ -85,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\CheckCardTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\FoundCardTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,7 +161,8 @@
     <Resource Include="Images\uncheck %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\noun-check-783827.png" />
+    <Resource Include="Images\Checked_no.png" />
+    <Resource Include="Images\Checked_yes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

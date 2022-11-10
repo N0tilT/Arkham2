@@ -284,22 +284,21 @@ namespace TimelonWPF
         }
         #endregion
 
-        private void Card_Selected(object sender, RoutedEventArgs e)
+
+        private void CardDone_Click(object sender, RoutedEventArgs e)
         {
-            RadioButton selected = sender as RadioButton;
-            Grid parentgrid = (Grid)selected.Parent;
-            selected = (RadioButton)parentgrid.Children[1];
-            if (selected.IsChecked == true) selected.IsChecked = false;
+            foreach (KeyValuePair<int, Card> item in selectedList.All)
+            {
+                if (item.Value.Name == (string)selectedCard.Name)
+                {
+                    selectedCard.IsCompleted = true;
+                    break;
+                }
+            }
+            ShowCard(selectedCard);
         }
 
         private void Check_Click(object sender, RoutedEventArgs e)
-        {
-            RadioButton check = sender as RadioButton;
-            if (check.IsChecked == false) check.IsChecked = true;
-            else check.IsChecked = true;
-        }
-
-        private void CardDone_Click(object sender, RoutedEventArgs e)
         {
             foreach (KeyValuePair<int, Card> item in selectedList.All)
             {

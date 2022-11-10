@@ -82,14 +82,24 @@
             <ScrollViewer Grid.Column="1"
                         Grid.Row="1">
                 <StackPanel x:Name="CardsPanel">
-
-                    <RadioButton
+                    <Grid>
+                        <Button Width="35"
+                                Height="35"
+                                HorizontalAlignment="Left"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Margin="5,0,0,0"
+                                Click="Check_Click"
+                                Style="{StaticResource CheckTheme}"/>
+                        <RadioButton
                             Height="50"
                             Foreground="Black"
                             FontSize="14"
                             Content="test"
-                            Style="{StaticResource CardTheme}" Grid.ColumnSpan="2"/>
-
+                            Margin="40,0,0,0"
+                            Style="{StaticResource CardTheme}" Grid.ColumnSpan="2">
+                        </RadioButton>
+                    </Grid>
                 </StackPanel>
             </ScrollViewer>
             
@@ -262,7 +272,17 @@
                     </Grid>
 
                 </Border>
-                <Button Content="Выполнить задачу" Click="CardDone_Click"/>
+                <Border CornerRadius="5"
+                        Background="#FF2A613E"
+                        Margin="10,0,0,0"
+                        Height="35">
+                    <Button Foreground="#CFCFCF"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="Выполнить задачу" 
+                            Click="CardDone_Click"/>
+                </Border>
+                
             </StackPanel>
 
             <!--Поля ввода-->
