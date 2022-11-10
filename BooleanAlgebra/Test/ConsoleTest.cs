@@ -20,8 +20,9 @@ namespace Test
             //}
 
             //TestTruthTable(count);
-            //TestParser("A + B + C * ( A + C )");
-            TestEvaluationTruthTable(3);
+            //TestParser("A * ( B -> C ) + C <-> - A");
+            //TestEvaluationTruthTable(3);
+            TestEvaluationInputFunction();
         }
 
         private static void TestTruthTable(int count)
@@ -41,12 +42,8 @@ namespace Test
             LogicalParser parser = new LogicalParser();
 
             List<string> parsed = parser.Parse(equation);
-            //foreach (string item in parsed) Console.Write(item + " ");
+            foreach (string item in parsed) Console.Write(item + " ");
 
-            LogicalEvaluate eval = new LogicalEvaluate();
-            Sensor sensor = Sensor.Custom(new bool[] { true, false, true });
-            bool result = eval.EvaluateEquation(eval.SetValues(parsed,sensor));
-            Console.WriteLine(result);
             Console.ReadLine();
 
         }
@@ -57,12 +54,34 @@ namespace Test
             LogicalParser parser = new LogicalParser();
             LogicalEvaluate eval = new LogicalEvaluate();
 
-            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n),parser.Parse("A * B + C")).List);
+            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n),parser.Parse("A * ( B -> C ) + C <-> - A")).List);
             foreach (bool item in result.List) Console.Write(item + " ");
 
             Console.ReadLine();
         }
 
+        private static void TestEvaluationInputFunction()
+        {
+            Console.WriteLine("TestEvaluationInputFunction():");
+            Console.WriteLine("Введите количество переменных:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Введите функцию:");
+            string function = Console.ReadLine();
+
+            TruthTable table = new TruthTable(n);
+            Console.WriteLine("Таблица истинности:");
+            foreach (Sensor row in table.Table) { foreach (bool item in row.List) Console.Write(item==true?"1" + " ":"0" + " "); Console.WriteLine(); }
+
+            LogicalParser parser = new LogicalParser();
+            LogicalEvaluate eval = new LogicalEvaluate();
+
+            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
+
+            Console.WriteLine("Значение функции:");
+            foreach (bool item in result.List) Console.Write(item == true ? "1" + " ": "0" + " ");
+
+            Console.ReadLine();
+        }
 
     }
 }

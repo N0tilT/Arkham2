@@ -40,22 +40,28 @@ namespace Library
 
         static int Priority(string c)
         {
-            if (c == "-")
+            switch (c)
             {
-                return 2;
-            }
-            else if (c == "+" || c == "*")
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
+                case "-":
+                    return 5;
+                case "*":
+                    return 4;
+                case "+":
+                    return 3;
+                case "->":
+                    return 2;
+
+                case "<->":
+                case "EQV":
+                    return 1;
+
+                default:
+                    return 0;
             }
         }
         static bool isOperator(string c)
         {
-            if (c == "+" || c == "-" || c == "*" )
+            if (c == "+" || c == "-" || c == "*" || c=="->" || c=="EQV" || c=="<->" )
             {
                 return true;
             }
