@@ -300,16 +300,91 @@ namespace UnitTests
 
     [TestClass]
     public class PolinomUnitTest
-    {  
-        static double[] k = { 6, -5, 2 };
-        Polinom pol = new Polinom(k);
+    {
+        public string PrintD(double[] d)
+        {
+            string str = "";
+            for (int i = 0; i < d.Length; i++)
+            {
+                str += d[i] + " ";
+            }
+            return str;
+        }
+
+        Polinom pol = new Polinom(new double[] { 6, -5, 2 });
+        Polinom pol1 = new Polinom(new double[] { 6, -5, 2, 10, 4, 2, 4, 7, 8 });
+        Polinom pol2 = new Polinom(new double[] { 3, 5, 2 });
+
+        Polinom polr = new Polinom(5, 200);
+        Polinom polr2 = new Polinom(4, 0, 200);
+        Polinom polr3 = new Polinom(3, 1.3, 6.5, 3);
 
         [TestMethod]
         public void Test_Polinom()
         {
-            Assert.AreEqual(k, pol.Koef);
+            Assert.AreEqual("6 -5 2 ", PrintD(pol.Coef));
             Assert.AreEqual(2, pol.N);
+            Assert.AreEqual(5, polr.N);
+            //Assert.AreEqual("3", PrintD(polr.Coef));
+            //Assert.AreEqual("3", PrintD(polr2.Coef));
+            //Assert.AreEqual("3", PrintD(polr3.Coef));
         }
+        [TestMethod]
+        public void SumPolinom()
+        {
+            Assert.AreEqual("9 0 4 ", PrintD((pol + pol2).Coef));
+            Assert.AreEqual("6 10 4 ", PrintD((pol2 + pol2).Coef));
+            Assert.AreEqual("0 0 230 140 -92,4 12,7 ", PrintD((new Polinom(new double[] { -102, 87, 4, 3, 1, 7.7 }) + new Polinom(new double[] {102, -87, 226, 137, -93.4, 5 })).Coef));
+        }
+        [TestMethod]
+        public void SubPolinom()
+        {
+            Assert.AreEqual("-3 10 0 ", PrintD((pol2 - pol).Coef));
+            Assert.AreEqual("3 -10 0 ", PrintD((pol - pol2).Coef));
+            Assert.AreEqual("-204 174 -222 -134 94,4 2,7 ", PrintD((new Polinom(new double[] { -102, 87, 4, 3, 1, 7.7 }) - new Polinom(new double[] { 102, -87, 226, 137, -93.4, 5 })).Coef));
+        }
+        [TestMethod]
+        public void MultPPolinom()
+        {
+            Assert.AreEqual("18 15 -7 0 4 ", PrintD((pol2 * pol).Coef));
+            Assert.AreEqual("18 15 -7 30 66 46 30 45 67 54 16 ", PrintD((pol1 * pol2).Coef));
+            Assert.AreEqual("0 0 ", PrintD((new Polinom(new double[] { 0 }) * new Polinom(new double[] { 3, 4 })).Coef));
+            Assert.AreEqual("-10 -6,5 5,5 89,5 246,5 45 ", PrintD((new Polinom(new double[] { -10, 23.5, 5 }) * new Polinom(new double[] { 1, 3, 7, 9 })).Coef));
+        }
+        [TestMethod]
+        public void MultNPolinom()
+        {
+            Assert.AreEqual("9 15 6 ", PrintD((pol2 * 3).Coef));
+            Assert.AreEqual("15 -24 10,5 -30 9,9 ", PrintD((new Polinom(new double[] { 5, -8, 3.5, -10, 3.3 }) * 3).Coef));
+            Assert.AreEqual("10,2 20,4 66,3 ", PrintD((new Polinom(new double[] { 1, 2, 6.5 }) * 10.2).Coef));
+        }
+        [TestMethod]
+        public void DivPolinom()
+        {
+            Assert.AreEqual("0 ", PrintD((pol2 / pol1).Coef));
+            Assert.AreEqual("1 ", PrintD((new Polinom(new double[] { 5, 3, 2 }) / (new Polinom(new double[] { 5, 3, 2 }))).Coef));
+            Assert.AreEqual("0 ", PrintD((new Polinom(new double[] { 3, 0, 2 }) / (new Polinom(new double[] { 6, 3, 2, 1 }))).Coef));
+            Assert.AreEqual("1 ", PrintD((pol2 / pol).Coef));// 0,5
+        }       
+        [TestMethod]
+        public void DivOstPolinom()
+        {
+            Assert.AreEqual("0 ", PrintD((new Polinom(new double[] { 3, 0, 2 }) / (new Polinom(new double[] { 6, 3, 2, 1 }))).Coef)); // 3 0 2
+            Assert.AreEqual("8 1 ", PrintD((pol2 % pol).Coef)); // 8 1
+        }
+        [TestMethod]
+        public void DivNPolinom()
+        {
+            Assert.AreEqual("1 1,667 0,667 ", PrintD((pol2 / 3).Coef));
+            Assert.AreEqual("1 0,007 0,022 0,051 ", PrintD((new Polinom(new double[] { 137, 1, 3, 7 }) / 137).Coef));
+            Assert.AreEqual("0,1 3 0 ", PrintD((new Polinom(new double[] { 1.3, 39, 0}) / 13).Coef));
+        }
+        [TestMethod]
+        public void PowPolinom()
+        {
+            Assert.AreEqual("9 30 37 20 4 ", PrintD((pol2 ^ 2).Coef));
+        }
+
 
     }
 
