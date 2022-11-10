@@ -30,7 +30,7 @@ namespace MainFormOOP
             {
                 epACoefs.SetError(tbACoefs, "Слишком много коэффициентов.");
                 tbACoefs.Margin = new Padding(3, 3, 20, 3);
-                tbAPolynomial.Text = "";
+                btnGenerateA.Text = "";
                 return;
             }
             double[] coefs = new double[coefsStr.Length];
@@ -41,7 +41,7 @@ namespace MainFormOOP
                     {
                         epACoefs.SetError(tbACoefs, "Слишком большие коэффициенты.");
                         tbACoefs.Margin = new Padding(3, 3, 20, 3);
-                        tbAPolynomial.Text = "";
+                        btnGenerateA.Text = "";
                         return;
                     }
                     coefs[i] = n;
@@ -50,13 +50,13 @@ namespace MainFormOOP
                 {
                     epACoefs.SetError(tbACoefs, "Невозможно привести все значения к числу.");
                     tbACoefs.Margin = new Padding(3, 3, 20, 3);
-                    tbAPolynomial.Text = "";
+                    btnGenerateA.Text = "";
                     return;
                 }
             epACoefs.Clear();
             tbACoefs.Margin = new Padding(3, 3, 3, 3);
             A = new PolynomialWithRoots(coefs);
-            tbAPolynomial.Text = A.ToString();
+            btnGenerateA.Text = A.ToString();
         }
 
         // Изменение введённых коэффициентов для полинома B.
@@ -230,7 +230,7 @@ namespace MainFormOOP
         private void btnAdd_Click(object sender, EventArgs e)
         {
             SetInsertButtons(false);
-            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            if (btnGenerateA.Text == "" || tbBPolynomial.Text == "")
             {
                 tbOutput.Text = "Сначала введите полиномы.";
                 return;
@@ -250,7 +250,7 @@ namespace MainFormOOP
         private void btnSubtract_Click(object sender, EventArgs e)
         {
             SetInsertButtons(false);
-            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            if (btnGenerateA.Text == "" || tbBPolynomial.Text == "")
             {
                 tbOutput.Text = "Полином не введен";
                 return;
@@ -270,7 +270,7 @@ namespace MainFormOOP
         private void btnMultiply_Click(object sender, EventArgs e)
         {
             SetInsertButtons(false);
-            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            if (btnGenerateA.Text == "" || tbBPolynomial.Text == "")
             {
                 tbOutput.Text = "Полином не введен";
                 return;
@@ -295,7 +295,7 @@ namespace MainFormOOP
         private void btnDivide_Click(object sender, EventArgs e)
         {
             SetInsertButtons(false);
-            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            if (btnGenerateA.Text == "" || tbBPolynomial.Text == "")
             {
                 tbOutput.Text = "Полином не введен";
                 return;
@@ -315,7 +315,7 @@ namespace MainFormOOP
         private void btnMod_Click(object sender, EventArgs e)
         {
             SetInsertButtons(false);
-            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            if (btnGenerateA.Text == "" || tbBPolynomial.Text == "")
             {
                 tbOutput.Text = "Полином не введен";
                 return;
@@ -399,7 +399,7 @@ namespace MainFormOOP
         }
         private void btnAGetValue_Click(object sender, EventArgs e)
         {
-            GetValue(A, tbAPolynomial.Text, tbAInputX.Text);
+            GetValue(A, btnGenerateA.Text, tbAInputX.Text);
         }
         private void btnBGetValue_Click(object sender, EventArgs e)
         {
@@ -432,7 +432,7 @@ namespace MainFormOOP
         }
         private void btnAMultiplyByN_Click(object sender, EventArgs e)
         {
-            MultiplyByN(A, tbAPolynomial.Text, tbAInputN.Text);
+            MultiplyByN(A, btnGenerateA.Text, tbAInputN.Text);
         }
         private void btnBMultiplyByN_Click(object sender, EventArgs e)
         {
@@ -475,7 +475,7 @@ namespace MainFormOOP
         }
         private void btnAPow_Click(object sender, EventArgs e)
         {
-            Pow(A, tbAPolynomial.Text, tbAPow.Text);
+            Pow(A, btnGenerateA.Text, tbAPow.Text);
         }
         private void btnBPow_Click(object sender, EventArgs e)
         {
@@ -519,7 +519,7 @@ namespace MainFormOOP
         }
         private void btnAGetRoots_Click(object sender, EventArgs e)
         {
-            GetRoots(A, tbAPolynomial.Text, tbARoot.Text);
+            GetRoots(A, btnGenerateA.Text, tbARoot.Text);
         }
         private void btnBGetRoots_Click(object sender, EventArgs e)
         {
@@ -547,7 +547,7 @@ namespace MainFormOOP
         }
         private void btnAGetDerivative_Click(object sender, EventArgs e)
         {
-            GetDerivative(A, tbAPolynomial.Text);
+            GetDerivative(A, btnGenerateA.Text);
         }
         private void btnBGetDerivative_Click(object sender, EventArgs e)
         {
@@ -580,44 +580,11 @@ namespace MainFormOOP
         }
         private void btnAGetPrimitive_Click(object sender, EventArgs e)
         {
-            GetPrimitive(A, tbAPolynomial.Text);
+            GetPrimitive(A, btnGenerateA.Text);
         }
         private void btnBGetPrimitive_Click(object sender, EventArgs e)
         {
             GetPrimitive(B, tbBPolynomial.Text);
-        }
-
-        // Точки экстремума полинома.
-        private void GetStationaryPoints(PolynomialWithRoots pol, string textPol)
-        {
-            SetInsertButtons(false);
-            if (textPol == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (pol.N <= 1)
-            {
-                tbOutput.Text = "Точек экстремума нет";
-                return;
-            }
-            const int MAX_X = 10000;
-            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = pol.FindAllStationaryPoints(-MAX_X, MAX_X);
-            stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
-            string s = "";
-            foreach (var item in stationaryPoints)
-                s += $"({item.x}; {item.y}) - точка " + (item.stPointType == StationaryPointType.Min ? "минимума" : "максимума") + "\n";
-            if (s == "")
-                s = "Точек экстремума нет";
-            tbOutput.Text = s;
-        }
-        private void bntAGetStationaryPoints_Click(object sender, EventArgs e)
-        {
-            GetStationaryPoints(A, tbAPolynomial.Text);
-        }
-        private void bntBGetStationaryPoints_Click(object sender, EventArgs e)
-        {
-            GetStationaryPoints(B, tbBPolynomial.Text);
         }
         #endregion
     }

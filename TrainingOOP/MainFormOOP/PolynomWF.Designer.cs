@@ -29,42 +29,42 @@ namespace MainFormOOP
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbACoefs = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbBCoefs = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.rtbN_A = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.rtbMax_A = new System.Windows.Forms.TextBox();
+            this.rtbMin_A = new System.Windows.Forms.TextBox();
+            this.rtbN_B = new System.Windows.Forms.TextBox();
+            this.rtbMax_B = new System.Windows.Forms.TextBox();
+            this.rtbMin_B = new System.Windows.Forms.TextBox();
+            this.tbAInputN = new System.Windows.Forms.TextBox();
+            this.tbAPow = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.btnGenerateB = new System.Windows.Forms.Button();
+            this.btnAMultiplyByN = new System.Windows.Forms.Button();
+            this.btnAPow = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnSubtract = new System.Windows.Forms.Button();
+            this.btnMultiply = new System.Windows.Forms.Button();
+            this.btnDivide = new System.Windows.Forms.Button();
+            this.btnMod = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.button11 = new System.Windows.Forms.Button();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.tbOutput = new System.Windows.Forms.TextBox();
+            this.btnGenerateA = new System.Windows.Forms.TextBox();
+            this.tbBPolynomial = new System.Windows.Forms.TextBox();
             this.button12 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -75,13 +75,13 @@ namespace MainFormOOP
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // tbACoefs
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox1.Location = new System.Drawing.Point(11, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(340, 30);
-            this.textBox1.TabIndex = 0;
+            this.tbACoefs.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.tbACoefs.Location = new System.Drawing.Point(11, 36);
+            this.tbACoefs.Name = "tbACoefs";
+            this.tbACoefs.Size = new System.Drawing.Size(340, 30);
+            this.tbACoefs.TabIndex = 0;
             // 
             // button1
             // 
@@ -93,13 +93,13 @@ namespace MainFormOOP
             this.button1.Text = "Задать";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // tbBCoefs
             // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox2.Location = new System.Drawing.Point(490, 36);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(340, 30);
-            this.textBox2.TabIndex = 2;
+            this.tbBCoefs.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.tbBCoefs.Location = new System.Drawing.Point(490, 36);
+            this.tbBCoefs.Name = "tbBCoefs";
+            this.tbBCoefs.Size = new System.Drawing.Size(340, 30);
+            this.tbBCoefs.TabIndex = 2;
             // 
             // label1
             // 
@@ -151,13 +151,13 @@ namespace MainFormOOP
             this.label5.TabIndex = 7;
             this.label5.Text = "Порядок";
             // 
-            // textBox3
+            // rtbN_A
             // 
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox3.Location = new System.Drawing.Point(109, 115);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 30);
-            this.textBox3.TabIndex = 8;
+            this.rtbN_A.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.rtbN_A.Location = new System.Drawing.Point(109, 115);
+            this.rtbN_A.Name = "rtbN_A";
+            this.rtbN_A.Size = new System.Drawing.Size(100, 30);
+            this.rtbN_A.TabIndex = 8;
             // 
             // label6
             // 
@@ -179,61 +179,61 @@ namespace MainFormOOP
             this.label7.TabIndex = 10;
             this.label7.Text = "Мин коэф.";
             // 
-            // textBox4
+            // rtbMax_A
             // 
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox4.Location = new System.Drawing.Point(110, 150);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 30);
-            this.textBox4.TabIndex = 11;
+            this.rtbMax_A.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.rtbMax_A.Location = new System.Drawing.Point(110, 150);
+            this.rtbMax_A.Name = "rtbMax_A";
+            this.rtbMax_A.Size = new System.Drawing.Size(100, 30);
+            this.rtbMax_A.TabIndex = 11;
             // 
-            // textBox5
+            // rtbMin_A
             // 
-            this.textBox5.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox5.Location = new System.Drawing.Point(110, 187);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 30);
-            this.textBox5.TabIndex = 12;
+            this.rtbMin_A.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.rtbMin_A.Location = new System.Drawing.Point(110, 187);
+            this.rtbMin_A.Name = "rtbMin_A";
+            this.rtbMin_A.Size = new System.Drawing.Size(100, 30);
+            this.rtbMin_A.TabIndex = 12;
             // 
-            // textBox6
+            // rtbN_B
             // 
-            this.textBox6.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox6.Location = new System.Drawing.Point(588, 115);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 30);
-            this.textBox6.TabIndex = 13;
+            this.rtbN_B.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.rtbN_B.Location = new System.Drawing.Point(588, 115);
+            this.rtbN_B.Name = "rtbN_B";
+            this.rtbN_B.Size = new System.Drawing.Size(100, 30);
+            this.rtbN_B.TabIndex = 13;
             // 
-            // textBox7
+            // rtbMax_B
             // 
-            this.textBox7.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox7.Location = new System.Drawing.Point(588, 150);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 30);
-            this.textBox7.TabIndex = 14;
+            this.rtbMax_B.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.rtbMax_B.Location = new System.Drawing.Point(588, 150);
+            this.rtbMax_B.Name = "rtbMax_B";
+            this.rtbMax_B.Size = new System.Drawing.Size(100, 30);
+            this.rtbMax_B.TabIndex = 14;
             // 
-            // textBox8
+            // rtbMin_B
             // 
-            this.textBox8.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox8.Location = new System.Drawing.Point(588, 184);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 30);
-            this.textBox8.TabIndex = 15;
+            this.rtbMin_B.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.rtbMin_B.Location = new System.Drawing.Point(588, 184);
+            this.rtbMin_B.Name = "rtbMin_B";
+            this.rtbMin_B.Size = new System.Drawing.Size(100, 30);
+            this.rtbMin_B.TabIndex = 15;
             // 
-            // textBox9
+            // tbAInputN
             // 
-            this.textBox9.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox9.Location = new System.Drawing.Point(9, 329);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(142, 30);
-            this.textBox9.TabIndex = 16;
+            this.tbAInputN.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.tbAInputN.Location = new System.Drawing.Point(9, 329);
+            this.tbAInputN.Name = "tbAInputN";
+            this.tbAInputN.Size = new System.Drawing.Size(142, 30);
+            this.tbAInputN.TabIndex = 16;
             // 
-            // textBox10
+            // tbAPow
             // 
-            this.textBox10.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.textBox10.Location = new System.Drawing.Point(9, 372);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(142, 30);
-            this.textBox10.TabIndex = 17;
+            this.tbAPow.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.tbAPow.Location = new System.Drawing.Point(9, 372);
+            this.tbAPow.Name = "tbAPow";
+            this.tbAPow.Size = new System.Drawing.Size(142, 30);
+            this.tbAPow.TabIndex = 17;
             // 
             // button2
             // 
@@ -245,85 +245,85 @@ namespace MainFormOOP
             this.button2.Text = "Задать";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnGenerateB
             // 
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button3.Location = new System.Drawing.Point(725, 115);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 37);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "Задать";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnGenerateB.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnGenerateB.Location = new System.Drawing.Point(725, 115);
+            this.btnGenerateB.Name = "btnGenerateB";
+            this.btnGenerateB.Size = new System.Drawing.Size(105, 37);
+            this.btnGenerateB.TabIndex = 19;
+            this.btnGenerateB.Text = "Задать";
+            this.btnGenerateB.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnAMultiplyByN
             // 
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button4.Location = new System.Drawing.Point(171, 321);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(181, 38);
-            this.button4.TabIndex = 20;
-            this.button4.Text = "Умножить на число";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnAMultiplyByN.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnAMultiplyByN.Location = new System.Drawing.Point(171, 321);
+            this.btnAMultiplyByN.Name = "btnAMultiplyByN";
+            this.btnAMultiplyByN.Size = new System.Drawing.Size(181, 38);
+            this.btnAMultiplyByN.TabIndex = 20;
+            this.btnAMultiplyByN.Text = "Умножить на число";
+            this.btnAMultiplyByN.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnAPow
             // 
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button5.Location = new System.Drawing.Point(171, 364);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(181, 38);
-            this.button5.TabIndex = 21;
-            this.button5.Text = "Возвести в степень";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnAPow.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnAPow.Location = new System.Drawing.Point(171, 364);
+            this.btnAPow.Name = "btnAPow";
+            this.btnAPow.Size = new System.Drawing.Size(181, 38);
+            this.btnAPow.TabIndex = 21;
+            this.btnAPow.Text = "Возвести в степень";
+            this.btnAPow.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btnAdd
             // 
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button6.Location = new System.Drawing.Point(488, 315);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(145, 59);
-            this.button6.TabIndex = 22;
-            this.button6.Text = "Сложение полиномов";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnAdd.Location = new System.Drawing.Point(488, 315);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(145, 59);
+            this.btnAdd.TabIndex = 22;
+            this.btnAdd.Text = "Сложение полиномов";
+            this.btnAdd.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // btnSubtract
             // 
-            this.button7.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button7.Location = new System.Drawing.Point(639, 315);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(145, 59);
-            this.button7.TabIndex = 23;
-            this.button7.Text = "Разность полиномов";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnSubtract.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnSubtract.Location = new System.Drawing.Point(639, 315);
+            this.btnSubtract.Name = "btnSubtract";
+            this.btnSubtract.Size = new System.Drawing.Size(145, 59);
+            this.btnSubtract.TabIndex = 23;
+            this.btnSubtract.Text = "Разность полиномов";
+            this.btnSubtract.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // btnMultiply
             // 
-            this.button8.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button8.Location = new System.Drawing.Point(790, 315);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(145, 59);
-            this.button8.TabIndex = 24;
-            this.button8.Text = "Умножение полиномов";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btnMultiply.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnMultiply.Location = new System.Drawing.Point(790, 315);
+            this.btnMultiply.Name = "btnMultiply";
+            this.btnMultiply.Size = new System.Drawing.Size(145, 59);
+            this.btnMultiply.TabIndex = 24;
+            this.btnMultiply.Text = "Умножение полиномов";
+            this.btnMultiply.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // btnDivide
             // 
-            this.button9.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button9.Location = new System.Drawing.Point(488, 385);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(145, 59);
-            this.button9.TabIndex = 25;
-            this.button9.Text = "Деление полиномов нацело";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btnDivide.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnDivide.Location = new System.Drawing.Point(488, 385);
+            this.btnDivide.Name = "btnDivide";
+            this.btnDivide.Size = new System.Drawing.Size(145, 59);
+            this.btnDivide.TabIndex = 25;
+            this.btnDivide.Text = "Деление полиномов нацело";
+            this.btnDivide.UseVisualStyleBackColor = true;
             // 
-            // button10
+            // btnMod
             // 
-            this.button10.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button10.Location = new System.Drawing.Point(639, 386);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(145, 59);
-            this.button10.TabIndex = 26;
-            this.button10.Text = "Деление полиномов с остатком";
-            this.button10.UseVisualStyleBackColor = true;
+            this.btnMod.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.btnMod.Location = new System.Drawing.Point(639, 386);
+            this.btnMod.Name = "btnMod";
+            this.btnMod.Size = new System.Drawing.Size(145, 59);
+            this.btnMod.TabIndex = 26;
+            this.btnMod.Text = "Деление полиномов с остатком";
+            this.btnMod.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -380,35 +380,35 @@ namespace MainFormOOP
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(181, 37);
             this.button11.TabIndex = 32;
-            this.button11.Text = "button11";
+            this.button11.Text = "Деление на число";
             this.button11.UseVisualStyleBackColor = true;
             // 
-            // textBox12
+            // tbOutput
             // 
-            this.textBox12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox12.Location = new System.Drawing.Point(0, 6);
-            this.textBox12.Multiline = true;
-            this.textBox12.Name = "textBox12";
-            this.textBox12.ReadOnly = true;
-            this.textBox12.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox12.Size = new System.Drawing.Size(961, 155);
-            this.textBox12.TabIndex = 33;
+            this.tbOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbOutput.Location = new System.Drawing.Point(0, 6);
+            this.tbOutput.Multiline = true;
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
+            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbOutput.Size = new System.Drawing.Size(961, 155);
+            this.tbOutput.TabIndex = 33;
             // 
-            // textBox13
+            // btnGenerateA
             // 
-            this.textBox13.Location = new System.Drawing.Point(9, 250);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.ReadOnly = true;
-            this.textBox13.Size = new System.Drawing.Size(343, 22);
-            this.textBox13.TabIndex = 34;
+            this.btnGenerateA.Location = new System.Drawing.Point(9, 250);
+            this.btnGenerateA.Name = "btnGenerateA";
+            this.btnGenerateA.ReadOnly = true;
+            this.btnGenerateA.Size = new System.Drawing.Size(343, 22);
+            this.btnGenerateA.TabIndex = 34;
             // 
-            // textBox14
+            // tbBPolynomial
             // 
-            this.textBox14.Location = new System.Drawing.Point(488, 250);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.ReadOnly = true;
-            this.textBox14.Size = new System.Drawing.Size(342, 22);
-            this.textBox14.TabIndex = 35;
+            this.tbBPolynomial.Location = new System.Drawing.Point(488, 250);
+            this.tbBPolynomial.Name = "tbBPolynomial";
+            this.tbBPolynomial.ReadOnly = true;
+            this.tbBPolynomial.Size = new System.Drawing.Size(342, 22);
+            this.tbBPolynomial.TabIndex = 35;
             // 
             // button12
             // 
@@ -458,41 +458,41 @@ namespace MainFormOOP
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.button12);
-            this.panel1.Controls.Add(this.textBox14);
-            this.panel1.Controls.Add(this.textBox13);
+            this.panel1.Controls.Add(this.tbBPolynomial);
+            this.panel1.Controls.Add(this.btnGenerateA);
             this.panel1.Controls.Add(this.button11);
             this.panel1.Controls.Add(this.textBox11);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.button10);
-            this.panel1.Controls.Add(this.button9);
-            this.panel1.Controls.Add(this.button8);
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.btnMod);
+            this.panel1.Controls.Add(this.btnDivide);
+            this.panel1.Controls.Add(this.btnMultiply);
+            this.panel1.Controls.Add(this.btnSubtract);
+            this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Controls.Add(this.btnAPow);
+            this.panel1.Controls.Add(this.btnAMultiplyByN);
+            this.panel1.Controls.Add(this.btnGenerateB);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.textBox10);
-            this.panel1.Controls.Add(this.textBox9);
-            this.panel1.Controls.Add(this.textBox8);
-            this.panel1.Controls.Add(this.textBox7);
-            this.panel1.Controls.Add(this.textBox6);
-            this.panel1.Controls.Add(this.textBox5);
-            this.panel1.Controls.Add(this.textBox4);
+            this.panel1.Controls.Add(this.tbAPow);
+            this.panel1.Controls.Add(this.tbAInputN);
+            this.panel1.Controls.Add(this.rtbMin_B);
+            this.panel1.Controls.Add(this.rtbMax_B);
+            this.panel1.Controls.Add(this.rtbN_B);
+            this.panel1.Controls.Add(this.rtbMin_A);
+            this.panel1.Controls.Add(this.rtbMax_A);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.rtbN_A);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.tbBCoefs);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.tbACoefs);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -502,7 +502,7 @@ namespace MainFormOOP
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Lavender;
-            this.panel2.Controls.Add(this.textBox12);
+            this.panel2.Controls.Add(this.tbOutput);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 460);
             this.panel2.Name = "panel2";
@@ -530,42 +530,42 @@ namespace MainFormOOP
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbACoefs;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbBCoefs;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox rtbN_A;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox rtbMax_A;
+        private System.Windows.Forms.TextBox rtbMin_A;
+        private System.Windows.Forms.TextBox rtbN_B;
+        private System.Windows.Forms.TextBox rtbMax_B;
+        private System.Windows.Forms.TextBox rtbMin_B;
+        private System.Windows.Forms.TextBox tbAInputN;
+        private System.Windows.Forms.TextBox tbAPow;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btnGenerateB;
+        private System.Windows.Forms.Button btnAMultiplyByN;
+        private System.Windows.Forms.Button btnAPow;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnSubtract;
+        private System.Windows.Forms.Button btnMultiply;
+        private System.Windows.Forms.Button btnDivide;
+        private System.Windows.Forms.Button btnMod;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox tbOutput;
+        private System.Windows.Forms.TextBox btnGenerateA;
+        private System.Windows.Forms.TextBox tbBPolynomial;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
