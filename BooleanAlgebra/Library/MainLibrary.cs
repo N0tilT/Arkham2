@@ -93,6 +93,22 @@ namespace Library
         }
 
         /// <summary>
+        /// Применить операцию импликации
+        /// </summary>
+        /// <returns>Статус операции</returns>
+        public bool Implicate()
+        {
+            bool result = List[0];
+
+            foreach (bool item in List.Skip(1))
+            {
+                result = !result | item;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Применить операцию конъюнкции
         /// </summary>
         /// <returns>Статус операции</returns>
@@ -225,12 +241,33 @@ namespace Library
         /// <summary>
         /// Применить операцию отрицания к указанному столбцу
         /// </summary>
+        /// <param name="index">Индекс столбца</param>
         /// <returns>Столбец (кортеж) с противоположными значениями</returns>
         public Sensor Negate(int index)
         {
-            Sensor sensor = Grid(index);
+            return Grid(index).Negate();
+        }
 
-            return sensor.Negate();
+        /// <summary>
+        /// Применить операцию импликации к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Implicate(int indexX, int indexY)
+        {
+            Sensor X = Grid(indexX);
+            Sensor Y = Grid(indexY);
+
+            int count = X.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { X.List[i], Y.List[i] }).Implicate();
+            }
+
+            return Sensor.Custom(list);
         }
 
         /// <summary>

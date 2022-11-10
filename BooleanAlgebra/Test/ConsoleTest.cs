@@ -45,6 +45,7 @@ namespace Test
 
             Console.WriteLine("OR:");
             Console.WriteLine(table.Or());
+
             Console.WriteLine("OR(0, 1):");
             Console.WriteLine(table.Or(0, 1));
 
@@ -53,6 +54,9 @@ namespace Test
 
             Console.WriteLine("AND(0, 1):");
             Console.WriteLine(table.And(0, 1));
+
+            Console.WriteLine("IMPLICATE(0, 1):");
+            Console.WriteLine(table.Implicate(0, 1));
         }
     }
 }
