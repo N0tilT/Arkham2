@@ -366,12 +366,9 @@ namespace UnitTests
             Assert.AreEqual("0 ", PrintD((new Polinom(new double[] { 3, 0, 2 }) / (new Polinom(new double[] { 6, 3, 2, 1 }))).Coef));
             Assert.AreEqual("1 ", PrintD((pol2 / pol).Coef));// 0,5
         }       
-        [TestMethod]
-        public void DivOstPolinom()
-        {
-            Assert.AreEqual("0 ", PrintD((new Polinom(new double[] { 3, 0, 2 }) / (new Polinom(new double[] { 6, 3, 2, 1 }))).Coef)); // 3 0 2
-            Assert.AreEqual("8 1 ", PrintD((pol2 % pol).Coef)); // 8 1
-        }
+
+
+        
         [TestMethod]
         public void DivNPolinom()
         {

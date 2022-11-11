@@ -20,8 +20,8 @@ namespace MainFormOOP
         const int MAX_N = 1000;  // максимальная степень полинома
         const double MAX_COEF = 1000000; // максимальное значение коэффициента
         const double MIN_COEF = -1000000; // минимальное значение коэффициента
-        Polinom A = new Polinom(new double[] { 3, 2, 1 });  // полином А с заданными коэфициентами, созданный в конструкторе класса
-        Polinom B = new Polinom(new double[] { 6, 5, 4 });  // полином В с заданными коэфициентами, созданный в конструкторе класса
+        Polinom A = new Polinom(new double[] { 1, 2, 3 });  // полином А с заданными коэфициентами, созданный в конструкторе класса
+        Polinom B = new Polinom(new double[] { 9, 8, 7 });  // полином В с заданными коэфициентами, созданный в конструкторе класса
         Polinom R = new Polinom();  // результат операций над двумя полиномами
         
         //Ввод полинома А пользователем
@@ -176,6 +176,17 @@ namespace MainFormOOP
             {
                 MessageBox.Show("Некорректная входная строка");
             }
+        }
+        // Деление на число
+        private void DivideN(Polinom pol, string textPol, string textN)
+        {
+            IsEmptyA(textPol);
+            R = pol / double.Parse(textN);
+            Rezult.Text = R.ToString();
+        }
+        private void buttonDivideN_Click(object sender, EventArgs e)
+        {
+            DivideN(A, APolynom.Text, AdivN.Text);
         }
 
         // Умножение на число.

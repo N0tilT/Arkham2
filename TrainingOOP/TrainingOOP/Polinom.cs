@@ -174,11 +174,11 @@ namespace TrainingOOP
             int m = p2.N;
             double[] multcf = new double[n + m + 1];
             Polinom ans = new Polinom(multcf);
-            for (int i = 0; i <= n + m; i++)  // индекс в итоговом массиве
-                for (int k = 0; k <= Math.Min(i, n); k++)  // индекс элемента с меньшей степенью
+            for (int i = 0; i <= n + m; i++)  
+                for (int k = 0; k <= Math.Min(i, n); k++)  
                 {
-                    int j = i - k;  // индекс элемента с большей степенью
-                    if (j <= m)  // не вышло за границы массива
+                    int j = i - k;  
+                    if (j <= m)  
                         multcf[i] += p1.Coef[k] * p2.Coef[j];
                 }
             return ans;
@@ -228,7 +228,7 @@ namespace TrainingOOP
             {
                 double d = delcf[n - i] / p2.Coef[m];  // коэффициент итогового полинома
                 anscf[n - m - i] = d;
-                delcf[n - i] = 0;  // старший коэффициент делимого уничтожается
+                delcf[n - i] = 0;  // старший коэффициент делимого зануляется
                 for (int k = 1; k <= m; k++)
                     delcf[n - i - k] -= d * p2.Coef[m - k];  // вычитание из делимого результата умножения d на p2
             }
@@ -239,46 +239,8 @@ namespace TrainingOOP
         {
             return (Polinom.Div(p1, p2));
         }
-        /// <summary>
-        /// Остаток от деления нацело полиномов
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> полином - остаток от деления нацело </returns>
-        private static Polinom DivOst(Polinom p1, Polinom p2)
-        {
-            int n = p1.N;
-            int m = p2.N;            if (n < m)  // если степень первого полинома меньше степени второго, то остаток от деления нацело - первый полином
-                return new Polinom(p1.Coef);
-            double[] quocf = new double[n - m + 1];
-            double[] delcf = new double[n + 1];
-            for (int i = 0; i <= n; i++)
-                delcf[i] = p1.Coef[i];
-            for (int i = 0; i <= n - m; i++)
-            {
-                double d = delcf[n - i] / p2.Coef[m];
-                quocf[n - m - i] = d;
-                delcf[n - i] = 0;
-                for (int k = 1; k <= m; k++)
-                    delcf[n - i - k] -= d * p2.Coef[m - k];
-            }
-            int j = 0;
-            while (j <= n && delcf[n - j] == 0)  // поиск ненулевого элемента в массиве delcf
-                j++;
-            double[] anscf = new double[1];
-            if (j <= n)  // если был найден ненулевой элемент (остаток не равен нулю)
-            {
-                anscf = new double[n - j + 1];
-                for (int i = 0; i <= n - j; i++)
-                    anscf[i] = delcf[i];  // копируем коэффициенты из массива delcf
-            }
-            Polinom ans = new Polinom(anscf);
-            return ans;
-        }
-        public static Polinom operator %(Polinom p1, Polinom p2)
-        {
-            return (Polinom.DivOst(p1, p2));
-        }
+
+
         /// <summary>
         /// Деление полиномов на число
         /// </summary>

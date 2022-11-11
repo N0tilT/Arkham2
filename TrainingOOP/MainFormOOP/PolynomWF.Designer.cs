@@ -366,6 +366,7 @@ namespace MainFormOOP
             this.AdivideN.TabIndex = 32;
             this.AdivideN.Text = "Деление на число";
             this.AdivideN.UseVisualStyleBackColor = true;
+            this.AdivideN.Click += new System.EventHandler(this.buttonDivideN_Click);
             // 
             // Rezult
             // 
