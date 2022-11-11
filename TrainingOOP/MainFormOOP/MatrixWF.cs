@@ -16,62 +16,36 @@ namespace MainFormOOP
         public MatrixWF()
         {
             InitializeComponent();
+            button1.Enabled = false;
         }
-
+        int l;
+        int k;
+        Matrix mass1;
+        Matrix mass2;
         private void bCalculate_Click(object sender, EventArgs e)
         {
             try
             {
-                Matrix mass1 = new Matrix(int.Parse(Size.Text));
-                mass1.MakeRandMatrix(int.Parse(Min.Text), int.Parse(Max.Text));
-                Rezult.Text = Rezult.Text + "Матрица A:" + "\r\n";
-                PrintMatrix(mass1);
+                A.Clear();
+                B.Clear();
+                Matrix a = new Matrix(int.Parse(Size.Text));
+                a.MakeRandMatrix(int.Parse(Min.Text), int.Parse(Max.Text));
+                A.Text = A.Text + "Матрица A:" + "\r\n";
+                PrintMatrix(a,A);
 
-                Matrix mass2 = new Matrix(int.Parse(Size.Text));
-                mass2.MakeRandMatrix(int.Parse(Min.Text), int.Parse(Max.Text));
-                Rezult.Text = Rezult.Text + "Матрица B:" + "\r\n";
-                PrintMatrix(mass2);
-
-                Matrix mass3 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Сумма матриц A и В:" + "\r\n";
-                mass3 = mass1 + mass2;
-                PrintMatrix(mass3);
-
-                Matrix mass4 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Разность матриц А и В:" + "\r\n";
-                mass4 = mass1 - mass2;
-                PrintMatrix(mass4);
-
-                Matrix mass5 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Умножение матрицы А на число:" + "\r\n";
-                mass5 = mass1 * int.Parse(Mult.Text);
-                PrintMatrix(mass5);
-
-                Matrix mass6 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Произведение матриц А и В:" + "\r\n";
-                mass6 = mass1 * mass2;
-                PrintMatrix(mass6);
-
-                Matrix mass7 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text = Rezult.Text + "Возведение матрицы B в степень" + "\r\n";
-                mass7 = mass2 ^ int.Parse(Pow.Text);
-                PrintMatrix(mass7);
-
-                Rezult.Text = Rezult.Text + "Определитель матрицы А:" + "\r\n";
-                double def1 = !mass1;
-                Rezult.Text +=  def1 + "\r\n" + "\r\n";
-
-                Matrix mass8 = new Matrix(int.Parse(Size.Text));
-                Rezult.Text += "Транспонирование матрицы B" + "\r\n";
-                mass8 = ~mass2;
-                PrintMatrix(mass8);
+                Matrix b = new Matrix(int.Parse(Size.Text));
+                b.MakeRandMatrix(int.Parse(Min.Text), int.Parse(Max.Text));
+                B.Text = B.Text + "Матрица B:" + "\r\n";
+                PrintMatrix(b,B);
+                mass1 = a;
+                mass2 = b;
             }
             catch (Exception)
             {
                 MessageBox.Show("Некорректное заполнение полей/Не все поля заполнены");
             }
         }
-        public void PrintMatrix(Matrix mas)
+        public void PrintMatrix(Matrix mas, TextBox X)
         {
             string s;
             for (int i = 0; i < mas.N; i++)
@@ -79,11 +53,134 @@ namespace MainFormOOP
                 for (int j = 0; j < mas.N; j++)
                 {
                     s=(mas[i, j] + " ");
-                    Rezult.Text += s;
+                    X.Text += s;
                 }
-                Rezult.Text += "\r\n";
+                X.Text += "\r\n";
             }
-            Rezult.Text += "\r\n";  
+            X.Text += "\r\n";  
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                C.Clear();
+                if (l == 0)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    C.Text = C.Text + "Сумма матриц A и В:" + "\r\n";
+                    mass3 = mass1 + mass2;
+                    PrintMatrix(mass3, C);
+                }
+                if (l == 1)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    C.Text = C.Text + "Разность матриц А и В:" + "\r\n";
+                    mass3 = mass1 - mass2;
+                    PrintMatrix(mass3, C);
+                }
+                if (l == 2)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    C.Text = C.Text + "Умножение матрицы на число:" + "\r\n";
+                    if (k == 0)
+                    { 
+                        mass3 = mass1 * int.Parse(Inter.Text);
+                    }
+                    else
+                    {
+                        mass3 = mass2 * int.Parse(Inter.Text);
+                    }
+                    PrintMatrix(mass3, C);
+                }
+                if (l == 3)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    C.Text = C.Text + "Произведение матриц А и В:" + "\r\n";
+                    mass3 = mass1 * mass2;
+                    PrintMatrix(mass3, C);
+                }
+                if (l == 4)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    C.Text = C.Text + "Возведение матрицы в степень" + "\r\n";
+                    if (k == 0)
+                    {
+                        mass3 = mass1 & int.Parse(Inter.Text);
+                    }
+                    else
+                    {
+                        mass3 = mass2 & int.Parse(Inter.Text);
+                    }
+                    PrintMatrix(mass3, C);
+                }
+                if (l == 5)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    double qq;
+                    C.Text = C.Text + "Определитель матрицы:" + "\r\n";
+                    if (k == 0)
+                    {
+                        mass3 = mass1;
+                         qq = Matrix.Gauss(mass3);
+                    }
+                    else
+                    {
+                        mass3 = mass2;
+                         qq = Matrix.Gauss(mass3);
+                    }
+                    C.Text += qq + "\r\n";
+                }
+                if (l == 6)
+                {
+                    Matrix mass3 = new Matrix(int.Parse(Size.Text));
+                    C.Text += "Транспонирование матрицы B" + "\r\n";
+                    if (k == 0)
+                    {
+                        mass3 = ~mass1;
+                    }
+                    else
+                    {
+                        mass3 = ~mass2;
+                    }
+                    PrintMatrix(mass3,C);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Некорректное заполнение полей/Не все поля заполнены");
+            }
+        }
+        
+        private void combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+            Matx.Enabled = false;
+            Inter.Enabled = false;
+            l = combo.SelectedIndex;
+            if (l == 2)
+            {
+                Matx.Enabled = true;
+                Inter.Enabled = true;
+            }
+            if (l == 4)
+            {
+                Matx.Enabled = true;
+                Inter.Enabled = true;
+            }
+            if (l == 5)
+            {
+                Matx.Enabled = true;
+            }
+            if (l == 6)
+            {
+                Matx.Enabled = true;
+            }
+        }
+
+        private void Matx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            k = Matx.SelectedIndex;
         }
     }
 }
