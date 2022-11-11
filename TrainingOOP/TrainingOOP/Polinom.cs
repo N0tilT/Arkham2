@@ -305,7 +305,7 @@ namespace TrainingOOP
         /// </summary>
         /// <param name="n"> степень </param>
         /// <returns> полином - результат возведения в степень </returns>
-        private Polinom Pow(int n)
+        public Polinom Pow(int n)
         {
             if (n == 0)
                 return new Polinom(new double[] { 1 });
@@ -351,20 +351,114 @@ namespace TrainingOOP
                 ansc[i] = _cf[i - 1] / i;
             return new Polinom(ansc);
         }
-        /// <summary>
-        /// Вычисление значения полинома в точке x.
-        /// </summary>
-        /// <param name="x"> точка </param>
-        /// <returns> значение полинома в точке </returns>
-        public double P(double x)
-        {
-            double ans = 0;
-            for (int i = _n; i >= 0; i--)
-                ans = ans * x + _cf[i];
-            return ans;
-        }
 
         #endregion
 
+        #region ToString() modify
+        /// <summary>
+        /// Переопределение метода ToString().
+        /// </summary>
+        /// <returns> строка, представляющая полином </returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(GetFirstNotNullMember(out int position));
+            for (int i = position - 1; i >= 0; i--)
+            {
+                if (_cf[i] == 0) continue;
+                if (Math.Abs(_cf[i]) == 1)
+                {
+                    if (i == 0)
+                    {
+                        sb.Append(SetGign(_cf[i]));
+                        sb.Append('1');
+                    }
+                    else if (i == 1)
+                    {
+                        sb.Append(SetGign(_cf[i]));
+                        sb.Append('x');
+                    }
+                    else
+                    {
+                        sb.Append(SetGign(_cf[i]));
+                        sb.Append("x^");
+                        sb.Append(i);
+                    }
+                }
+                else
+                {
+                    if (i == 0)
+                    {
+                        sb.Append(SetGign(_cf[i]));
+                        sb.Append(Math.Abs(_cf[i]));
+                    }
+                    else if (i == 1)
+                    {
+                        sb.Append(SetGign(_cf[i]));
+                        sb.Append(Math.Abs(_cf[i]));
+                        sb.Append('x');
+                    }
+                    else
+                    {
+                        sb.Append(SetGign(_cf[i]));
+                        sb.Append(Math.Abs(_cf[i]));
+                        sb.Append("x^");
+                        sb.Append(i);
+                    }
+                }
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Получение первого ненулевого элемента в полиноме.
+        /// </summary>
+        /// <param name="position"> позиция ненулевого элемента </param>
+        /// <returns> первый ненулевой элемент в полиноме </returns>
+        private string GetFirstNotNullMember(out int position)
+        {
+            string temp = "";
+            int i;
+            for (i = _n; i >= 0; i--)
+            {
+                if (_cf[i] == 0) continue;
+                if (Math.Abs(_cf[i]) == 1)
+                {
+                    if (i == 0)
+                        temp += _cf[i];
+                    else if (i == 1)
+                        temp += _cf[i] == 1 ? "x" : "-x";
+                    else
+                        temp += (_cf[i] == 1 ? "x^" : "-x^") + i;
+                }
+                else
+                {
+                    if (i == 0)
+                        temp += _cf[i];
+                    else if (i == 1)
+                        temp += _cf[i] + "x";
+                    else
+                        temp += _cf[i] + "x^" + i;
+                }
+                break;
+            }
+            if (temp == "")
+                temp = "0";
+            position = i;
+            return temp;
+        }
+
+        /// <summary>
+        /// Получает знак числа.
+        /// </summary>
+        /// <param name="n"> число, знак которого нужно получить </param>
+        /// <returns> знак числа (+ или -) </returns>
+        private string SetGign(double n)
+        {
+            if (n >= 0)
+                return " + ";
+            return " - ";
+        }
+        #endregion
     }
 }
