@@ -56,26 +56,6 @@ namespace Library
         public bool[] List => _list;
 
         /// <summary>
-        /// Сравнить все значения кортежа с указанным значением
-        /// </summary>
-        /// <param name="state">Значение</param>
-        /// <returns>Статус сравнения</returns>
-        public bool All(bool state)
-        {
-            return List.All(item => item == state);
-        }
-
-        /// <summary>
-        /// Сравнить с другим кортежем
-        /// </summary>
-        /// <param name="sensor">Кортеж булевых значений</param>
-        /// <returns>Статус сравнения</returns>
-        public bool Compare(Sensor sensor)
-        {
-            return sensor.List.SequenceEqual(List);
-        }
-
-        /// <summary>
         /// Получить новый кортеж с противоположными значениями
         /// </summary>
         /// <returns>Новый кортеж с противоположными значениями</returns>
@@ -93,6 +73,42 @@ namespace Library
         }
 
         /// <summary>
+        /// Применить операцию импликации
+        /// </summary>
+        /// <returns>Статус операции</returns>
+        public bool Implicate()
+        {
+            bool result = List[0];
+
+            foreach (bool item in List.Skip(1))
+            {
+                result = !result | item;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Применить операцию эквализации
+        /// TODO: эквализация?
+        /// </summary>
+        /// <returns>Статус операции</returns>
+        public bool Equalite()
+        {
+            bool result = List[0];
+
+            foreach (bool item in List.Skip(1))
+            {
+                if (result != item)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Применить операцию конъюнкции
         /// </summary>
         /// <returns>Статус операции</returns>
@@ -102,7 +118,7 @@ namespace Library
 
             foreach (bool item in List.Skip(1))
             {
-                result = result && item;
+                result &= item;
             }
 
             return result;
@@ -118,7 +134,23 @@ namespace Library
 
             foreach (bool item in List.Skip(1))
             {
-                result = result || item;
+                result |= item;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Применить операцию исключающей дизъюнкции
+        /// </summary>
+        /// <returns>Статус операции</returns>
+        public bool Xor()
+        {
+            bool result = List[0];
+
+            foreach (bool item in List.Skip(1))
+            {
+                result = (result & !item) | (!result & item);
             }
 
             return result;
@@ -143,7 +175,7 @@ namespace Library
         /// <summary>
         /// Конструктор таблицы
         /// </summary>
-        /// <param name="count">Количество булевых переменных</param>
+        /// <param name="count">Количество булевых переменных (столбцов)</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TruthTable(int count)
         {
@@ -167,58 +199,258 @@ namespace Library
         }
 
         /// <summary>
-        /// Получить новую таблицу с противоположными значениями
+        /// Доступ к списку строк таблицы (кортежей)
         /// </summary>
-        /// <returns>Новая таблица с противоположными значениями</returns>
-        public TruthTable Negate()
+        public Sensor[] Table => _table;
+
+        /// <summary>
+        /// Доступ к количеству столбцов таблицы (булевых переменных)
+        /// </summary>
+        public int Count => Table[0].List.Count();
+
+        /// <summary>
+        /// Получить строку таблицы под указанным индексом
+        /// </summary>
+        /// <param name="index">Индекс</param>
+        /// <returns>Строка (кортеж)</returns>
+        public Sensor Row(int index)
+        {
+            return Table[index];
+        }
+
+        /// <summary>
+        /// Получить столбец таблицы под указанным индексом
+        /// </summary>
+        /// <param name="index">Индекс</param>
+        /// <returns>Столбец (кортеж)</returns>
+        public Sensor Grid(int index)
         {
             int count = Table.Count();
-            TruthTable table = new TruthTable(count);
+            bool[] list = new bool[count];
+            int i = 0;
+
+            foreach (Sensor sensor in Table)
+            {
+                list[i++] = sensor.List[index];
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
+        /// Применить операцию отрицания к указанному столбцу
+        /// </summary>
+        /// <param name="index">Индекс столбца</param>
+        /// <returns>Столбец (кортеж) с противоположными значениями</returns>
+        public Sensor Negate(int index)
+        {
+            return Grid(index).Negate();
+        }
+
+        /// <summary>
+        /// Применить операцию импликации к кортежам
+        /// </summary>
+        /// <param name="x">Первый кортеж</param>
+        /// <param name="y">Второй кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public static Sensor Implicate(Sensor x, Sensor y)
+        {
+            int count = x.List.Count();
+            bool[] list = new bool[count];
 
             for (int i = 0; i < count; i++)
             {
-                table.Table[i] = Table[i].Negate();
-            }
-
-            return table;
-        }
-
-        /// <summary>
-        /// Применить операцию конъюнкции
-        /// </summary>
-        /// <returns>Кортеж из статусов операции</returns>
-        public Sensor And()
-        {
-            bool[] list = new bool[Table.Count()];
-
-            foreach (Sensor sensor in Table)
-            {
-                list.Append(sensor.And());
+                list[i] = Sensor.Custom(new bool[] { x.List[i], y.List[i] }).Implicate();
             }
 
             return Sensor.Custom(list);
         }
 
         /// <summary>
-        /// Применить операцию дизъюнкции
+        /// Применить операцию импликации к столбцу и кортежу
         /// </summary>
+        /// <param name="index">Столбец</param>
+        /// <param name="sensor">Кортеж</param>
         /// <returns>Кортеж из статусов операции</returns>
-        public Sensor Or()
+        public Sensor Implicate(int index, Sensor sensor)
         {
-            bool[] list = new bool[Table.Count()];
+            return Implicate(Grid(index), sensor);
+        }
 
-            foreach (Sensor sensor in Table)
+        /// <summary>
+        /// Применить операцию импликации к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Implicate(int indexX, int indexY)
+        {
+            return Implicate(Grid(indexX), Grid(indexY));
+        }
+
+        /// <summary>
+        /// Применить операцию эквализации к кортежам
+        /// </summary>
+        /// <param name="x">Первый кортеж</param>
+        /// <param name="y">Второй кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public static Sensor Equalite(Sensor x, Sensor y)
+        {
+            int count = x.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
             {
-                list.Append(sensor.Or());
+                list[i] = Sensor.Custom(new bool[] { x.List[i], y.List[i] }).Equalite();
             }
 
             return Sensor.Custom(list);
         }
 
         /// <summary>
-        /// Доступ к списку кортежей
+        /// Применить операцию эквализации к столбцу и кортежу
         /// </summary>
-        public Sensor[] Table => _table;
+        /// <param name="index">Столбец</param>
+        /// <param name="sensor">Кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Equalite(int index, Sensor sensor)
+        {
+            return Equalite(Grid(index), sensor);
+        }
+
+        /// <summary>
+        /// Применить операцию эквализации к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Equalite(int indexX, int indexY)
+        {
+            return Equalite(Grid(indexX), Grid(indexY));
+        }
+
+        /// <summary>
+        /// Применить операцию конъюнкции к кортежам
+        /// </summary>
+        /// <param name="x">Первый кортеж</param>
+        /// <param name="y">Второй кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public static Sensor And(Sensor x, Sensor y)
+        {
+            int count = x.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { x.List[i], y.List[i] }).And();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
+        /// Применить операцию конъюнкции к столбцу и кортежу
+        /// </summary>
+        /// <param name="index">Столбец</param>
+        /// <param name="sensor">Кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor And(int index, Sensor sensor)
+        {
+            return And(Grid(index), sensor);
+        }
+
+        /// <summary>
+        /// Применить операцию конъюнкции к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor And(int indexX, int indexY)
+        {
+            return And(Grid(indexX), Grid(indexY));
+        }
+
+        /// <summary>
+        /// Применить операцию дизъюнкции к кортежам
+        /// </summary>
+        /// <param name="x">Первый кортеж</param>
+        /// <param name="y">Второй кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public static Sensor Or(Sensor x, Sensor y)
+        {
+            int count = x.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { x.List[i], y.List[i] }).Or();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
+        /// Применить операцию дизъюнкции к столбцу и кортежу
+        /// </summary>
+        /// <param name="index">Столбец</param>
+        /// <param name="sensor">Кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Or(int index, Sensor sensor)
+        {
+            return Or(Grid(index), sensor);
+        }
+
+        /// <summary>
+        /// Применить операцию дизъюнкции к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Or(int indexX, int indexY)
+        {
+            return Or(Grid(indexX), Grid(indexY));
+        }
+
+        /// <summary>
+        /// Применить операцию исключающей дизъюнкции к кортежам
+        /// </summary>
+        /// <param name="x">Первый кортеж</param>
+        /// <param name="y">Второй кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public static Sensor Xor(Sensor x, Sensor y)
+        {
+            int count = x.List.Count();
+            bool[] list = new bool[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                list[i] = Sensor.Custom(new bool[] { x.List[i], y.List[i] }).Xor();
+            }
+
+            return Sensor.Custom(list);
+        }
+
+        /// <summary>
+        /// Применить операцию исключающей дизъюнкции к столбцу и кортежу
+        /// </summary>
+        /// <param name="index">Столбец</param>
+        /// <param name="sensor">Кортеж</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Xor(int index, Sensor sensor)
+        {
+            return Xor(Grid(index), sensor);
+        }
+
+        /// <summary>
+        /// Применить операцию исключающей дизъюнкции к указанным столбцам
+        /// </summary>
+        /// <param name="indexX">Первый столбец</param>
+        /// <param name="indexY">Второй столбец</param>
+        /// <returns>Кортеж из статусов операции</returns>
+        public Sensor Xor(int indexX, int indexY)
+        {
+            return Xor(Grid(indexX), Grid(indexY));
+        }
 
         public override string ToString()
         {

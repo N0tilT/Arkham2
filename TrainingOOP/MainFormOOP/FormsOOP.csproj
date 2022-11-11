@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PolynomWF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PolynomWF.Designer.cs">
+      <DependentUpon>PolynomWF.cs</DependentUpon>
+    </Compile>
     <Compile Include="MatrixWF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     <EmbeddedResource Include="MatrixWF.resx">
       <DependentUpon>MatrixWF.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PolynomWF.resx">
+      <DependentUpon>PolynomWF.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -132,6 +141,10 @@
     <ProjectReference Include="..\TrainingOOP\TrainingOOPCL.csproj">
       <Project>{e7da2f5e-75ac-4480-afbc-e2d9b2f47eb9}</Project>
       <Name>TrainingOOPCL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitTests\UnitTests.csproj">
+      <Project>{4bcd0091-d742-4359-a22d-627376ca6a11}</Project>
+      <Name>UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,6 +13,7 @@
                             <Grid Margin="15,0,15,0"
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Stretch">
+                                
 
                                 <TextBlock Text="{TemplateBinding Property=Content}"
                                         VerticalAlignment="Center"

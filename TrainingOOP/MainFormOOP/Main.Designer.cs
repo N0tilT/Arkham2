@@ -34,6 +34,7 @@ namespace MainFormOOP
             this.bStudent = new System.Windows.Forms.Button();
             this.bTeacher = new System.Windows.Forms.Button();
             this.bVehicle = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bComplex
@@ -91,11 +92,23 @@ namespace MainFormOOP
             this.bVehicle.UseVisualStyleBackColor = true;
             this.bVehicle.Click += new System.EventHandler(this.bVehicle_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.button1.Location = new System.Drawing.Point(38, 429);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(289, 70);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Полиномы";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 462);
+            this.ClientSize = new System.Drawing.Size(357, 527);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.bVehicle);
             this.Controls.Add(this.bTeacher);
             this.Controls.Add(this.bStudent);
@@ -114,6 +127,7 @@ namespace MainFormOOP
         private System.Windows.Forms.Button bStudent;
         private System.Windows.Forms.Button bTeacher;
         private System.Windows.Forms.Button bVehicle;
+        private System.Windows.Forms.Button button1;
     }
 }
 
