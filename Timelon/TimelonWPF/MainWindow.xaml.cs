@@ -85,7 +85,7 @@ namespace TimelonWPF
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (SearchTextbox.Text == "") return;
-            List<Card> searchResult = listManager.GlobalSearchByContent(SearchTextbox.Text);
+            List<Card> searchResult = listManager.SearchByContent(SearchTextbox.Text);
 
             ShowSearchResult(searchResult);
             

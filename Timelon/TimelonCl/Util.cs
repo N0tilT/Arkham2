@@ -15,6 +15,20 @@ namespace TimelonCl
         private static int _incrementor = 0;
 
         /// <summary>
+        /// Зарегистрировать уникальный идентификатор в текущей сессии
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        protected static void Register(int id)
+        {
+            if (id < _incrementor)
+            {
+                return;
+            }
+
+            Interlocked.Exchange(ref _incrementor, id);
+        }
+
+        /// <summary>
         /// Получить следующий уникальный идентификатор
         /// </summary>
         /// <returns>Уникальный идентификатор</returns>

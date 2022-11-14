@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace TimelonCl
 {
@@ -10,13 +12,12 @@ namespace TimelonCl
         /// <summary>
         /// Дата создания
         /// </summary>
-        private readonly DateTime _created;
+        private DateTime _created;
 
         /// <summary>
         /// Дата последнего обновления
-        /// (значение по-умолчанию равно дате создания)
         /// </summary>
-        private DateTime _updated;
+        private DateTime? _updated = null;
 
         /// <summary>
         /// Запланированная дата
@@ -24,7 +25,7 @@ namespace TimelonCl
         private DateTime? _planned = null;
 
         /// <summary>
-        /// Конструктор
+        /// Основной конструктор
         /// </summary>
         /// <param name="created">Дата создания</param>
         /// <param name="updated">Дата последнего обновления или null</param>
@@ -33,9 +34,14 @@ namespace TimelonCl
         {
             _created = created;
 
-            Updated = updated ?? created;
+            Updated = updated;
             Planned = planned;
         }
+
+        /// <summary>
+        /// Пустой конструктор для корректной сериализации
+        /// </summary>
+        public DateTimeContainer() => throw new InvalidOperationException();
 
         /// <summary>
         /// Создание контейнера по-умолчанию с текущей датой
@@ -44,17 +50,28 @@ namespace TimelonCl
 
         /// <summary>
         /// Доступ к дате создания
+        /// Сеттер заблокирован и служит для сериализации
         /// </summary>
-        public DateTime Created => _created;
+        public DateTime Created
+        {
+            get => _created;
+            set => throw new InvalidOperationException();
+        }
 
         /// <summary>
         /// Доступ к дате последнего обновления
         /// </summary>
-        public DateTime Updated
+        public DateTime? Updated
         {
             get => _updated;
             set
             {
+                if (value == null)
+                {
+                    _updated = value;
+                    return;
+                }
+
                 if (value < _created)
                 {
                     throw new ArgumentOutOfRangeException("updated не может быть раньше, чем created");
@@ -93,7 +110,7 @@ namespace TimelonCl
         /// <returns>Статус проверки</returns>
         public bool HasUpdated()
         {
-            return Updated != Created;
+            return Updated != null;
         }
 
         /// <summary>
@@ -116,33 +133,81 @@ namespace TimelonCl
         }
     }
 
+    /// <summary>
+    /// Карта
+    /// </summary>
+    [Serializable]
     public class Card : Unique<Card>
     {
+        /// <summary>
+        /// Уникальный идентификатор
+        /// </summary>
         private int _id;
+
+        /// <summary>
+        /// Название
+        /// </summary>
         private string _name;
+
+        /// <summary>
+        /// Контейнер с датами
+        /// </summary>
         private DateTimeContainer _date;
 
+        /// <summary>
+        /// Описание
+        /// </summary>
         private string _description = String.Empty;
+
+        /// <summary>
+        /// Статус важности
+        /// </summary>
         private bool _isImportant = false;
+
+        /// <summary>
+        /// Статус выполнения
+        /// </summary>
         private bool _isCompleted = false;
 
-        public Card(int id, string name, DateTimeContainer date, string description, bool isImportant, bool isCompleted)
+        /// <summary>
+        /// Расширенный конструктор
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="name">Название</param>
+        /// <param name="date">Контейнер с датами</param>
+        /// <param name="description">Описание</param>
+        /// <param name="isImportant">Статус важности</param>
+        /// <param name="isCompleted">Статус выполнения</param>
+        public Card(int id, string name, DateTimeContainer date, string description, bool isImportant, bool isCompleted) : this(id, name, date)
         {
-            Id = id;
-            Name = name;
-            Date = date;
-
             Description = description;
             IsImportant = isImportant;
             IsCompleted = isCompleted;
         }
 
+        /// <summary>
+        /// Базовый конструктор
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="name">Название</param>
+        /// <param name="date">Контейнер с датами</param>
+        /// <exception cref="ArgumentException"></exception>
         public Card(int id, string name, DateTimeContainer date)
         {
-            Id = id;
-            Name = name;
-            Date = date;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("name не может быть пустой строкой");
+            }
+
+            _id = id;
+            _name = name.Trim();
+            _date = date;
         }
+
+        /// <summary>
+        /// Пустой конструктор для корректной сериализации
+        /// </summary>
+        public Card() => throw new InvalidOperationException();
 
         /// <summary>
         /// Создать новую карту
@@ -157,7 +222,10 @@ namespace TimelonCl
             return new Card(UniqueId(), name, date);
         }
 
-        // Для тестов
+        /// <summary>
+        /// Создать новую случайную карту
+        /// </summary>
+        /// <returns>Карта со случайными данными</returns>
         public static Card Random()
         {
             return new Card(
@@ -170,20 +238,20 @@ namespace TimelonCl
             );
         }
 
+        /// <summary>
+        /// Доступ к уникальному идентификатору
+        /// Сеттер заблокирован и служит для сериализации
+        /// </summary>
+        [XmlAttribute]
         public int Id
         {
             get => _id;
-            private set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("id не может быть отрицательным числом");
-                }
-
-                _id = value;
-            }
+            set => throw new InvalidOperationException();
         }
 
+        /// <summary>
+        /// Доступ к названию
+        /// </summary>
         public string Name
         {
             get => _name;
@@ -198,38 +266,64 @@ namespace TimelonCl
             }
         }
 
+        /// <summary>
+        /// Доступ к контейнеру с датами
+        /// Сеттер заблокирован и служит для сериализации
+        /// </summary>
         public DateTimeContainer Date
         {
             get => _date;
-            private set => _date = value;
+            set => throw new InvalidOperationException();
         }
+
+        /// <summary>
+        /// Доступ к описанию
+        /// </summary>
         public string Description
         {
             get => _description;
             set => _description = value.Trim();
         }
 
+        /// <summary>
+        /// Доступ к статусу важности
+        /// </summary>
         public bool IsImportant
         {
             get => _isImportant;
             set => _isImportant = value;
         }
 
+        /// <summary>
+        /// Доступ к статусу выполнения
+        /// </summary>
         public bool IsCompleted
         {
             get => _isCompleted;
             set => _isCompleted = value;
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Привести объект к сериализованной в xml формате строке
+        /// </summary>
+        /// <returns>Строка в xml формате</returns>
+        public string ToXmlString()
         {
-            string result = $"ID: {Id}\nNAME: {Name}\n{Date}";
+            XmlSerializer serializer = new XmlSerializer(typeof(Card));
+            StringWriter writer = new StringWriter();
 
-            result += !String.IsNullOrWhiteSpace(Description) ? $"\nDESC: {Description}" : "";
-            result += IsImportant ? $"\nIMPORTANT: {IsImportant}" : "";
-            result += IsCompleted ? $"\nCOMPLETED: {IsCompleted}" : "";
+            serializer.Serialize(writer, this);
+
+            string result = writer.ToString();
+
+            writer.Close();
 
             return result;
+        }
+
+        public override string ToString()
+        {
+            return ToXmlString();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace TimelonCl
 {
@@ -18,6 +20,7 @@ namespace TimelonCl
     /// <summary>
     /// Список карт
     /// </summary>
+    [Serializable]
     public class CardList : Unique<CardList>
     {
         /// <summary>
@@ -62,17 +65,6 @@ namespace TimelonCl
         private SortOrder _status = SortOrder.Initial;
 
         /// <summary>
-        /// Конструктор пустого списка
-        /// </summary>
-        /// <param name="id">Уникальный идентификатор</param>
-        /// <param name="name">Название списка</param>
-        public CardList(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-
-        /// <summary>
         /// Конструктор списка из заданного списка карт
         /// </summary>
         /// <param name="id">Уникальный идентификатор</param>
@@ -87,6 +79,31 @@ namespace TimelonCl
         }
 
         /// <summary>
+        /// Конструктор пустого списка
+        /// </summary>
+        /// <param name="id">Уникальный идентификатор</param>
+        /// <param name="name">Название списка</param>
+        /// <exception cref="ArgumentException"></exception>
+        public CardList(int id, string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("name не может быть пустой строкой");
+            }
+
+            _id = id;
+            _name = name.Trim();
+        }
+
+        /// <summary>
+        /// Пустой конструктор для корректной сериализации
+        /// </summary>
+        public CardList()
+        {
+            throw new InvalidOperationException();
+        }
+
+        /// <summary>
         /// Создать новый список карт
         /// </summary>
         /// <param name="name">Название</param>
@@ -98,19 +115,13 @@ namespace TimelonCl
 
         /// <summary>
         /// Доступ к идентификатору списка
+        /// Сеттер заблокирован и служит для сериализации
         /// </summary>
+        [XmlAttribute]
         public int Id
         {
             get => _id;
-            private set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("id не может быть отрицательным числом");
-                }
-
-                _id = value;
-            }
+            set => throw new InvalidOperationException();
         }
 
         /// <summary>
@@ -121,25 +132,45 @@ namespace TimelonCl
             get => _name;
             set
             {
-                value = value.Trim();
-
-                if (value.Length == 0)
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("name не может быть пустой строкой");
                 }
 
-                _name = value;
+                _name = value.Trim();
             }
         }
 
         /// <summary>
         /// Доступ к хранилищу карт
         /// </summary>
+        [XmlIgnore]
         public Dictionary<int, Card> All => _pool;
+
+        /// <summary>
+        /// Доступ к библиотеке в виде списка
+        /// Сеттер заблокирован и служит для сериализации
+        /// </summary>
+        public List<Card> List
+        {
+            get
+            {
+                List<Card> result = new List<Card>();
+
+                foreach (KeyValuePair<int, Card> item in All)
+                {
+                    result.Add(item.Value);
+                }
+
+                return result;
+            }
+            set => throw new InvalidOperationException();
+        }
 
         /// <summary>
         /// Доступ к статусу сортировки
         /// </summary>
+        [XmlIgnore]
         public SortOrder Status
         {
             get => _status;
@@ -306,10 +337,10 @@ namespace TimelonCl
 
             if (order == SortOrder.Ascending)
             {
-                return All.OrderBy(item => item.Value.Date.Updated);
+                return All.OrderBy(item => item.Value.Date.Updated ?? item.Value.Date.Created);
             }
 
-            return All.OrderByDescending(item => item.Value.Date.Updated);
+            return All.OrderByDescending(item => item.Value.Date.Updated ?? item.Value.Date.Created);
         }
 
         /// <summary>
@@ -350,6 +381,29 @@ namespace TimelonCl
             }
 
             Status = order;
+        }
+
+        /// <summary>
+        /// Привести объект к сериализованной в xml формате строке
+        /// </summary>
+        /// <returns>Строка в xml формате</returns>
+        public string ToXmlString()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(CardList));
+            StringWriter writer = new StringWriter();
+
+            serializer.Serialize(writer, this);
+
+            string result = writer.ToString();
+
+            writer.Close();
+
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return ToXmlString();
         }
     }
 }

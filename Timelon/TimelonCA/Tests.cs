@@ -42,13 +42,10 @@ namespace TimelonCA
             }
 
             // Все карточки
-            foreach (KeyValuePair<int, Card> card in list.All)
-            {
-                Console.WriteLine(card.Value);
-            }
+            Console.WriteLine(list);
 
             Console.WriteLine();
-            Console.WriteLine("Default list unsorted:");
+            Console.WriteLine("DEFAULT LIST UNSORTED:");
 
             // Несортировка по дате последнего обновления
             foreach (Card card in list.GetListDefault(SortOrder.Unsorted))
@@ -57,7 +54,7 @@ namespace TimelonCA
             }
 
             Console.WriteLine();
-            Console.WriteLine("Important ascending:");
+            Console.WriteLine("IMPORTANT ASCENDING:");
 
             // Сортировка важных по дате обновления по возрастанию
             foreach (Card card in list.GetListImportant(SortOrder.Ascending))
@@ -66,7 +63,7 @@ namespace TimelonCA
             }
 
             Console.WriteLine();
-            Console.WriteLine("Completed descending:");
+            Console.WriteLine("COMPLETED DESCENDING:");
 
             // Сортировка выполненных по дате обновления по убыванию
             foreach (Card card in list.GetListCompleted(SortOrder.Descending))
@@ -99,14 +96,7 @@ namespace TimelonCA
 
             foreach (KeyValuePair<int, CardList> item in manager.All)
             {
-                Console.WriteLine();
-                Console.WriteLine("CARDLIST_ID: " + item.Value.Id);
-                Console.WriteLine("CARDLIST_NAME: " + item.Value.Name);
-
-                foreach (KeyValuePair<int, Card> card in item.Value.All)
-                {
-                    Console.WriteLine(card.Value);
-                }
+                Console.WriteLine(item.Value);
             }
 
             Console.WriteLine();

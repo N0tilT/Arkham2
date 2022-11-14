@@ -13,11 +13,6 @@ namespace TimelonCl
         private readonly SortedList<int, CardList> _list = new SortedList<int, CardList>();
 
         /// <summary>
-        /// Конструктор менеджера без списков
-        /// </summary>
-        public CardListManager() { }
-
-        /// <summary>
         /// Конструктор менеджера списков карт
         /// </summary>
         /// <param name="list">Списки карт</param>
@@ -28,6 +23,11 @@ namespace TimelonCl
                 SetList(item);
             }
         }
+
+        /// <summary>
+        /// Конструктор пустого менеджера
+        /// </summary>
+        public CardListManager() { }
 
         /// <summary>
         /// Доступ к спискам карт
@@ -68,19 +68,21 @@ namespace TimelonCl
         /// </summary>
         /// <param name="content">искомое значение</param>
         /// <returns>Список найденных карт</returns>
-        public List<Card> GlobalSearchByContent(string content)
+        public List<Card> SearchByContent(string content)
         {
             List<Card> result = new List<Card>();
 
             foreach(KeyValuePair<int,CardList> item in _list)
             {
                 List<Card> found = item.Value.SearchByContent(content);
-                foreach (Card card in found) result.Add(card);
-            }
 
+                foreach (Card card in found)
+                {
+                    result.Add(card);
+                }
+            }
 
             return result;
         }
-
     }
 }
