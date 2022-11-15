@@ -1,33 +1,76 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace TimelonCl
 {
     /// <summary>
-    /// Менеджер списков карт
+    /// Менеджер списков карт и провайдер данных
+    /// Допустимо существование лишь одного экземпляра этого класса
+    /// (зависимость от потока)
     /// </summary>
-    public class CardListManager
+    public sealed class CardListManager
     {
+        /// <summary>
+        /// Название файла с данными
+        /// </summary>
+        public const string FileName = "data.xml";
+
+        /// <summary>
+        /// Название директории с данными
+        /// </summary>
+        public const string DirectoryName = "Timelon";
+
+        /// <summary>
+        /// Экземпляр класса одиночки
+        /// </summary>
+        private static CardListManager _instance = null;
+        
+        /// <summary>
+        /// Полный путь до директории "Documents"
+        /// </summary>
+        private string _source = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
         /// <summary>
         /// Списки карт
         /// </summary>
         private readonly SortedList<int, CardList> _list = new SortedList<int, CardList>();
 
         /// <summary>
-        /// Конструктор менеджера списков карт
+        /// Конструктор менеджера
+        /// Не может быть вызван извне
         /// </summary>
-        /// <param name="list">Списки карт</param>
-        public CardListManager(List<CardList> list)
+        private CardListManager()
         {
-            foreach (CardList item in list)
+            Load();
+        }
+
+        /// <summary>
+        /// Глобальная точка доступа к классу
+        /// </summary>
+        public static CardListManager Instance
+        {
+            get
             {
-                SetList(item);
+                if (_instance == null)
+                {
+                    _instance = new CardListManager();
+                }
+
+                return _instance;
             }
         }
 
         /// <summary>
-        /// Конструктор пустого менеджера
+        /// Доступ к файлу с данными
         /// </summary>
-        public CardListManager() { }
+        public string Source => Path.Combine(SourceDirectory, FileName);
+
+        /// <summary>
+        /// Доступ к директории с данными
+        /// </summary>
+        public string SourceDirectory => Path.Combine(_source, DirectoryName);
 
         /// <summary>
         /// Доступ к спискам карт
@@ -41,7 +84,7 @@ namespace TimelonCl
         /// <returns>Список карт</returns>
         public CardList GetList(int id)
         {
-            return _list[id];
+            return All[id];
         }
 
         /// <summary>
@@ -72,7 +115,7 @@ namespace TimelonCl
         {
             List<Card> result = new List<Card>();
 
-            foreach(KeyValuePair<int,CardList> item in _list)
+            foreach(KeyValuePair<int,CardList> item in All)
             {
                 List<Card> found = item.Value.SearchByContent(content);
 
@@ -83,6 +126,61 @@ namespace TimelonCl
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Сохранить данные в файл
+        /// </summary>
+        public void Sync()
+        {
+            Directory.CreateDirectory(SourceDirectory);
+
+            if (!File.Exists(Source))
+            {
+                File.Create(Source).Close();
+            }
+
+            List<CardListData> data = new List<CardListData>();
+
+            foreach (KeyValuePair<int, CardList> item in All)
+            {
+                data.Add(item.Value.ToData());
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<CardListData>));
+            StreamWriter writer = new StreamWriter(Source);
+
+            serializer.Serialize(writer, data);
+            writer.Close();
+        }
+
+        /// <summary>
+        /// Загрузить данные из файла
+        /// </summary>
+        private void Load()
+        {
+            Directory.CreateDirectory(SourceDirectory);
+
+            if (!File.Exists(Source))
+            {
+                Sync();
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<CardListData>));
+            StreamReader reader = new StreamReader(Source);
+
+            // TODO: Бросает неприятные исключения при "повреждении" данных в файле
+            List<CardListData> data = (List<CardListData>)serializer.Deserialize(reader);
+
+            reader.Close();
+            All.Clear();
+
+            foreach (CardListData item in data)
+            {
+                CardList cardList = CardList.FromData(item);
+
+                All.Add(cardList.Id, cardList);
+            }
         }
     }
 }

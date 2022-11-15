@@ -80,7 +80,14 @@ namespace TimelonCA
 
             List<CardList> all = new List<CardList>();
 
-            for(int i = 0; i < 3; i++)
+            CardListManager manager = CardListManager.Instance;
+
+            // Данные загружаются из файла
+            // Так что мы их перезапишем
+            // Но идентификаторы продолжат инкременироваться (это ок)
+            manager.All.Clear();
+
+            for (int i = 0; i < 3; i++)
             {
                 CardList list = CardList.Make(Util.NextString(8, 16));
 
@@ -90,9 +97,11 @@ namespace TimelonCA
                 }
 
                 all.Add(list);
+
+                manager.SetList(list);
             }
 
-            CardListManager manager = new CardListManager(all);
+            manager.Sync();
 
             foreach (KeyValuePair<int, CardList> item in manager.All)
             {

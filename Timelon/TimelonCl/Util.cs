@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Collections;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace TimelonCl
 {
@@ -20,12 +22,12 @@ namespace TimelonCl
         /// <param name="id">Идентификатор</param>
         protected static void Register(int id)
         {
-            if (id < _incrementor)
+            if (id <= _incrementor)
             {
                 return;
             }
 
-            Interlocked.Exchange(ref _incrementor, id);
+            Interlocked.Exchange(ref _incrementor, id + 1);
         }
 
         /// <summary>
@@ -38,6 +40,35 @@ namespace TimelonCl
 
             Interlocked.Increment(ref _incrementor);
             return result;
+        }
+    }
+
+    [Serializable]
+    public abstract class DataContainer
+    {
+        public DataContainer() { }
+
+        /// <summary>
+        /// Привести объект к сериализованной в xml формате строке
+        /// </summary>
+        /// <returns>Строка в xml формате</returns>
+        public string ToXmlString()
+        {
+            XmlSerializer serializer = new XmlSerializer(GetType());
+            StringWriter writer = new StringWriter();
+
+            serializer.Serialize(writer, this);
+
+            string result = writer.ToString();
+
+            writer.Close();
+
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return ToXmlString();
         }
     }
 

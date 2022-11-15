@@ -17,14 +17,14 @@ namespace TimelonWPF
         {
             InitializeComponent();
             Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(layoutRoot_MouseLeftButtonDown);
+
+            // TODO: Не будет работать корректно с файлом - будут перезаписи
+            listManager.SetList(CardList.Make("Задачи"));
+            listManager.SetList(CardList.Make("Важные"));
         }
 
         //Хранилище подсписков
-        static CardListManager listManager = new CardListManager(new List<CardList>()
-        { 
-            CardList.Make("Задачи"),
-            CardList.Make("Важные")
-        });
+        static CardListManager listManager = CardListManager.Instance;
 
         static CardList selectedList = listManager.All[0];  //Выбранный список
         static int selectedListID = selectedList.Id;        //ID выбранного спика

@@ -1,4 +1,5 @@
 ﻿using System;
+using TimelonCl;
 
 namespace TimelonCA
 {
@@ -6,6 +7,8 @@ namespace TimelonCA
     {
         static void Main(string[] args)
         {
+            // Инициализация менеджера как можно раньше
+            CardListManager manager = CardListManager.Instance;
             Tests tests = new Tests();
 
             tests.TestCustomCard();

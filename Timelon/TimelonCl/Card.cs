@@ -5,6 +5,32 @@ using System.Xml.Serialization;
 namespace TimelonCl
 {
     /// <summary>
+    /// Контейнер данных дат для сериализации
+    /// </summary>
+    [Serializable]
+    public class DateTimeContainerData : DataContainer
+    {
+        public DateTime Created { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime? Planned { get; set; }
+    }
+
+    /// <summary>
+    /// Контейнер данных карты для сериализации
+    /// </summary>
+    [Serializable]
+    public class CardData : DataContainer
+    {
+        [XmlAttribute]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTimeContainerData Date { get; set; }
+        public string Description { get; set; }
+        public bool IsImportant { get; set; }
+        public bool IsCompleted { get; set; }
+    }
+
+    /// <summary>
     /// Контейнер с датами
     /// </summary>
     public class DateTimeContainer
@@ -12,7 +38,7 @@ namespace TimelonCl
         /// <summary>
         /// Дата создания
         /// </summary>
-        private DateTime _created;
+        private readonly DateTime _created;
 
         /// <summary>
         /// Дата последнего обновления
@@ -39,24 +65,38 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Пустой конструктор для корректной сериализации
-        /// </summary>
-        public DateTimeContainer() => throw new InvalidOperationException();
-
-        /// <summary>
         /// Создание контейнера по-умолчанию с текущей датой
         /// </summary>
         public static DateTimeContainer Now => new DateTimeContainer(DateTime.Now);
 
         /// <summary>
-        /// Доступ к дате создания
-        /// Сеттер заблокирован и служит для сериализации
+        /// Создать объект из контейнера с данными
         /// </summary>
-        public DateTime Created
+        /// <param name="data">Контейнер с данными</param>
+        /// <returns>Объект</returns>
+        public static DateTimeContainer FromData(DateTimeContainerData data)
         {
-            get => _created;
-            set => throw new InvalidOperationException();
+            return new DateTimeContainer(data.Created, data.Updated, data.Planned);
         }
+
+        /// <summary>
+        /// Получить контейнер с данными из объекта
+        /// </summary>
+        /// <returns>Контейнер с данными</returns>
+        public DateTimeContainerData ToData()
+        {
+            return new DateTimeContainerData
+            {
+                Created = Created,
+                Updated = Updated,
+                Planned = Planned
+            };
+        }
+
+        /// <summary>
+        /// Доступ к дате создания
+        /// </summary>
+        public DateTime Created => _created;
 
         /// <summary>
         /// Доступ к дате последнего обновления
@@ -121,28 +161,17 @@ namespace TimelonCl
         {
             return Planned != null;
         }
-
-        public override string ToString()
-        {
-            string result = $"CREATED: {Created}";
-
-            result += HasUpdated() ? $"\nUPDATED: {Updated}" : "";
-            result += HasPlanned() ? $"\nPLANNED: {Planned}" : "";
-
-            return result;
-        }
     }
 
     /// <summary>
     /// Карта
     /// </summary>
-    [Serializable]
     public class Card : Unique<Card>
     {
         /// <summary>
         /// Уникальный идентификатор
         /// </summary>
-        private int _id;
+        private readonly int _id;
 
         /// <summary>
         /// Название
@@ -152,7 +181,7 @@ namespace TimelonCl
         /// <summary>
         /// Контейнер с датами
         /// </summary>
-        private DateTimeContainer _date;
+        private readonly DateTimeContainer _date;
 
         /// <summary>
         /// Описание
@@ -205,11 +234,6 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Пустой конструктор для корректной сериализации
-        /// </summary>
-        public Card() => throw new InvalidOperationException();
-
-        /// <summary>
         /// Создать новую карту
         /// </summary>
         /// <param name="name">Название</param>
@@ -239,15 +263,40 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Доступ к уникальному идентификатору
-        /// Сеттер заблокирован и служит для сериализации
+        /// Создать объект из контейнера с данными
         /// </summary>
-        [XmlAttribute]
-        public int Id
+        /// <param name="data">Контейнер с данными</param>
+        /// <returns>Объект</returns>
+        public static Card FromData(CardData data)
         {
-            get => _id;
-            set => throw new InvalidOperationException();
+            DateTimeContainer date = DateTimeContainer.FromData(data.Date);
+
+            Register(data.Id);
+
+            return new Card(data.Id, data.Name, date, data.Description, data.IsImportant, data.IsCompleted);
         }
+
+        /// <summary>
+        /// Получить контейнер с данными из объекта
+        /// </summary>
+        /// <returns>Контейнер с данными</returns>
+        public CardData ToData()
+        {
+            return new CardData
+            {
+                Id = Id,
+                Name = Name,
+                Date = Date.ToData(),
+                Description = Description,
+                IsImportant = IsImportant,
+                IsCompleted = IsCompleted
+            };
+        }
+
+        /// <summary>
+        /// Доступ к уникальному идентификатору
+        /// </summary>
+        public int Id => _id;
 
         /// <summary>
         /// Доступ к названию
@@ -268,13 +317,8 @@ namespace TimelonCl
 
         /// <summary>
         /// Доступ к контейнеру с датами
-        /// Сеттер заблокирован и служит для сериализации
         /// </summary>
-        public DateTimeContainer Date
-        {
-            get => _date;
-            set => throw new InvalidOperationException();
-        }
+        public DateTimeContainer Date => _date;
 
         /// <summary>
         /// Доступ к описанию
@@ -303,27 +347,9 @@ namespace TimelonCl
             set => _isCompleted = value;
         }
 
-        /// <summary>
-        /// Привести объект к сериализованной в xml формате строке
-        /// </summary>
-        /// <returns>Строка в xml формате</returns>
-        public string ToXmlString()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(Card));
-            StringWriter writer = new StringWriter();
-
-            serializer.Serialize(writer, this);
-
-            string result = writer.ToString();
-
-            writer.Close();
-
-            return result;
-        }
-
         public override string ToString()
         {
-            return ToXmlString();
+            return ToData().ToString();
         }
     }
 }

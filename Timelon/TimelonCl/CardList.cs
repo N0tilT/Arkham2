@@ -18,9 +18,20 @@ namespace TimelonCl
     }
 
     /// <summary>
-    /// Список карт
+    /// Контейнер данных списка карт для сериализации
     /// </summary>
     [Serializable]
+    public class CardListData : DataContainer
+    {
+        [XmlAttribute]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<CardData> List { get; set; }
+    }
+
+    /// <summary>
+    /// Список карт
+    /// </summary>
     public class CardList : Unique<CardList>
     {
         /// <summary>
@@ -96,14 +107,6 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Пустой конструктор для корректной сериализации
-        /// </summary>
-        public CardList()
-        {
-            throw new InvalidOperationException();
-        }
-
-        /// <summary>
         /// Создать новый список карт
         /// </summary>
         /// <param name="name">Название</param>
@@ -114,15 +117,49 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Доступ к идентификатору списка
-        /// Сеттер заблокирован и служит для сериализации
+        /// Создать объект из контейнера с данными
         /// </summary>
-        [XmlAttribute]
-        public int Id
+        /// <param name="data">Контейнер с данными</param>
+        /// <returns>Объект</returns>
+        public static CardList FromData(CardListData data)
         {
-            get => _id;
-            set => throw new InvalidOperationException();
+            List<Card> list = new List<Card>();
+
+            foreach (CardData cardData in data.List)
+            {
+                list.Add(Card.FromData(cardData));
+            }
+
+            Register(data.Id);
+            
+            return new CardList(data.Id, data.Name, list);
         }
+
+        /// <summary>
+        /// Получить контейнер с данными из объекта
+        /// </summary>
+        /// <returns>Контейнер с данными</returns>
+        public CardListData ToData()
+        {
+            List<CardData> list = new List<CardData>();
+
+            foreach (KeyValuePair<int, Card> item in All)
+            {
+                list.Add(item.Value.ToData());
+            }
+
+            return new CardListData
+            {
+                Id = Id,
+                Name = Name,
+                List = list
+            };
+        }
+
+        /// <summary>
+        /// Доступ к идентификатору списка
+        /// </summary>
+        public int Id => _id;
 
         /// <summary>
         /// Доступ к названию списка
@@ -144,33 +181,11 @@ namespace TimelonCl
         /// <summary>
         /// Доступ к хранилищу карт
         /// </summary>
-        [XmlIgnore]
         public Dictionary<int, Card> All => _pool;
-
-        /// <summary>
-        /// Доступ к библиотеке в виде списка
-        /// Сеттер заблокирован и служит для сериализации
-        /// </summary>
-        public List<Card> List
-        {
-            get
-            {
-                List<Card> result = new List<Card>();
-
-                foreach (KeyValuePair<int, Card> item in All)
-                {
-                    result.Add(item.Value);
-                }
-
-                return result;
-            }
-            set => throw new InvalidOperationException();
-        }
 
         /// <summary>
         /// Доступ к статусу сортировки
         /// </summary>
-        [XmlIgnore]
         public SortOrder Status
         {
             get => _status;
@@ -184,7 +199,7 @@ namespace TimelonCl
         /// <returns>Объект карты</returns>
         public Card Get(int id)
         {
-            return _pool[id];
+            return All[id];
         }
 
         /// <summary>
@@ -269,7 +284,7 @@ namespace TimelonCl
             content = content.Trim().ToLower();
 
             List<Card> result = new List<Card>();
-            IEnumerable<KeyValuePair<int, Card>> source = _pool.AsQueryable().Where(
+            IEnumerable<KeyValuePair<int, Card>> source = All.AsQueryable().Where(
                 item => item.Value.Name.ToLower().Contains(content) ||
                 item.Value.Description.ToLower().Contains(content));
 
@@ -290,7 +305,7 @@ namespace TimelonCl
         public List<Card> SearchByDateUpdated(DateTime minDate, DateTime maxDate)
         {
             List<Card> result = new List<Card>();
-            IEnumerable<KeyValuePair<int, Card>> source = _pool.AsQueryable().Where(
+            IEnumerable<KeyValuePair<int, Card>> source = All.AsQueryable().Where(
                 item => minDate <= item.Value.Date.Updated && maxDate >= item.Value.Date.Updated);
 
             foreach (KeyValuePair<int, Card> card in source)
@@ -320,7 +335,7 @@ namespace TimelonCl
         {
             Status = SortOrder.Initial;
 
-            return _pool.Remove(id);
+            return All.Remove(id);
         }
 
         /// <summary>
@@ -383,27 +398,9 @@ namespace TimelonCl
             Status = order;
         }
 
-        /// <summary>
-        /// Привести объект к сериализованной в xml формате строке
-        /// </summary>
-        /// <returns>Строка в xml формате</returns>
-        public string ToXmlString()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(CardList));
-            StringWriter writer = new StringWriter();
-
-            serializer.Serialize(writer, this);
-
-            string result = writer.ToString();
-
-            writer.Close();
-
-            return result;
-        }
-
         public override string ToString()
         {
-            return ToXmlString();
+            return ToData().ToString();
         }
     }
 }
