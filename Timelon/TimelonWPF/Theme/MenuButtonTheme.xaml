@@ -9,9 +9,12 @@
                         <ControlTemplate TargetType="RadioButton">
                             <Grid VerticalAlignment="Stretch"
                                   HorizontalAlignment="Stretch"
+                                  Height="50"
                                   Background="{TemplateBinding Background}">
 
                             <TextBlock Text="{TemplateBinding Property=Content}"
+                                       Foreground="White"
+                                       FontSize="14"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"/>
 

@@ -89,7 +89,7 @@ namespace Library
                     case "XOR": //XOR
                         operations.Pop();
                         Sensor sensorXOR = Sensor.Custom(new bool[] { operations.Pop() == "True", operations.Pop() == "True" });
-                        operations.Push(sensorXOR.Equalite().ToString());
+                        operations.Push(sensorXOR.Xor().ToString());
                         break;
 
                     default:

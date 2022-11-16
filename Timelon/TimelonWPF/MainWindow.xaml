@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TimelonWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024"
         WindowStyle = "None"
@@ -47,231 +46,148 @@
             <Border x:Name ="Title">
                 <TextBlock x:Name="TitleText"
                            Text="Timelon"
-                           VerticalAlignment="Stretch"
-                           HorizontalAlignment="Stretch"
-                           TextAlignment="Center"
-                           Padding="20"
-                           Foreground="White"
-                           FontSize="22"/>
+                           Style="{StaticResource TitleTheme}"/>
             </Border>
 
 
 
             <!--Меню списков-->
-            <StackPanel x:Name="MenuPanel"
-                Grid.Row="1">
+            
+            <ItemsControl x:Name="MenuPanel"
+                        Grid.Row="1">
 
                 <RadioButton x:Name="TaskButton"
                              Content="Задачи"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="14"
                              IsChecked="True"
                              Style="{StaticResource MenuButtonTheme}"
                              Click="ListMenuButton_Click"/>
                 <RadioButton Content="Важные"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Click="ListMenuButton_Click"/>
 
-            </StackPanel>
+            </ItemsControl>
 
             <!--Меню карточек-->
             <ScrollViewer Grid.Column="1"
                         Grid.Row="1">
                 <StackPanel x:Name="CardsPanel">
                     <Grid>
-                        <Button Width="35"
-                                Height="35"
+                        <Button Width="35" Height="35"
                                 HorizontalAlignment="Left"
                                 Background="Transparent"
                                 BorderThickness="0"
                                 Margin="5,0,0,0"
                                 Click="Check_Click"
-                                Style="{StaticResource CheckTheme}"/>
-                        <RadioButton
-                            Height="50"
-                            Foreground="Black"
-                            FontSize="14"
-                            Content="test"
-                            Margin="40,0,0,0"
-                            Style="{StaticResource CardTheme}" Grid.ColumnSpan="2">
-                        </RadioButton>
+                                Style="{StaticResource CheckCardTheme}"/>
+                        <RadioButton Grid.ColumnSpan="2"
+                                     Height="50" Margin="40,0,0,0"
+                                     Content="test"
+                                     Style="{StaticResource CardTheme}"/>
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
             
 
-            <!--Заглавие-->
+            <!--Заглавие информации-->
             <TextBlock Text="Информация о задаче"
                        Grid.Column="2"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Foreground="White"
-                       FontSize="20"/>
+                       FontSize="20"
+                       Style="{StaticResource TitleTheme}"/>
 
             <!--Меню информации о карточке-->
             <StackPanel x:Name="CardInfo"
                         Grid.Column="2"
                         Grid.Row="1"
                         Grid.RowSpan="2">
-                <Border CornerRadius="10"
-                        Background="#353340"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch"
-                        Grid.Row="2"
-                        Margin="10,10,1,10">
+                
+                <Border Grid.Row="2"
+                        Margin="10,10,1,10"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardNameTemplate"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Название"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                                   Text="Название"
+                                   Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardNameTextbox"
-                             Height="40"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
-                             TextChanged="CardNameTextbox_TextChanged"/>
-
+                                 Style="{StaticResource TextBoxInputTheme}"
+                                 TextChanged="CardNameTextbox_TextChanged"/>
 
                     </Grid>
 
                 </Border>
-                <Border CornerRadius="10"
-                        Background="#353340"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch"
-                        Grid.Row="2"
-                        Margin="10,10,1,10">
+                <Border Grid.Row="2"
+                        Margin="10,10,1,10"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardDateTemplate"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Дата"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                                   Text="Дата"
+                                   Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDateTextbox"
-                             Height="40"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
-                             TextChanged="CardDateTextbox_TextChanged"/>
+                                 Style="{StaticResource TextBoxInputTheme}"
+                                 TextChanged="CardDateTextbox_TextChanged"/>
 
 
                     </Grid>
 
                 </Border>
-                <Border CornerRadius="10"
-                        Background="#353340"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch"
-                        Grid.Row="2"
-                        Margin="10,10,1,10">
+                <Border Grid.Row="2"
+                        Margin="10,10,1,10"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardImportantTemplate"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Важная"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                                   Text="Важная"
+                                   Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardImportantTextbox"
-                             Height="40"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
-                             TextChanged="CardImportantTextbox_TextChanged"/>
+                                 Style="{StaticResource TextBoxInputTheme}"
+                                 TextChanged="CardImportantTextbox_TextChanged"/>
 
 
                     </Grid>
 
                 </Border>
-                <Border CornerRadius="10"
-                        Background="#353340"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch"
-                        Grid.Row="2"
-                        Margin="10,10,1,10">
+                <Border Grid.Row="2"
+                        Margin="10,10,1,10"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardDoneTemplate"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Выполнена"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                                   Text="Выполнена"
+                                   Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDoneTextbox"
-                             Height="40"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
-                             TextChanged="CardDoneTextbox_TextChanged"/>
+                                 Style="{StaticResource TextBoxInputTheme}"
+                                 TextChanged="CardDoneTextbox_TextChanged"/>
 
 
                     </Grid>
 
                 </Border>
-                <Border CornerRadius="10"
-                        Background="#353340"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch"
-                        Grid.Row="2"
-                        Margin="10,10,1,10">
+                <Border Grid.Row="2"
+                        Margin="10,10,1,10"
+                        Height="150"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать список"-->
                         <TextBlock x:Name="CardDescriptionTemplate"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Left"
-                                Text="Описание"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                                   Text="Описание"
+                                   VerticalAlignment="Top"
+                                   Margin="10,10"
+                                   Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
-                        <TextBox x:Name="CardDescriptionTextbox"
-                             Height="200"
-                             HorizontalAlignment="Stretch"
-                             VerticalAlignment="Center"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
-                             TextChanged="CardDescriptionTextbox_TextChanged"/>
+                        <TextBox x:Name="CardDescriptionTextbox" 
+                                 Style="{StaticResource TextBoxInputTheme}" 
+                                 TextChanged="CardDescriptionTextbox_TextChanged"/>
 
 
                     </Grid>
 
                 </Border>
+                <!--Кнопка выполнить задачу-->
                 <Border CornerRadius="5"
                         Background="#FF2A613E"
                         Margin="10,0,0,0"
@@ -285,33 +201,20 @@
                 
             </StackPanel>
 
+            
             <!--Поля ввода-->
             <!--Создать список-->
-            <Border CornerRadius="10"
-                    Background="#353340"
-                    Width="200" Height="40"
-                    Grid.Row="2"
-                    Margin="10,5,30,5">
+            <Border Grid.Row="2"
+                    Margin="10,5,30,5"
+                    Style="{StaticResource TextBoxTemplateBorderTheme}">
                 <Grid>
                     <!--Шаблон заполнения "Создать спсисок"-->
                     <TextBlock x:Name="TemplateList"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Создать список"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                               Text="Создать список"
+                               Style="{StaticResource TextBlockTemplateTheme}"/>
                     <!--Поле ввода названия списка-->
                     <TextBox x:Name="AddListTextbox"
-                             Width="200"
-                             Height="40"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
+                             Style="{StaticResource TextBoxInputTheme}"
                              TextChanged="AddListTextbox_TextChanged"/>
 
 
@@ -321,43 +224,25 @@
 
             <!--Кнопка создания списка-->
             <Button x:Name="AddListButton"
-                    Height="20"
-                    Width="20"
-                    Margin="210,0,0,0"
                     Grid.Row="2"
-                    HorizontalAlignment="Center"
                     Style="{StaticResource AddButtonTheme}"
                     Click="AddListButton_Click">
             </Button>
 
             <!--Создать карточку дела-->
-            <Border CornerRadius="10"
-                    Background="#353340"
-                    Width="380" Height="40"
-                    Grid.Row="2"
+            <Border Grid.Row="2"
                     Grid.Column="1"
-                    Margin="10,5,30,5">
+                    Margin="40,10,80,10"
+                    Style="{StaticResource TextBoxTemplateBorderTheme}">
                 <Grid>
                     <!--Шаблон создания задачи-->
                     <TextBlock x:Name="TemplateCard"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Добавить задачу"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                               Text="Добавить задачу"
+                               Style="{StaticResource TextBlockTemplateTheme}"/>
 
                     <!--Поле ввода названия задачи-->
                     <TextBox x:Name="AddCardTextbox"
-                             Width="380"
-                             Height="40"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
+                             Style="{StaticResource TextBoxInputTheme}"
                              TextChanged="AddCardTextbox_TextChanged"/>
 
 
@@ -367,42 +252,25 @@
 
             <!--Кнопка добавления дела-->
             <Button x:Name="AddCardButton"
-                    Height="20"
-                    Width="20"
-                    Margin="400,0,0,0"
                     Grid.Column="1"
                     Grid.Row="2"
-                    HorizontalAlignment="Center"
+                    Margin="0,0,50,0"
                     Style="{StaticResource AddButtonTheme}"
                     Click="AddCardButton_Click">
             </Button>
 
             <!--Поиск-->
-            <Border CornerRadius="10"
-                    Background="#353340"
-                    Width="380" Height="40"
-                    Grid.Column="1"
-                    Margin="10,18,30,17">
+            <Border Grid.Column="1"
+                    Margin="40,20,80,20"
+                    Style="{StaticResource TextBoxTemplateBorderTheme}">
                 <Grid>
                     <!--Шаблон поиска-->
                     <TextBlock x:Name="TemplateSearch"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Text="Поиск"
-                                Margin="10,0,0,0"
-                                FontSize="11"
-                                Foreground="#FFD2D2D2"/>
+                               Text="Поиск"
+                               Style="{StaticResource TextBlockTemplateTheme}"/>
                     <!--Текстовое поле ввода для поиска-->
                     <TextBox x:Name="SearchTextbox"
-                             Width="380"
-                             Height="40"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="9,12"
-                             FontSize="11"
-                             Foreground="#CFCFCF"
+                             Style="{StaticResource TextBoxInputTheme}"
                              TextChanged="SearchTextbox_TextChanged"/>
 
 
@@ -412,11 +280,8 @@
 
             <!--Кнопка поиска-->
             <Button x:Name="SearchButton"
-                    Height="20"
-                    Width="20"
-                    Margin="400,0,5,0"
                     Grid.Column="1"
-                    HorizontalAlignment="Center"
+                    Margin="0,0,50,0"
                     Style="{StaticResource SearchButtonTheme}"
                     Click="SearchButton_Click">
             </Button>

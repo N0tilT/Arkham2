@@ -16,8 +16,9 @@
                                 
 
                                 <TextBlock Text="{TemplateBinding Property=Content}"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"/>
+                                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Foreground="Black" FontSize="14"
+                                           />
 
 
 

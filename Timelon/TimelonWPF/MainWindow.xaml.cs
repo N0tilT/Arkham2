@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using TimelonCl;
+using TimelonWPF.ViewModel;
 
 namespace TimelonWPF
 {
@@ -16,6 +17,7 @@ namespace TimelonWPF
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ApplicationViewModel();
             Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(layoutRoot_MouseLeftButtonDown);
 
             // TODO: Не будет работать корректно с файлом - будут перезаписи

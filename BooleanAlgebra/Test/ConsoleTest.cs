@@ -20,9 +20,9 @@ namespace Test
             //}
 
             //TestTruthTable(count);
-            //TestParser("A * ( B -> C ) + C <-> - A");
+            TestParser("A * ( B -> C ) + C <-> - A");
             //TestEvaluationTruthTable(3);
-            TestEvaluationInputFunction();
+            //TestEvaluationInputFunction();
         }
 
         private static void TestTruthTable(int count)
@@ -70,7 +70,8 @@ namespace Test
 
             TruthTable table = new TruthTable(n);
             Console.WriteLine("Таблица истинности:");
-            foreach (Sensor row in table.Table) { foreach (bool item in row.List) Console.Write(item==true?"1" + " ":"0" + " "); Console.WriteLine(); }
+            foreach (Sensor row in table.Table) { foreach (bool item in row.List) 
+                    Console.Write(item==true?"1" + " ":"0" + " "); Console.WriteLine(); }
 
             LogicalParser parser = new LogicalParser();
             LogicalEvaluate eval = new LogicalEvaluate();
