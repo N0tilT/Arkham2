@@ -26,11 +26,28 @@ namespace TimelonCl
         /// Экземпляр класса одиночки
         /// </summary>
         private static CardListManager _instance = null;
-        
+
+        /// <summary>
+        /// Глобальная точка доступа к классу
+        /// Реализация шаблона Singleton
+        /// </summary>
+        public static CardListManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CardListManager();
+                }
+
+                return _instance;
+            }
+        }
+
         /// <summary>
         /// Полный путь до директории "Documents"
         /// </summary>
-        private string _source = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private readonly string _source = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         /// <summary>
         /// Списки карт
@@ -53,23 +70,6 @@ namespace TimelonCl
         private CardListManager()
         {
             Load();
-            InjectEssentials();
-        }
-
-        /// <summary>
-        /// Глобальная точка доступа к классу
-        /// </summary>
-        public static CardListManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new CardListManager();
-                }
-
-                return _instance;
-            }
         }
 
         /// <summary>
@@ -137,9 +137,7 @@ namespace TimelonCl
 
             foreach(KeyValuePair<int,CardList> item in All)
             {
-                List<Card> found = item.Value.SearchByContent(content);
-
-                foreach (Card card in found)
+                foreach (Card card in item.Value.SearchByContent(content))
                 {
                     result.Add(card);
                 }
@@ -163,6 +161,9 @@ namespace TimelonCl
                     }
                 }
 
+                // Если под указанным идентификатором уже существует карта
+                // Но ее название отличается от названия закрепленной
+                // Это считается повреждением данных и карта будет перезаписана
                 SetList(cardList);
             }
         }
@@ -176,9 +177,11 @@ namespace TimelonCl
 
             if (!File.Exists(Source))
             {
+                // Пустой файл
                 File.Create(Source).Close();
             }
 
+            // Внедряем закрепленные списки карт в начало
             InjectEssentials();
 
             List<CardListData> data = new List<CardListData>();
@@ -189,10 +192,14 @@ namespace TimelonCl
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<CardListData>));
-            StreamWriter writer = new StreamWriter(Source);
-
-            serializer.Serialize(writer, data);
-            writer.Close();
+            
+            // Даже если сохранять нечего
+            // В любом случае мы создадим корректную xml основу
+            // И пустой файл превратится в читаемый программой источник
+            using (StreamWriter writer = new StreamWriter(Source))
+            {
+                serializer.Serialize(writer, data);
+            }
         }
 
         /// <summary>
@@ -204,25 +211,28 @@ namespace TimelonCl
 
             if (!File.Exists(Source))
             {
+                // Создадим пустой xml файл
                 Sync();
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<CardListData>));
-            StreamReader reader = new StreamReader(Source);
 
-            // TODO: Бросает неприятные исключения при "повреждении" данных в файле
-            List<CardListData> data = (List<CardListData>)serializer.Deserialize(reader);
-
-            reader.Close();
-            All.Clear();
-
-            foreach (CardListData item in data)
+            using (StreamReader reader = new StreamReader(Source))
             {
-                CardList cardList = CardList.FromData(item);
+                // TODO: Бросает неприятные исключения при "повреждении" данных в файле
+                List<CardListData> data = (List<CardListData>)serializer.Deserialize(reader);
 
-                All.Add(cardList.Id, cardList);
+                // Очищаем списки карт перед загрузкой новых
+                All.Clear();
+
+                foreach (CardListData item in data)
+                {
+                    SetList(CardList.FromData(item));
+                }
             }
 
+            // Внедряем закрепленные списки карт в конце
+            // Тем самым ограничиваем возможность их случайной перезаписи
             InjectEssentials();
         }
     }

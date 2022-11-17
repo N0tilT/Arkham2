@@ -37,17 +37,19 @@ namespace Forms
             this.Function = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonNF = new System.Windows.Forms.Button();
+            this.RezultNF = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Rezult
             // 
             this.Rezult.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Rezult.Location = new System.Drawing.Point(15, 144);
+            this.Rezult.Location = new System.Drawing.Point(15, 136);
             this.Rezult.Multiline = true;
             this.Rezult.Name = "Rezult";
             this.Rezult.ReadOnly = true;
             this.Rezult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Rezult.Size = new System.Drawing.Size(967, 429);
+            this.Rezult.Size = new System.Drawing.Size(488, 437);
             this.Rezult.TabIndex = 0;
             // 
             // label1
@@ -63,9 +65,9 @@ namespace Forms
             // buttonTable
             // 
             this.buttonTable.Font = new System.Drawing.Font("Segoe UI", 13.8F);
-            this.buttonTable.Location = new System.Drawing.Point(508, 31);
+            this.buttonTable.Location = new System.Drawing.Point(519, 34);
             this.buttonTable.Name = "buttonTable";
-            this.buttonTable.Size = new System.Drawing.Size(236, 80);
+            this.buttonTable.Size = new System.Drawing.Size(235, 80);
             this.buttonTable.TabIndex = 3;
             this.buttonTable.Text = "Построить таблицу истинности";
             this.buttonTable.UseVisualStyleBackColor = true;
@@ -74,9 +76,9 @@ namespace Forms
             // buttonHelp
             // 
             this.buttonHelp.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonHelp.Location = new System.Drawing.Point(766, 31);
+            this.buttonHelp.Location = new System.Drawing.Point(1001, 34);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(216, 80);
+            this.buttonHelp.Size = new System.Drawing.Size(235, 80);
             this.buttonHelp.TabIndex = 4;
             this.buttonHelp.Text = "Справка";
             this.buttonHelp.UseVisualStyleBackColor = true;
@@ -84,41 +86,69 @@ namespace Forms
             // 
             // N
             // 
-            this.N.Location = new System.Drawing.Point(203, 46);
+            this.N.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.N.Location = new System.Drawing.Point(240, 46);
             this.N.Name = "N";
-            this.N.Size = new System.Drawing.Size(263, 22);
+            this.N.Size = new System.Drawing.Size(263, 30);
             this.N.TabIndex = 8;
             // 
             // Function
             // 
-            this.Function.Location = new System.Drawing.Point(203, 74);
+            this.Function.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.Function.Location = new System.Drawing.Point(240, 82);
             this.Function.Name = "Function";
-            this.Function.Size = new System.Drawing.Size(263, 22);
+            this.Function.Size = new System.Drawing.Size(263, 30);
             this.Function.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 49);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.label3.Location = new System.Drawing.Point(11, 49);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(171, 17);
+            this.label3.Size = new System.Drawing.Size(206, 23);
             this.label3.TabIndex = 10;
             this.label3.Text = "Количество переменных";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 77);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.label4.Location = new System.Drawing.Point(11, 77);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 17);
+            this.label4.Size = new System.Drawing.Size(77, 23);
             this.label4.TabIndex = 11;
             this.label4.Text = "Функция";
+            // 
+            // buttonNF
+            // 
+            this.buttonNF.Font = new System.Drawing.Font("Segoe UI", 13.8F);
+            this.buttonNF.Location = new System.Drawing.Point(760, 34);
+            this.buttonNF.Name = "buttonNF";
+            this.buttonNF.Size = new System.Drawing.Size(235, 80);
+            this.buttonNF.TabIndex = 12;
+            this.buttonNF.Text = "СДНФ и СКНФ";
+            this.buttonNF.UseVisualStyleBackColor = true;
+            this.buttonNF.Click += new System.EventHandler(this.buttonNF_Click);
+            // 
+            // RezultNF
+            // 
+            this.RezultNF.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.RezultNF.Location = new System.Drawing.Point(519, 137);
+            this.RezultNF.Multiline = true;
+            this.RezultNF.Name = "RezultNF";
+            this.RezultNF.ReadOnly = true;
+            this.RezultNF.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.RezultNF.Size = new System.Drawing.Size(717, 436);
+            this.RezultNF.TabIndex = 13;
             // 
             // FormTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 585);
+            this.ClientSize = new System.Drawing.Size(1244, 585);
+            this.Controls.Add(this.RezultNF);
+            this.Controls.Add(this.buttonNF);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Function);
@@ -144,6 +174,8 @@ namespace Forms
         private System.Windows.Forms.TextBox Function;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonNF;
+        private System.Windows.Forms.TextBox RezultNF;
     }
 }
 
