@@ -68,7 +68,7 @@ namespace Library
                 {
                     for (int i = 0; i < table.Count; i++)
                     {
-                        if (row.List[i])
+                        if (!row.List[i])
                         {
                             if (i == table.Count - 1) { answer += Convert.ToChar(i + 65); }
                             else
