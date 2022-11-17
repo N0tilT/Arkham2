@@ -26,6 +26,7 @@ namespace TimelonCl
         [XmlAttribute]
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsEssential { get; set; }
         public List<CardData> List { get; set; }
     }
 
@@ -43,6 +44,11 @@ namespace TimelonCl
         /// Название списка
         /// </summary>
         private string _name;
+
+        /// <summary>
+        /// Статус закрепления
+        /// </summary>
+        private bool _isEssential;
 
         /// <summary>
         /// Хранилище карт
@@ -80,8 +86,9 @@ namespace TimelonCl
         /// </summary>
         /// <param name="id">Уникальный идентификатор</param>
         /// <param name="name">Название списка</param>
+        /// <param name="isEssential">Статус закрепления</param>
         /// <param name="list">Список карт</param>
-        public CardList(int id, string name, List<Card> list) : this(id, name)
+        public CardList(int id, string name, bool isEssential, List<Card> list) : this(id, name, isEssential)
         {
             foreach (Card card in list)
             {
@@ -94,8 +101,9 @@ namespace TimelonCl
         /// </summary>
         /// <param name="id">Уникальный идентификатор</param>
         /// <param name="name">Название списка</param>
+        /// <param name="isEssential">Статус закрепления</param>
         /// <exception cref="ArgumentException"></exception>
-        public CardList(int id, string name)
+        public CardList(int id, string name, bool isEssential)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -104,6 +112,7 @@ namespace TimelonCl
 
             _id = id;
             _name = name.Trim();
+            _isEssential = isEssential;
         }
 
         /// <summary>
@@ -113,7 +122,7 @@ namespace TimelonCl
         /// <returns>Новый список карт</returns>
         public static CardList Make(string name)
         {
-            return new CardList(UniqueId(), name);
+            return new CardList(UniqueId(), name, false);
         }
 
         /// <summary>
@@ -132,7 +141,7 @@ namespace TimelonCl
 
             Register(data.Id);
             
-            return new CardList(data.Id, data.Name, list);
+            return new CardList(data.Id, data.Name, data.IsEssential, list);
         }
 
         /// <summary>
@@ -152,6 +161,7 @@ namespace TimelonCl
             {
                 Id = Id,
                 Name = Name,
+                IsEssential = IsEssential,
                 List = list
             };
         }
@@ -177,6 +187,11 @@ namespace TimelonCl
                 _name = value.Trim();
             }
         }
+
+        /// <summary>
+        /// Доступ к статусу закрепления
+        /// </summary>
+        public bool IsEssential => _isEssential;
 
         /// <summary>
         /// Доступ к хранилищу карт

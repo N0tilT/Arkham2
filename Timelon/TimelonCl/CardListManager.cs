@@ -38,12 +38,12 @@ namespace TimelonCl
         private readonly SortedList<int, CardList> _list = new SortedList<int, CardList>();
 
         /// <summary>
-        /// Идентификаторы и названия важных списков карт
+        /// Закрепленные списки карт
         /// </summary>
-        private readonly SortedList<int, string> _listEssential = new SortedList<int, string>
+        private readonly List<CardList> _listEssential = new List<CardList>
         {
-            { 0, "Задачи" },
-            { 1, "Важные" }
+            new CardList(0, "Задачи", true),
+            new CardList(1, "Важное", true)
         };
 
         /// <summary>
@@ -53,28 +53,7 @@ namespace TimelonCl
         private CardListManager()
         {
             Load();
-
-            CardList cardList;
-
-            foreach (KeyValuePair<int, string> item in _listEssential)
-            {
-                if (!ContainsList(item.Key))
-                {
-                    SetList(new CardList(item.Key, item.Value));
-                    continue;
-                }
-                
-                cardList = GetList(item.Key);
-
-                if (item.Value == cardList.Name)
-                {
-                    continue;
-                }
-
-                SetList(new CardList(item.Key, item.Value));
-            }
-
-            Sync();
+            InjectEssentials();
         }
 
         /// <summary>
@@ -124,7 +103,7 @@ namespace TimelonCl
         /// <param name="list">Список карт</param>
         public void SetList(CardList list)
         {
-            _list[list.Id] = list;
+            All[list.Id] = list;
         }
 
         /// <summary>
@@ -134,7 +113,7 @@ namespace TimelonCl
         /// <returns>Статус успешности удаления</returns>
         public bool RemoveList(int id)
         {
-            return _list.Remove(id);
+            return All.Remove(id);
         }
 
         /// <summary>
@@ -170,6 +149,25 @@ namespace TimelonCl
         }
 
         /// <summary>
+        /// Внедрить закрепленные списки карт
+        /// </summary>
+        private void InjectEssentials()
+        {
+            foreach (CardList cardList in _listEssential)
+            {
+                if (ContainsList(cardList.Id))
+                {
+                    if (cardList.Name == GetList(cardList.Id).Name)
+                    {
+                        continue;
+                    }
+                }
+
+                SetList(cardList);
+            }
+        }
+
+        /// <summary>
         /// Сохранить данные в файл
         /// </summary>
         public void Sync()
@@ -180,6 +178,8 @@ namespace TimelonCl
             {
                 File.Create(Source).Close();
             }
+
+            InjectEssentials();
 
             List<CardListData> data = new List<CardListData>();
 
@@ -222,6 +222,8 @@ namespace TimelonCl
 
                 All.Add(cardList.Id, cardList);
             }
+
+            InjectEssentials();
         }
     }
 }
