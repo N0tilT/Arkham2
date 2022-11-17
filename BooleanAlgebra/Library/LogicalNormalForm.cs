@@ -11,14 +11,14 @@ namespace Library
     {
         public string SDNF()
         {
-        string answer;
+        string answer ="1";
 
         return answer;
         }
 
         public string SKNF()
         {
-        string answer;
+        string answer="0";
 
         return answer;
         }

@@ -21,8 +21,8 @@ namespace Test
 
             //TestTruthTable(count);
             TestParser("A * ( B -> C ) + C <-> - A");
-            //TestEvaluationTruthTable(3);
-            //TestEvaluationInputFunction();
+            TestEvaluationTruthTable(3);
+            TestEvaluationInputFunction();
         }
 
         private static void TestTruthTable(int count)
