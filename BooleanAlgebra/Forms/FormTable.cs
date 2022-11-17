@@ -22,23 +22,59 @@ namespace Forms
         {
             try
             {
-                int count1 = int.Parse(BoolN.Text);
-                int count2 = int.Parse(BoolN2.Text);
-                TruthTable table1 = new TruthTable(count1);
-                TruthTable table2 = new TruthTable(count2);
-                Rezult.Text = Convert.ToString(table1);
-                Rezult2.Text = Convert.ToString(table2);
+                
+                int n = int.Parse(N.Text);
+                if (n>10)
+                {
+                    MessageBox.Show("Введенное значение превышает 10");
+                    return;
+                }
+                string function = Function.Text;
+                string[] s = function.Split(' ');
+                int count = 0;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (LogicalParser.isOperator(s[i])==false)
+                    {
+                        count ++;
+                    }
+                }
+                if(count<n)
+                {
+                    MessageBox.Show("Заданно е количество переменных не соответсвует количеству переменных функции");
+                    return;
+                }
+                int c = 0;
+                TruthTable table = new TruthTable(n);
+                LogicalParser parser = new LogicalParser();
+                LogicalEvaluate eval = new LogicalEvaluate();
+                Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
+                Rezult.Text = "Таблица истинности для переменных и значение функции: " + Environment.NewLine;
+                for (int i = 0; i < n; i++)
+                {
+                    Rezult.Text += Convert.ToChar(i + 65) +" ";
+                }
+                Rezult.Text += " F= "+ Environment.NewLine;
+                foreach (Sensor row in table.Table)
+                {
+                    foreach (bool item in row.List)
+                    {
+                        Rezult.Text += (item == true ? "1" + " " : "0" + " ");
+                    }  
+                    Rezult.Text +=  (result.List[c] == true ? "  1" : "  0") + Environment.NewLine;
+                    c++;
+                }
             }
             catch (Exception)
             {
-                MessageBox.Show("Некорректный ввод / Введенное значение за границами диапазона ( от 1 до 26)");
+                MessageBox.Show("Некорректный ввод");
             }
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Программа позволят построить таблицу истинности для введенного ползователем количества логических переменных."
-                + "\nПрограмма имеет удовлетворительную скороть работы только на диапазоне значений логических переменных от 1 до 26."
+                + "\nПрограмма имеет удовлетворительную скороть работы только на диапазоне значений логических переменных от 1 до 10."
                 + "\nПри выходе введенного значения из указанного диапазона или некорректном вводе значения количества логических переменных"
                 + "\nбудет показано сообщение об ошибке."
                 , "Справка");

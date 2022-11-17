@@ -81,7 +81,7 @@ namespace Library
         /// </summary>
         /// <param name="c">Токен выражения</param>
         /// <returns>True, если токен - оператор </returns>
-        private bool isOperator(string c)
+        public static bool isOperator(string c)
         {
             if (c == "+" || c == "-" || c == "*" || c=="->" || c=="EQV" || c=="<->" )
             {
