@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -11,9 +10,17 @@ namespace TimelonCl
     /// </summary>
     public enum SortOrder
     {
+        // Данные обновлены или только что инициализированы
+        // Необходимо провести сортировку
         Initial,
+
+        // В произвольном формате (по возрастанию идентификаторов)
         Unsorted,
+
+        // По возрастанию
         Ascending,
+
+        // По убыванию
         Descending
     }
 
@@ -36,14 +43,31 @@ namespace TimelonCl
     public class CardList : Unique<CardList>
     {
         /// <summary>
-        /// Уникальный идентификатор
+        /// Создать новый список карт
         /// </summary>
-        private int _id;
-        
+        /// <param name="name">Название</param>
+        /// <returns>Новый список карт</returns>
+        public static CardList Make(string name)
+        {
+            return new CardList(UniqueId(), name, false);
+        }
+
         /// <summary>
-        /// Название списка
+        /// Создать объект из контейнера с данными
         /// </summary>
-        private string _name;
+        /// <param name="data">Контейнер с данными</param>
+        /// <returns>Объект</returns>
+        public static CardList FromData(CardListData data)
+        {
+            List<Card> list = new List<Card>();
+
+            foreach (CardData cardData in data.List)
+            {
+                list.Add(Card.FromData(cardData));
+            }
+
+            return new CardList(data.Id, data.Name, data.IsEssential, list);
+        }
 
         /// <summary>
         /// Статус закрепления
@@ -103,45 +127,9 @@ namespace TimelonCl
         /// <param name="name">Название списка</param>
         /// <param name="isEssential">Статус закрепления</param>
         /// <exception cref="ArgumentException"></exception>
-        public CardList(int id, string name, bool isEssential)
+        public CardList(int id, string name, bool isEssential) : base(id, name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("name не может быть пустой строкой");
-            }
-
-            _id = id;
-            _name = name.Trim();
-            _isEssential = isEssential;
-        }
-
-        /// <summary>
-        /// Создать новый список карт
-        /// </summary>
-        /// <param name="name">Название</param>
-        /// <returns>Новый список карт</returns>
-        public static CardList Make(string name)
-        {
-            return new CardList(UniqueId(), name, false);
-        }
-
-        /// <summary>
-        /// Создать объект из контейнера с данными
-        /// </summary>
-        /// <param name="data">Контейнер с данными</param>
-        /// <returns>Объект</returns>
-        public static CardList FromData(CardListData data)
-        {
-            List<Card> list = new List<Card>();
-
-            foreach (CardData cardData in data.List)
-            {
-                list.Add(Card.FromData(cardData));
-            }
-
-            Register(data.Id);
-            
-            return new CardList(data.Id, data.Name, data.IsEssential, list);
+            IsEssential = isEssential;
         }
 
         /// <summary>
@@ -167,31 +155,13 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Доступ к идентификатору списка
-        /// </summary>
-        public int Id => _id;
-
-        /// <summary>
-        /// Доступ к названию списка
-        /// </summary>
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("name не может быть пустой строкой");
-                }
-
-                _name = value.Trim();
-            }
-        }
-
-        /// <summary>
         /// Доступ к статусу закрепления
         /// </summary>
-        public bool IsEssential => _isEssential;
+        public bool IsEssential
+        {
+            get => _isEssential;
+            private set => _isEssential = value;
+        }
 
         /// <summary>
         /// Доступ к хранилищу карт
@@ -338,7 +308,7 @@ namespace TimelonCl
         public void Set(Card card)
         {
             Status = SortOrder.Initial;
-            _pool[card.Id] = card;
+            All[card.Id] = card;
         }
 
         /// <summary>
@@ -351,6 +321,16 @@ namespace TimelonCl
             Status = SortOrder.Initial;
 
             return All.Remove(id);
+        }
+
+        /// <summary>
+        /// Проверить, существует ли карта с указанным идентификатором
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Статус проверки</returns>
+        public bool Contains(int id)
+        {
+            return All.ContainsKey(id);
         }
 
         /// <summary>

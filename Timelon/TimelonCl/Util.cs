@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace TimelonCl
 {
     /// <summary>
-    /// Абстрактный класс для безопасной генерации уникальных идентификаторов
+    /// Абстрактный класс для хранения и генерации уникальных идентификаторов
     /// </summary>
     public abstract class Unique<T>
     {
@@ -41,6 +41,65 @@ namespace TimelonCl
             Interlocked.Increment(ref _incrementor);
             return result;
         }
+
+        /// <summary>
+        /// Уникальный идентификатор
+        /// </summary>
+        private int _id;
+
+        /// <summary>
+        /// Название
+        /// </summary>
+        private string _name;
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="name">Название</param>
+        public Unique(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        /// <summary>
+        /// Доступ к уникальному идентификатору
+        /// </summary>
+        public int Id
+        {
+            get => _id;
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("id не может быть отрицательным числом");
+                }
+
+                _id = value;
+
+                // Регистрируем идентификатор в текущей сессии
+                // во избежание дублирования
+                Register(value);
+            }
+        }
+
+        /// <summary>
+        /// Доступ к названию
+        /// </summary>
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("name не может быть пустой строкой");
+                }
+
+                _name = value.Trim();
+            }
+        }
     }
 
     [Serializable]
@@ -49,21 +108,19 @@ namespace TimelonCl
         public DataContainer() { }
 
         /// <summary>
-        /// Привести объект к сериализованной в xml формате строке
+        /// Сериализовать объект в xml строку
         /// </summary>
         /// <returns>Строка в xml формате</returns>
         public string ToXmlString()
         {
             XmlSerializer serializer = new XmlSerializer(GetType());
-            StringWriter writer = new StringWriter();
+            
+            using (StringWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, this);
 
-            serializer.Serialize(writer, this);
-
-            string result = writer.ToString();
-
-            writer.Close();
-
-            return result;
+                return writer.ToString();
+            }
         }
 
         public override string ToString()
