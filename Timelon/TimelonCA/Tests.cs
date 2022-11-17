@@ -101,7 +101,7 @@ namespace TimelonCA
                 manager.SetList(list);
             }
 
-            manager.Sync();
+            //manager.Sync();
 
             foreach (KeyValuePair<int, CardList> item in manager.All)
             {

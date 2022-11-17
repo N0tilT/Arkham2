@@ -38,12 +38,43 @@ namespace TimelonCl
         private readonly SortedList<int, CardList> _list = new SortedList<int, CardList>();
 
         /// <summary>
+        /// Идентификаторы и названия важных списков карт
+        /// </summary>
+        private readonly SortedList<int, string> _listEssential = new SortedList<int, string>
+        {
+            { 0, "Задачи" },
+            { 1, "Важные" }
+        };
+
+        /// <summary>
         /// Конструктор менеджера
         /// Не может быть вызван извне
         /// </summary>
         private CardListManager()
         {
             Load();
+
+            CardList cardList;
+
+            foreach (KeyValuePair<int, string> item in _listEssential)
+            {
+                if (!ContainsList(item.Key))
+                {
+                    SetList(new CardList(item.Key, item.Value));
+                    continue;
+                }
+                
+                cardList = GetList(item.Key);
+
+                if (item.Value == cardList.Name)
+                {
+                    continue;
+                }
+
+                SetList(new CardList(item.Key, item.Value));
+            }
+
+            Sync();
         }
 
         /// <summary>
@@ -104,6 +135,16 @@ namespace TimelonCl
         public bool RemoveList(int id)
         {
             return _list.Remove(id);
+        }
+
+        /// <summary>
+        /// Проверить, существует ли список с указанным идентификатором
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Статус проверки</returns>
+        public bool ContainsList(int id)
+        {
+            return All.ContainsKey(id);
         }
 
         /// <summary>
