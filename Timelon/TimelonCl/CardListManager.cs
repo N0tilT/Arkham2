@@ -38,12 +38,22 @@ namespace TimelonCl
         private readonly SortedList<int, CardList> _list = new SortedList<int, CardList>();
 
         /// <summary>
+        /// Закрепленные списки карт
+        /// </summary>
+        private readonly List<CardList> _listEssential = new List<CardList>
+        {
+            new CardList(0, "Задачи", true),
+            new CardList(1, "Важное", true)
+        };
+
+        /// <summary>
         /// Конструктор менеджера
         /// Не может быть вызван извне
         /// </summary>
         private CardListManager()
         {
             Load();
+            InjectEssentials();
         }
 
         /// <summary>
@@ -93,7 +103,7 @@ namespace TimelonCl
         /// <param name="list">Список карт</param>
         public void SetList(CardList list)
         {
-            _list[list.Id] = list;
+            All[list.Id] = list;
         }
 
         /// <summary>
@@ -103,7 +113,17 @@ namespace TimelonCl
         /// <returns>Статус успешности удаления</returns>
         public bool RemoveList(int id)
         {
-            return _list.Remove(id);
+            return All.Remove(id);
+        }
+
+        /// <summary>
+        /// Проверить, существует ли список с указанным идентификатором
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Статус проверки</returns>
+        public bool ContainsList(int id)
+        {
+            return All.ContainsKey(id);
         }
 
         /// <summary>
@@ -129,6 +149,25 @@ namespace TimelonCl
         }
 
         /// <summary>
+        /// Внедрить закрепленные списки карт
+        /// </summary>
+        private void InjectEssentials()
+        {
+            foreach (CardList cardList in _listEssential)
+            {
+                if (ContainsList(cardList.Id))
+                {
+                    if (cardList.Name == GetList(cardList.Id).Name)
+                    {
+                        continue;
+                    }
+                }
+
+                SetList(cardList);
+            }
+        }
+
+        /// <summary>
         /// Сохранить данные в файл
         /// </summary>
         public void Sync()
@@ -139,6 +178,8 @@ namespace TimelonCl
             {
                 File.Create(Source).Close();
             }
+
+            InjectEssentials();
 
             List<CardListData> data = new List<CardListData>();
 
@@ -181,6 +222,8 @@ namespace TimelonCl
 
                 All.Add(cardList.Id, cardList);
             }
+
+            InjectEssentials();
         }
     }
 }
