@@ -20,9 +20,10 @@ namespace Test
             //}
 
             //TestTruthTable(count);
-            TestParser("A * ( B -> C ) + C <-> - A");
+            //TestParser("A * ( B -> C ) + C <-> - A");
             //TestEvaluationTruthTable(3);
             //TestEvaluationInputFunction();
+            TestTest();
         }
 
         private static void TestTruthTable(int count)
@@ -80,9 +81,40 @@ namespace Test
 
             Console.WriteLine("Значение функции:");
             foreach (bool item in result.List) Console.Write(item == true ? "1" + " ": "0" + " ");
-
+                     
             Console.ReadLine();
         }
 
+        private static void TestTest()
+        {
+            Console.WriteLine("Testdsafgsdgvf():");
+            Console.WriteLine("Введите количество переменных:");
+            int n = 5;
+            Console.WriteLine("Введите функцию:");
+            string function = "A * ( B -> C ) + C <-> - A + D * E";
+
+            TruthTable table = new TruthTable(n);
+            Console.WriteLine("Таблица истинности:");
+            foreach (Sensor row in table.Table)
+            {
+                foreach (bool item in row.List)
+                Console.Write(item == true ? "1" + " " : "0" + " "); Console.WriteLine();
+            }
+
+            LogicalParser parser = new LogicalParser();
+            LogicalEvaluate eval = new LogicalEvaluate();
+
+            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
+
+            Console.WriteLine("Значение функции:");
+            foreach (bool item in result.List) Console.Write(item == true ? "1" + " " : "0" + " ");
+
+            //тесты для нормформ
+            Console.WriteLine();
+            Console.WriteLine(LogicalNormalForm.SDNF(table, result, parser.Parse(function)));
+            Console.WriteLine();
+            Console.WriteLine(LogicalNormalForm.SKNF(table, result, parser.Parse(function)));
+            Console.ReadLine();
+        }
     }
 }

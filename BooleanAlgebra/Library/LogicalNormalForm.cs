@@ -7,20 +7,88 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    internal class LogicalNormalForm
+    static public class LogicalNormalForm
     {
-        public string SDNF()
+        static public string SDNF(TruthTable table, Sensor result, List<string> tokens)
         {
-        string answer;
-
-        return answer;
+        string answer="( ";
+            int c = 0;
+            int k = 0;
+            int a = 0;
+            foreach (Sensor row in table.Table)
+            {
+                if (result.List[c]) a++;
+                c++;
+            }
+            c = 0;
+                foreach (Sensor row in table.Table)
+                {
+                if (result.List[c])
+                {
+                    for (int i=0; i < table.Count; i++)
+                    {
+                        if (row.List[i])
+                        {
+                            if (i==table.Count-1) { answer += Convert.ToChar(i + 65); }
+                            else
+                            answer += Convert.ToChar(i + 65) + " * ";
+                        }
+                        else
+                        {
+                            if (i == table.Count-1) { answer += "- " + Convert.ToChar(i + 65); }
+                            else
+                            answer += "- " + Convert.ToChar(i + 65) + " * ";
+                        }
+                    }
+                    k++;
+                    if (k != a)
+                        answer += " ) + ( ";
+                }
+                c++;
+            }
+            answer += " )";
+            return answer;
         }
 
-        public string SKNF()
+        static public string SKNF(TruthTable table, Sensor result, List<string> tokens)
         {
-        string answer;
-
-        return answer;
+            string answer = "( ";
+            int c = 0;
+            int k = 0;
+            int a = 0;
+            foreach (Sensor row in table.Table)
+            {
+                if (!result.List[c]) a++;
+                c++;
+            }
+            c = 0;
+            foreach (Sensor row in table.Table)
+            {
+                if (!result.List[c])
+                {
+                    for (int i = 0; i < table.Count; i++)
+                    {
+                        if (row.List[i])
+                        {
+                            if (i == table.Count - 1) { answer += Convert.ToChar(i + 65); }
+                            else
+                                answer += Convert.ToChar(i + 65) + " + ";
+                        }
+                        else
+                        {
+                            if (i == table.Count - 1) { answer += "- " + Convert.ToChar(i + 65); }
+                            else
+                                answer += "- " + Convert.ToChar(i + 65) + " + ";
+                        }
+                    }
+                    k++;
+                    if (k != a)
+                        answer += " ) * ( ";
+                }
+                c++;
+            }
+            answer += " )";
+            return answer;
         }
     }
 }
