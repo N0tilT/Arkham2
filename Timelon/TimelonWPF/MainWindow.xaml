@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local ="clr-namespace:TimelonWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024"
         WindowStyle = "None"
@@ -23,7 +25,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="75"/>
             </Grid.RowDefinitions>
 
             <!--Фон для списка карточек-->
@@ -49,43 +51,54 @@
                            Style="{StaticResource TitleTheme}"/>
             </Border>
 
-
+            
 
             <!--Меню списков-->
-            
-            <ItemsControl x:Name="MenuPanel"
-                        Grid.Row="1">
+            <ListBox Grid.Row="1"
+                     x:Name="MenuPanel"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ItemsSource="{Binding Lists}"
+                     SelectedItem="{Binding SelectedList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding  Name}"
+                                 GotFocus="MenuButton_Click"
+                                 Style="{StaticResource MenuButtonTheme}"/>
 
-                <RadioButton x:Name="TaskButton"
-                             Content="Задачи"
-                             IsChecked="True"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Click="ListMenuButton_Click"/>
-                <RadioButton Content="Важные"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Click="ListMenuButton_Click"/>
-
-            </ItemsControl>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
             <!--Меню карточек-->
-            <ScrollViewer Grid.Column="1"
-                        Grid.Row="1">
-                <StackPanel x:Name="CardsPanel">
-                    <Grid>
-                        <Button Width="35" Height="35"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Margin="5,0,0,0"
-                                Click="Check_Click"
-                                Style="{StaticResource CheckCardTheme}"/>
-                        <RadioButton Grid.ColumnSpan="2"
+            <ListBox Grid.Column="1"
+                     Grid.Row="1"
+                     x:Name="CardPanel"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     HorizontalContentAlignment="Stretch"
+                     ItemsSource="{Binding Cards}"
+                     SelectedItem="{Binding SelectedCard}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Button Width="35" Height="35"
+                                    HorizontalAlignment="Left"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding CardDoneCommand}"
+                                    Margin="5,0,0,0"
+                                    Style="{StaticResource CheckCardTheme}"/>
+                            <TextBox Grid.ColumnSpan="2"
                                      Height="50" Margin="40,0,0,0"
-                                     Content="test"
+                                     GotFocus="CardButton_Click"
+                                     Text="{Binding Name}"
                                      Style="{StaticResource CardTheme}"/>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+            </ListBox>
             
 
             <!--Заглавие информации-->
@@ -98,20 +111,20 @@
             <StackPanel x:Name="CardInfo"
                         Grid.Column="2"
                         Grid.Row="1"
-                        Grid.RowSpan="2">
-                
+                        Grid.RowSpan="2"
+                        DataContext="{Binding SelectedCard}">
                 <Border Grid.Row="2"
                         Margin="10,10,1,10"
                         Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardNameTemplate"
-                                   Text="Название"
+                                   Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardNameTextbox"
-                                 Style="{StaticResource TextBoxInputTheme}"
-                                 TextChanged="CardNameTextbox_TextChanged"/>
+                                 Text="{Binding Name}"
+                                 Style="{StaticResource TextBoxInputTheme}"/>
 
                     </Grid>
 
@@ -122,12 +135,12 @@
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardDateTemplate"
-                                   Text="Дата"
+                                   Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDateTextbox"
-                                 Style="{StaticResource TextBoxInputTheme}"
-                                 TextChanged="CardDateTextbox_TextChanged"/>
+                                 Text="{Binding Date, Mode=OneWay}"
+                                 Style="{StaticResource TextBoxInputTheme}"/>
 
 
                     </Grid>
@@ -139,12 +152,12 @@
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardImportantTemplate"
-                                   Text="Важная"
+                                   Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardImportantTextbox"
-                                 Style="{StaticResource TextBoxInputTheme}"
-                                 TextChanged="CardImportantTextbox_TextChanged"/>
+                                 Text="{Binding IsImportant}"
+                                 Style="{StaticResource TextBoxInputTheme}"/>
 
 
                     </Grid>
@@ -156,12 +169,12 @@
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardDoneTemplate"
-                                   Text="Выполнена"
+                                   Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDoneTextbox"
-                                 Style="{StaticResource TextBoxInputTheme}"
-                                 TextChanged="CardDoneTextbox_TextChanged"/>
+                                 Text="{Binding IsCompleted}"
+                                 Style="{StaticResource TextBoxInputTheme}"/>
 
 
                     </Grid>
@@ -174,14 +187,14 @@
                     <Grid>
                         <!--Шаблон заполнения "Создать список"-->
                         <TextBlock x:Name="CardDescriptionTemplate"
-                                   Text="Описание"
+                                   Text=""
                                    VerticalAlignment="Top"
                                    Margin="10,10"
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDescriptionTextbox" 
-                                 Style="{StaticResource TextBoxInputTheme}" 
-                                 TextChanged="CardDescriptionTextbox_TextChanged"/>
+                                 Text="{Binding Description}"
+                                 Style="{StaticResource TextBoxInputTheme}" />
 
 
                     </Grid>
@@ -195,8 +208,8 @@
                     <Button Foreground="#CFCFCF"
                             Background="Transparent"
                             BorderThickness="0"
-                            Content="Выполнить задачу" 
-                            Click="CardDone_Click"/>
+                            Command="{Binding CardDoneCommand}"
+                            Content="Выполнить задачу" />
                 </Border>
                 
             </StackPanel>
@@ -205,7 +218,7 @@
             <!--Поля ввода-->
             <!--Создать список-->
             <Border Grid.Row="2"
-                    Margin="10,5,30,5"
+                    Margin="10,20,30,20"
                     Style="{StaticResource TextBoxTemplateBorderTheme}">
                 <Grid>
                     <!--Шаблон заполнения "Создать спсисок"-->
@@ -214,8 +227,8 @@
                                Style="{StaticResource TextBlockTemplateTheme}"/>
                     <!--Поле ввода названия списка-->
                     <TextBox x:Name="AddListTextbox"
-                             Style="{StaticResource TextBoxInputTheme}"
-                             TextChanged="AddListTextbox_TextChanged"/>
+                             TextChanged="AddListTextbox_TextChanged"
+                             Style="{StaticResource TextBoxInputTheme}"/>
 
 
                 </Grid>
@@ -225,14 +238,14 @@
             <!--Кнопка создания списка-->
             <Button x:Name="AddListButton"
                     Grid.Row="2"
-                    Style="{StaticResource AddButtonTheme}"
-                    Click="AddListButton_Click">
-            </Button>
+                    Command="{Binding AddListCommand}"
+                    CommandParameter="{Binding ElementName=AddListTextbox}"
+                    Style="{StaticResource AddButtonTheme}"/>
 
             <!--Создать карточку дела-->
             <Border Grid.Row="2"
                     Grid.Column="1"
-                    Margin="40,10,80,10"
+                    Margin="40,20,80,20"
                     Style="{StaticResource TextBoxTemplateBorderTheme}">
                 <Grid>
                     <!--Шаблон создания задачи-->
@@ -242,8 +255,8 @@
 
                     <!--Поле ввода названия задачи-->
                     <TextBox x:Name="AddCardTextbox"
-                             Style="{StaticResource TextBoxInputTheme}"
-                             TextChanged="AddCardTextbox_TextChanged"/>
+                             TextChanged="AddCardTextbox_TextChanged"
+                             Style="{StaticResource TextBoxInputTheme}"/>
 
 
                 </Grid>
@@ -255,9 +268,9 @@
                     Grid.Column="1"
                     Grid.Row="2"
                     Margin="0,0,50,0"
-                    Style="{StaticResource AddButtonTheme}"
-                    Click="AddCardButton_Click">
-            </Button>
+                    Command="{Binding AddCardCommand}"
+                    CommandParameter="{Binding ElementName=AddCardTextbox}"
+                    Style="{StaticResource AddButtonTheme}"/>
 
             <!--Поиск-->
             <Border Grid.Column="1"
@@ -270,8 +283,8 @@
                                Style="{StaticResource TextBlockTemplateTheme}"/>
                     <!--Текстовое поле ввода для поиска-->
                     <TextBox x:Name="SearchTextbox"
-                             Style="{StaticResource TextBoxInputTheme}"
-                             TextChanged="SearchTextbox_TextChanged"/>
+                             TextChanged="SearchTextbox_TextChanged"
+                             Style="{StaticResource TextBoxInputTheme}"/>
 
 
                 </Grid>
@@ -282,8 +295,9 @@
             <Button x:Name="SearchButton"
                     Grid.Column="1"
                     Margin="0,0,50,0"
-                    Style="{StaticResource SearchButtonTheme}"
-                    Click="SearchButton_Click">
+                    Command="{Binding SearchCardCommand}"
+                    CommandParameter="{Binding ElementName=SearchTextbox}"
+                    Style="{StaticResource SearchButtonTheme}">
             </Button>
 
         </Grid>
