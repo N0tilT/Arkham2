@@ -89,7 +89,7 @@ namespace TimelonCl
             {
                 throw new ArgumentException("minDate не может быть позже, чем maxDate");
             }
-            
+
             int range = (int)(maxDate - minDate).TotalSeconds;
 
             return minDate.AddSeconds(Random.Next(range));
