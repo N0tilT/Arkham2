@@ -48,9 +48,13 @@ namespace Forms
                     c++;
                 }
             }
+            catch (System.IndexOutOfRangeException)
+            {
+                MessageBox.Show("Некорректный ввод. Переменные должны задаваться в алфавитном порядке английского языка.");
+            }            
             catch (Exception)
             {
-                MessageBox.Show("Некорректный ввод");
+                MessageBox.Show("Некорректный ввод.");
             }
         }
         // Справка
@@ -67,24 +71,31 @@ namespace Forms
         //СДНФ и СКНФ
         private void buttonNF_Click(object sender, EventArgs e)
         {
-            int n = int.Parse(N.Text);
-            string function = Function.Text;
-            if (Check(n, function))
-                return;
-            TruthTable table = new TruthTable(n);
-            LogicalParser parser = new LogicalParser();
-            LogicalEvaluate eval = new LogicalEvaluate();
-            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
-            RezultNF.Text = "Реализация СДНФ и СКНФ"+ Environment.NewLine;
-            RezultNF.Text += ("СДНФ")+Environment.NewLine+ (LogicalNormalForm.SDNF(table, result, parser.Parse(function)))+Environment.NewLine;
-            RezultNF.Text += ("СКНФ")+Environment.NewLine+ (LogicalNormalForm.SKNF(table, result, parser.Parse(function)))+Environment.NewLine;
+            try
+            {
+                int n = int.Parse(N.Text);
+                string function = Function.Text;
+                if (Check(n, function))
+                    return;
+                TruthTable table = new TruthTable(n);
+                LogicalParser parser = new LogicalParser();
+                LogicalEvaluate eval = new LogicalEvaluate();
+                Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
+                RezultNF.Text = "Реализация СДНФ и СКНФ" + Environment.NewLine;
+                RezultNF.Text += ("СДНФ") + Environment.NewLine + (LogicalNormalForm.SDNF(table, result, parser.Parse(function))) + Environment.NewLine;
+                RezultNF.Text += ("СКНФ") + Environment.NewLine + (LogicalNormalForm.SKNF(table, result, parser.Parse(function))) + Environment.NewLine;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Некорректный ввод.");
+            }
         }
         //Функция для проверки корректности значений  в заполненных полях
         private bool Check(int n, string function)
         {
             if (n > 10)
             {
-                MessageBox.Show("Введенное значение превышает 10");
+                MessageBox.Show("Введенное значение превышает 10.");
                 return true;
             }
             string[] s = function.Split(' ');
@@ -98,7 +109,7 @@ namespace Forms
             }
             if (count < n)
             {
-                MessageBox.Show("Заданное количество переменных не соответсвует количеству переменных функции");
+                MessageBox.Show("Заданное количество переменных не соответсвует количеству переменных функции.");
                 return true;
             }
             return false;

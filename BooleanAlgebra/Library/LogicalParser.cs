@@ -22,11 +22,12 @@ namespace Library
         /// <returns>логическое выражение в постфиксной записи</returns>
         public List<string> Parse(string input)
         {
+            parsed.Clear();
             //делим выражение на отдельные операции - токены
             tokens = input.Split(' ');
             
             //Обрабатываем каждый токен
-            foreach(string item in tokens)
+            foreach (string item in tokens)
             {
                 if (item == "(") stack.Push(item);  //Открывающая скобка заносится в стек
                 else if(item == ")")    //Закрывающая скобка обрабатывает стек до открывающей, занося его элементы в ответ
