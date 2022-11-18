@@ -23,7 +23,9 @@ namespace Test
             //TestParser("A * ( B -> C ) + C <-> - A");
             //TestEvaluationTruthTable(3);
             //TestEvaluationInputFunction();
-            TestTest();
+            TestNormalForms();
+            //TestSDNF();
+            //TestSKNF();
         }
 
         private static void TestTruthTable(int count)
@@ -85,10 +87,41 @@ namespace Test
             Console.ReadLine();
         }
 
-        private static void TestTest()
+        private static void TestNormalForms()
         {
-            Console.WriteLine("Testdsafgsdgvf():");
+            LogicalParser parser = new LogicalParser();
+            LogicalEvaluate eval = new LogicalEvaluate();
+            string function = "A + B + C + D";
+            Console.WriteLine("TestNormalForms():");
+            int n = parser.Counter(function);
+            Console.WriteLine("Введите количество переменных: " + n);
             
+            
+            
+            Console.WriteLine("Введите функцию: " + function);
+            TruthTable table = new TruthTable(n);
+            Console.WriteLine("Таблица истинности:");
+            foreach (Sensor row in table.Table)
+            {
+                foreach (bool item in row.List)
+                Console.Write(item == true ? "1" + " " : "0" + " "); Console.WriteLine();
+            }
+
+            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
+
+            Console.WriteLine("Значение функции:");
+            foreach (bool item in result.List) Console.Write(item == true ? "1" + " " : "0" + " ");
+            Console.WriteLine();
+            Console.WriteLine("СДНФ");
+            Console.WriteLine(LogicalNormalForm.SDNF(table, result, parser.Parse(function)));
+            Console.WriteLine("СКНФ");
+            Console.WriteLine(LogicalNormalForm.SKNF(table, result, parser.Parse(function)));
+            Console.ReadLine();
+        }
+
+        private static void TestSKNF()
+        {
+            Console.WriteLine("TestSKNF():");
             int n = 2;
             Console.WriteLine("Введите количество переменных: " + n);
             string function = "A -> B";
@@ -98,7 +131,7 @@ namespace Test
             foreach (Sensor row in table.Table)
             {
                 foreach (bool item in row.List)
-                Console.Write(item == true ? "1" + " " : "0" + " "); Console.WriteLine();
+                    Console.Write(item == true ? "1" + " " : "0" + " "); Console.WriteLine();
             }
 
             LogicalParser parser = new LogicalParser();
@@ -109,9 +142,34 @@ namespace Test
             Console.WriteLine("Значение функции:");
             foreach (bool item in result.List) Console.Write(item == true ? "1" + " " : "0" + " ");
             Console.WriteLine();
-            //тесты для нормформ
             Console.WriteLine("СДНФ");
             Console.WriteLine(LogicalNormalForm.SDNF(table, result, parser.Parse(function)));
+            Console.ReadLine();
+        }
+
+        private static void TestSDNF()
+        {
+            Console.WriteLine("TestSDNF():");
+            int n = 2;
+            Console.WriteLine("Введите количество переменных: " + n);
+            string function = "A -> B";
+            Console.WriteLine("Введите функцию: " + function);
+            TruthTable table = new TruthTable(n);
+            Console.WriteLine("Таблица истинности:");
+            foreach (Sensor row in table.Table)
+            {
+                foreach (bool item in row.List)
+                    Console.Write(item == true ? "1" + " " : "0" + " "); Console.WriteLine();
+            }
+
+            LogicalParser parser = new LogicalParser();
+            LogicalEvaluate eval = new LogicalEvaluate();
+
+            Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
+
+            Console.WriteLine("Значение функции:");
+            foreach (bool item in result.List) Console.Write(item == true ? "1" + " " : "0" + " ");
+            Console.WriteLine();
             Console.WriteLine("СКНФ");
             Console.WriteLine(LogicalNormalForm.SKNF(table, result, parser.Parse(function)));
             Console.ReadLine();

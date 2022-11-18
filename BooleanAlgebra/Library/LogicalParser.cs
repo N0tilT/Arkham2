@@ -93,5 +93,41 @@ namespace Library
                 return false;
             }
         }
+        public int Counter(string input)
+        {
+            string[] symb;
+            symb = input.Split(' ');
+            List<string> Letters = new List<string>();
+            for (int i=0; i<symb.Length; i++)
+            {
+                Letters.Add(symb[i]);
+            }
+            Console.WriteLine();
+            Letters = ChekSim(Letters);
+            int counter = 0;
+            foreach (string item in Letters)
+            {
+                if (item == "(") { }
+                else if (item == ")") { }
+                else { if (!isOperator(item))
+                    {
+                        counter++;
+                    }
+                }
+            }
+
+            return counter;
+        }
+        private List<string> ChekSim(List<string> Letters)
+        {
+            for (int i = 0; i < Letters.Count; i++)
+            {
+                for (int j = i+1; j< Letters.Count; j++)
+                {
+                    if (Letters[i] == Letters[j]) Letters.RemoveAt(j);
+                }
+            }
+                return Letters;
+        }
     }
 }
