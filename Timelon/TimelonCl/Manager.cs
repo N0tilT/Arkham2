@@ -136,7 +136,7 @@ namespace TimelonCl
         {
             List<Card> result = new List<Card>();
 
-            foreach(KeyValuePair<int,CardList> item in All)
+            foreach (KeyValuePair<int, CardList> item in All)
             {
                 foreach (Card card in item.Value.SearchByContent(content))
                 {
@@ -193,7 +193,7 @@ namespace TimelonCl
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<CardListData>));
-            
+
             // Даже если сохранять нечего
             // В любом случае мы создадим корректную xml основу
             // И пустой файл превратится в читаемый программой источник

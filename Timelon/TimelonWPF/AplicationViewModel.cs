@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using TimelonCl;
 using TimelonCl.Data;
@@ -82,14 +78,14 @@ namespace TimelonWPF
                     (searchCardCommand = new RelayCommand(obj =>
                     {
                         TextBox tmp = obj as TextBox;
-                        SelectedList =new CardList(0,"searchRuselt",true,_listManager.SearchByContent(tmp.Text));
+                        SelectedList = new CardList(0, "searchRuselt", true, _listManager.SearchByContent(tmp.Text));
                     }));
             }
         }
 
 
-        public ObservableCollection<CardList> Lists { get {return lists; } set {lists = value; } }
-        public ObservableCollection<Card> Cards { get {return cards; } set { cards = value; } }
+        public ObservableCollection<CardList> Lists { get { return lists; } set { lists = value; } }
+        public ObservableCollection<Card> Cards { get { return cards; } set { cards = value; } }
 
         public Card SelectedCard
         {
@@ -119,7 +115,7 @@ namespace TimelonWPF
             _listManager = Manager.Instance;
 
             _selectedList = _listManager.All[0];
-            
+
             foreach (KeyValuePair<int, CardList> item in _listManager.All)
                 lists.Add(item.Value);
 

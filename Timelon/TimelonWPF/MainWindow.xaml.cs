@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
-using TimelonCl;
 
 namespace TimelonWPF
 {
@@ -18,16 +13,13 @@ namespace TimelonWPF
         {
             InitializeComponent();
             DataContext = new AplicationViewModel();
-            Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(layoutRoot_MouseLeftButtonDown);
+            Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
 
-            //// TODO: Не будет работать корректно с файлом - будут перезаписи
-            //listManager.SetList(CardList.Make("Задачи"));
-            //listManager.SetList(CardList.Make("Важные"));
         }
 
-        void layoutRoot_MouseLeftButtonDown(object sender, EventArgs e)
+        void LayoutRoot_MouseLeftButtonDown(object sender, EventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
 
 
@@ -44,104 +36,6 @@ namespace TimelonWPF
             CardPanel.SelectedItem = tmp.Parent;
         }
 
-        ///// <summary>
-        ///// Нажатие кнопки "Добавить список" в меню
-        ///// </summary>
-        //private void AddListButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    foreach(RadioButton btn in MenuPanel.Children)
-        //    {
-        //        btn.IsChecked = false;
-        //    }
-        //    if (AddListTextbox.Text == "") return;
-
-        //    AddListToMenu(AddListTextbox.Text);
-
-
-
-        //    CardList nextList = new CardList(listManager.All.Count, AddListTextbox.Text);
-
-        //    //Добавляем подсписок в хранилище
-        //    listManager.SetList(nextList);
-
-        //    ShowList(nextList);
-
-        //    AddListTextbox.Text = "";
-
-        //}
-        ///// <summary>
-        ///// Нажатие кнопки "Добавить задачу" в меню
-        ///// </summary>
-        //private void AddCardButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (AddCardTextbox.Text == "") return;
-
-        //    AddCardToMenu(AddCardTextbox.Text);
-        //    listManager.GetList(selectedListID).Set(Card.Make(AddCardTextbox.Text));
-        //    ShowList(listManager.GetList(selectedListID));
-
-        //    AddCardTextbox.Text = "";
-        //}
-
-        ///// <summary>
-        ///// Нажатие кнопки "Поиск" в меню
-        ///// </summary>
-        //private void SearchButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (SearchTextbox.Text == "") return;
-        //    List<Card> searchResult = listManager.SearchByContent(SearchTextbox.Text);
-
-        //    ShowSearchResult(searchResult);
-
-
-        //    SearchTextbox.Text = "";
-        //}
-
-
-        ///// <summary>
-        ///// Нажатие на кнопку списка в меню
-        ///// </summary>
-        //private void ListMenuButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    RadioButton selectedList = sender as RadioButton;
-
-        //    SortedList<int, CardList> pool = listManager.All;
-
-        //    foreach (KeyValuePair<int,CardList> item  in pool)
-        //    {
-        //        if(item.Value.Name == (string)selectedList.Content)
-        //        {
-        //            selectedListID = item.Key;
-        //            break;
-        //        }
-        //    }
-
-        //    ShowList(listManager.GetList(selectedListID));
-
-        //}
-
-        ///// <summary>
-        ///// Нажатие на карточку дела в меню
-        ///// </summary>
-        //private void Card_Click(object sender, RoutedEventArgs e)
-        //{
-        //    RadioButton selectedCardbtn = sender as RadioButton;
-        //    CardList cardList = listManager.GetList(selectedListID);
-
-        //    foreach(KeyValuePair<int,Card> item in cardList.All)
-        //    {
-        //        if(item.Value.Name == (string)selectedCardbtn.Content)
-        //        {
-        //            selectedCard = item.Value;
-        //            break;
-        //        }
-        //    }
-
-
-        //    ShowCard(selectedCard);
-
-        //}
-        //#endregion
 
         #region TextChangedEvents
         //Изменение видимости текстовых полей для полей с шаблонами
@@ -186,134 +80,5 @@ namespace TimelonWPF
 
         #endregion
 
-        //#region ShowMethods
-        ///// <summary>
-        ///// Метод отображения содержимого списка в меню карт
-        ///// </summary>
-        ///// <param name="nextList"> Отображаемый список </param>
-        //private void ShowList(CardList nextList)
-        //{
-        //    CardInfoColumn.Width = new GridLength(0);
-
-        //    CardsPanel.Children.Clear();
-
-        //    selectedList = nextList;
-        //    selectedListID = nextList.Id;
-
-        //    foreach(Card card in nextList.GetListDefault())
-        //    {
-        //        AddCardToMenu(card.Name);
-        //    }
-
-        //}
-
-        //private void ShowSearchResult(List<Card> searchResult)
-        //{
-        //    foreach (Card card in searchResult)
-        //    {
-        //        ShowFoundCard(card);
-        //    }
-
-        //}
-
-        //private void ShowFoundCard(Card card)
-        //{
-        //    RadioButton nextFoundCard = new RadioButton();
-        //    nextFoundCard.Height = 50;
-        //    nextFoundCard.Foreground = new SolidColorBrush(Colors.Black);
-        //    nextFoundCard.FontSize = 14;
-        //    nextFoundCard.Content = card.Name;
-
-        //    nextFoundCard.Style = (Style)TaskButton.FindResource("FoundCardTheme");
-        //    nextFoundCard.Click += Card_Click;
-        //    CardsPanel.Children.Add(nextFoundCard);
-        //}
-
-        //private void ShowCard(Card selectedCard)
-        //{
-
-        //    CardInfoColumn.Width = new GridLength(240);
-
-        //    string[] cardInfo = new string[]
-        //    {
-        //        selectedCard.Name.ToString(),
-        //        selectedCard.Date.ToString(),
-        //        selectedCard.IsImportant.ToString(),
-        //        selectedCard.IsCompleted.ToString(),
-        //        selectedCard.Description.ToString(),
-        //    };
-
-        //    int index = 0;
-
-        //    for (int i = 0; i < CardInfo.Children.Count; i++)
-        //    {
-        //        object obj = CardInfo.Children[i];
-        //        if(obj.GetType() != typeof(Border))break;
-        //        Border border = (Border)CardInfo.Children[i];
-        //        Grid grid = (Grid)border.Child;
-        //        TextBox tb = (TextBox)grid.Children[1];
-        //        tb.Text = cardInfo[index];
-        //        index++;
-        //    }
-
-
-        //}
-        //#endregion
-
-        //#region AddMethods
-
-        //private void AddListToMenu(string text)
-        //{
-        //    RadioButton nextList = new RadioButton();
-        //    nextList.Height = 50;
-        //    nextList.Foreground = new SolidColorBrush(Colors.White);
-        //    nextList.FontSize = 14;
-        //    nextList.Content = text;
-        //    nextList.IsChecked = true;
-        //    nextList.Style = (Style)TaskButton.FindResource("MenuButtonTheme");
-        //    nextList.Click += ListMenuButton_Click;
-        //    MenuPanel.Children.Add(nextList);
-        //}
-
-        //private void AddCardToMenu(string text)
-        //{
-        //    RadioButton nextCard = new RadioButton();
-        //    nextCard.Height = 50;
-        //    nextCard.Foreground = new SolidColorBrush(Colors.Black);
-        //    nextCard.FontSize = 14;
-        //    nextCard.Content = text;
-
-        //    nextCard.Style = (Style)TaskButton.FindResource("CardTheme");
-        //    nextCard.Click += Card_Click;
-        //    CardsPanel.Children.Add(nextCard);
-        //}
-        //#endregion
-
-
-        //private void CardDone_Click(object sender, RoutedEventArgs e)
-        //{
-        //    foreach (KeyValuePair<int, Card> item in selectedList.All)
-        //    {
-        //        if (item.Value.Name == (string)selectedCard.Name)
-        //        {
-        //            selectedCard.IsCompleted = true;
-        //            break;
-        //        }
-        //    }
-        //    ShowCard(selectedCard);
-        //}
-
-        //private void Check_Click(object sender, RoutedEventArgs e)
-        //{
-        //    foreach (KeyValuePair<int, Card> item in selectedList.All)
-        //    {
-        //        if (item.Value.Name == (string)selectedCard.Name)
-        //        {
-        //            selectedCard.IsCompleted = true;
-        //            break;
-        //        }
-        //    }
-        //    ShowCard(selectedCard);
-        //}
     }
 }
