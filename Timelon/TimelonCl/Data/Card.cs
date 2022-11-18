@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace TimelonCl
+namespace TimelonCl.Data
 {
     /// <summary>
     /// Контейнер данных дат для сериализации
@@ -12,21 +12,6 @@ namespace TimelonCl
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime? Planned { get; set; }
-    }
-
-    /// <summary>
-    /// Контейнер данных карты для сериализации
-    /// </summary>
-    [Serializable]
-    public class CardData : DataContainer
-    {
-        [XmlAttribute]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTimeContainerData Date { get; set; }
-        public string Description { get; set; }
-        public bool IsImportant { get; set; }
-        public bool IsCompleted { get; set; }
     }
 
     /// <summary>
@@ -165,6 +150,21 @@ namespace TimelonCl
         {
             return Planned != null;
         }
+    }
+
+    /// <summary>
+    /// Контейнер данных карты для сериализации
+    /// </summary>
+    [Serializable]
+    public class CardData : DataContainer
+    {
+        [XmlAttribute]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTimeContainerData Date { get; set; }
+        public string Description { get; set; }
+        public bool IsImportant { get; set; }
+        public bool IsCompleted { get; set; }
     }
 
     /// <summary>

@@ -42,9 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="CardList.cs" />
-    <Compile Include="CardListManager.cs" />
+    <Compile Include="Data\Card.cs" />
+    <Compile Include="Data\CardList.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="Data\AbstractData.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

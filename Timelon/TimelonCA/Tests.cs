@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TimelonCl;
+using TimelonCl.Data;
 
 namespace TimelonCA
 {
@@ -80,7 +81,7 @@ namespace TimelonCA
 
             List<CardList> all = new List<CardList>();
 
-            CardListManager manager = CardListManager.Instance;
+            Manager manager = Manager.Instance;
 
             // Данные загружаются из файла
             // Так что мы их перезапишем

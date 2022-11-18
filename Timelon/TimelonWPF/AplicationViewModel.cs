@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using TimelonCl;
+using TimelonCl.Data;
 using TimelonWPF.Core;
 
 namespace TimelonWPF
@@ -16,7 +17,7 @@ namespace TimelonWPF
     {
         private Card _selectedCard;
         private CardList _selectedList;
-        private CardListManager _listManager;
+        private Manager _listManager;
         ObservableCollection<CardList> lists = new ObservableCollection<CardList>();
         ObservableCollection<Card> cards = new ObservableCollection<Card>();
 
@@ -115,7 +116,7 @@ namespace TimelonWPF
 
         public AplicationViewModel()
         {
-            _listManager = CardListManager.Instance;
+            _listManager = Manager.Instance;
 
             _selectedList = _listManager.All[0];
             

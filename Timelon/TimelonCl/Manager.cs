@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using TimelonCl.Data;
 
 namespace TimelonCl
 {
@@ -10,7 +11,7 @@ namespace TimelonCl
     /// Допустимо существование лишь одного экземпляра этого класса
     /// (зависимость от потока)
     /// </summary>
-    public sealed class CardListManager
+    public sealed class Manager
     {
         /// <summary>
         /// Название файла с данными
@@ -25,19 +26,19 @@ namespace TimelonCl
         /// <summary>
         /// Экземпляр класса одиночки
         /// </summary>
-        private static CardListManager _instance = null;
+        private static Manager _instance = null;
 
         /// <summary>
         /// Глобальная точка доступа к классу
         /// Реализация шаблона Singleton
         /// </summary>
-        public static CardListManager Instance
+        public static Manager Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new CardListManager();
+                    _instance = new Manager();
                 }
 
                 return _instance;
@@ -67,7 +68,7 @@ namespace TimelonCl
         /// Конструктор менеджера
         /// Не может быть вызван извне
         /// </summary>
-        private CardListManager()
+        private Manager()
         {
             Load();
         }

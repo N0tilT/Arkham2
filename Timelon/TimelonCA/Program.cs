@@ -8,7 +8,7 @@ namespace TimelonCA
         static void Main(string[] args)
         {
             // Инициализация менеджера как можно раньше
-            CardListManager manager = CardListManager.Instance;
+            Manager manager = Manager.Instance;
             Tests tests = new Tests();
 
             tests.TestCustomCard();
