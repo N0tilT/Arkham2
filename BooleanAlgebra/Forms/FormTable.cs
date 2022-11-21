@@ -22,13 +22,13 @@ namespace Forms
         {
             try
             {
-                int n = int.Parse(N.Text);
+                LogicalParser parser = new LogicalParser();
                 string function = Function.Text;
+                int n = parser.Counter(function);
                 if (Check(n, function))
                     return;
                 int c = 0;
                 TruthTable table = new TruthTable(n);
-                LogicalParser parser = new LogicalParser();
                 LogicalEvaluate eval = new LogicalEvaluate();
                 Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
                 Rezult.Text = "Таблица истинности для переменных и значение функции: " + Environment.NewLine;
@@ -73,12 +73,12 @@ namespace Forms
         {
             try
             {
-                int n = int.Parse(N.Text);
+                LogicalParser parser = new LogicalParser();
                 string function = Function.Text;
+                int n = parser.Counter(function);
                 if (Check(n, function))
                     return;
                 TruthTable table = new TruthTable(n);
-                LogicalParser parser = new LogicalParser();
                 LogicalEvaluate eval = new LogicalEvaluate();
                 Sensor result = Sensor.Custom(eval.EvaluateTrurhTable(new TruthTable(n), parser.Parse(function)).List);
                 RezultNF.Text = "Реализация СДНФ и СКНФ" + Environment.NewLine;

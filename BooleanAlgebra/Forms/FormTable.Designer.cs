@@ -33,9 +33,7 @@ namespace Forms
             this.label1 = new System.Windows.Forms.Label();
             this.buttonTable = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
-            this.N = new System.Windows.Forms.TextBox();
             this.Function = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonNF = new System.Windows.Forms.Button();
             this.RezultNF = new System.Windows.Forms.TextBox();
@@ -47,7 +45,7 @@ namespace Forms
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Rezult.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Rezult.Location = new System.Drawing.Point(11, 110);
-            this.Rezult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Rezult.Margin = new System.Windows.Forms.Padding(2);
             this.Rezult.Multiline = true;
             this.Rezult.Name = "Rezult";
             this.Rezult.ReadOnly = true;
@@ -70,7 +68,7 @@ namespace Forms
             // 
             this.buttonTable.Font = new System.Drawing.Font("Segoe UI", 13.8F);
             this.buttonTable.Location = new System.Drawing.Point(389, 28);
-            this.buttonTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonTable.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTable.Name = "buttonTable";
             this.buttonTable.Size = new System.Drawing.Size(176, 65);
             this.buttonTable.TabIndex = 3;
@@ -82,7 +80,7 @@ namespace Forms
             // 
             this.buttonHelp.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonHelp.Location = new System.Drawing.Point(751, 28);
-            this.buttonHelp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(2);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(176, 65);
             this.buttonHelp.TabIndex = 4;
@@ -90,34 +88,14 @@ namespace Forms
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
-            // N
-            // 
-            this.N.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.N.Location = new System.Drawing.Point(180, 37);
-            this.N.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.N.Name = "N";
-            this.N.Size = new System.Drawing.Size(198, 26);
-            this.N.TabIndex = 8;
-            // 
             // Function
             // 
             this.Function.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.Function.Location = new System.Drawing.Point(180, 67);
-            this.Function.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Function.Margin = new System.Windows.Forms.Padding(2);
             this.Function.Name = "Function";
             this.Function.Size = new System.Drawing.Size(198, 26);
             this.Function.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.label3.Location = new System.Drawing.Point(8, 40);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(165, 19);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Количество переменных";
             // 
             // label4
             // 
@@ -134,7 +112,7 @@ namespace Forms
             // 
             this.buttonNF.Font = new System.Drawing.Font("Segoe UI", 13.8F);
             this.buttonNF.Location = new System.Drawing.Point(570, 28);
-            this.buttonNF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNF.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNF.Name = "buttonNF";
             this.buttonNF.Size = new System.Drawing.Size(176, 65);
             this.buttonNF.TabIndex = 12;
@@ -149,7 +127,7 @@ namespace Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RezultNF.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.RezultNF.Location = new System.Drawing.Point(389, 111);
-            this.RezultNF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RezultNF.Margin = new System.Windows.Forms.Padding(2);
             this.RezultNF.Multiline = true;
             this.RezultNF.Name = "RezultNF";
             this.RezultNF.ReadOnly = true;
@@ -166,14 +144,12 @@ namespace Forms
             this.Controls.Add(this.RezultNF);
             this.Controls.Add(this.buttonNF);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.Function);
-            this.Controls.Add(this.N);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonTable);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Rezult);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(949, 514);
             this.Name = "FormTable";
             this.Text = "Таблица истинности";
@@ -188,9 +164,7 @@ namespace Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonTable;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.TextBox N;
         private System.Windows.Forms.TextBox Function;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonNF;
         private System.Windows.Forms.TextBox RezultNF;
