@@ -52,7 +52,6 @@
             </Border>
 
             
-
             <!--Меню списков-->
             <ListBox Grid.Row="1"
                      x:Name="MenuPanel"
@@ -62,44 +61,123 @@
                      SelectedItem="{Binding SelectedList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBox Text="{Binding  Name}"
-                                 GotFocus="MenuButton_Click"
+                        <TextBlock Text="{Binding Name}"
                                  Style="{StaticResource MenuButtonTheme}"/>
 
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <!--Меню карточек-->
-            <ListBox Grid.Column="1"
-                     Grid.Row="1"
-                     x:Name="CardPanel"
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1">
+                <ListBox x:Name="CardsPanel"
                      Background="Transparent"
                      BorderThickness="0"
-                     HorizontalContentAlignment="Stretch"
-                     ItemsSource="{Binding Cards}"
+                     ItemsSource="{Binding DefaultCards}"
                      SelectedItem="{Binding SelectedCard}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Button Width="35" Height="35"
-                                    HorizontalAlignment="Left"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Command="{Binding CardDoneCommand}"
-                                    Margin="5,0,0,0"
-                                    Style="{StaticResource CheckCardTheme}"/>
-                            <TextBox Grid.ColumnSpan="2"
-                                     Height="50" Margin="40,0,0,0"
-                                     GotFocus="CardButton_Click"
-                                     Text="{Binding Name}"
-                                     Style="{StaticResource CardTheme}"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                
-            </ListBox>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"
+                                   Style="{StaticResource CardTheme}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+
+                            <!--<Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <RadioButton Focusable="False"
+                                                     Margin="{TemplateBinding Padding}" 
+                                                     Foreground="{TemplateBinding Foreground}"
+                                                     IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
+                                            <ContentPresenter/>
+                                        </RadioButton>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="LimeGreen"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="Black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>-->
+
+                            <Setter Property="Background" Value="LightSteelBlue"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+                <Rectangle Height="10" Fill="Red"/>
+                <ListBox x:Name="DoneCardsPanel"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ItemsSource="{Binding DoneCards}"
+                     SelectedItem="{Binding SelectedCard}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding  Name}"
+                                   Style="{StaticResource CardTheme}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+
+                            <!--<Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <RadioButton Focusable="False"
+                                                     Margin="{TemplateBinding Padding}" 
+                                                     Foreground="{TemplateBinding Foreground}"
+                                                     IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
+                                            <ContentPresenter/>
+                                        </RadioButton>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="LimeGreen"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="Black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>-->
+
+                            <Setter Property="Background" Value="LightSteelBlue"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </StackPanel>
             
+
 
             <!--Заглавие информации-->
             <TextBlock Text="Информация о задаче"
@@ -201,19 +279,36 @@
 
                 </Border>
                 <!--Кнопка выполнить задачу-->
-                <Border CornerRadius="5"
-                        Background="#FF2A613E"
-                        Margin="10,0,0,0"
-                        Height="35">
-                    <Button Foreground="#CFCFCF"
+                
+                
+            </StackPanel>
+            <Border CornerRadius="5"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Background="#FF1C7628"
+                    Margin="10,220,0,0"
+                    Height="35">
+                <Button Foreground="#CFCFCF"
                             Background="Transparent"
                             BorderThickness="0"
                             Command="{Binding CardDoneCommand}"
+                            CommandParameter="{Binding SelectedCard}"
                             Content="Выполнить задачу" />
-                </Border>
-                
-            </StackPanel>
-
+            </Border>
+            
+            <Border CornerRadius="5"
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    Background="#FF952424"
+                    Margin="10,0,0,0"
+                    Height="35">
+                <Button Foreground="#CFCFCF"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding RemoveCommand}"
+                            CommandParameter="{Binding SelectedCard}"
+                            Content="Удалить задачу" />
+            </Border>
             
             <!--Поля ввода-->
             <!--Создать список-->

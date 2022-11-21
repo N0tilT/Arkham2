@@ -9,10 +9,12 @@ namespace TimelonWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        static ApplicationViewModel viewModel = new ApplicationViewModel();
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new AplicationViewModel();
+            DataContext = viewModel;
             Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
 
         }
@@ -25,15 +27,13 @@ namespace TimelonWPF
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBox tmp = sender as TextBox;
-            MenuPanel.SelectedItem = tmp.Parent;
+            ListBoxItem tmp = sender as ListBoxItem;
+            MenuPanel.SelectedItem = tmp;
         }
-
         private void CardButton_Click(object sender, RoutedEventArgs e)
         {
-
-            TextBox tmp = sender as TextBox;
-            CardPanel.SelectedItem = tmp.Parent;
+            ListBoxItem tmp = sender as ListBoxItem;
+            MenuPanel.SelectedItem = tmp;
         }
 
 
