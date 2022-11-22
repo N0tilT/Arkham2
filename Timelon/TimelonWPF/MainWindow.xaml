@@ -58,7 +58,8 @@
                      Background="Transparent"
                      BorderThickness="0"
                      ItemsSource="{Binding Lists}"
-                     SelectedItem="{Binding SelectedList}">
+                     SelectedItem="{Binding SelectedList}"
+                     GotFocus="MenuButton_Click">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"
@@ -74,7 +75,8 @@
                      Background="Transparent"
                      BorderThickness="0"
                      ItemsSource="{Binding DefaultCards}"
-                     SelectedItem="{Binding SelectedCard}">
+                     SelectedItem="{Binding SelectedCard}"
+                         GotFocus="CardButton_Click">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"
@@ -122,12 +124,17 @@
                         </Style>
                     </ListBox.ItemContainerStyle>
                 </ListBox>
-                <Rectangle Height="10" Fill="Red"/>
+                <Border Height="20" Background="#FF2C2C2C">
+                    <TextBlock Text="Завершённые задачи"
+                               Foreground="White"
+                               Margin="5,0,0,0"/>
+                </Border>
                 <ListBox x:Name="DoneCardsPanel"
                      Background="Transparent"
                      BorderThickness="0"
                      ItemsSource="{Binding DoneCards}"
-                     SelectedItem="{Binding SelectedCard}">
+                     SelectedItem="{Binding SelectedCard}"
+                         GotFocus="CardButton_Click">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding  Name}"
@@ -140,7 +147,7 @@
                             <!--<Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
+                                        <Border x:Name="brd" Background="{TemplateBinding Background}" 
                                           BorderBrush="{TemplateBinding BorderBrush}" 
                                             BorderThickness="{TemplateBinding BorderThickness}">
                                         <RadioButton Focusable="False"
@@ -149,18 +156,18 @@
                                                      IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
                                             <ContentPresenter/>
                                         </RadioButton>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter Property="Background" Value="LimeGreen"/>
                                             <Setter Property="Foreground" Value="White"/>
                                             <Setter Property="BorderThickness" Value="1"/>
                                             <Setter Property="BorderBrush" Value="Black"/>
                                         </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>-->
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>-->
 
                             <Setter Property="Background" Value="LightSteelBlue"/>
                             <Setter Property="Margin" Value="5"/>
@@ -195,11 +202,9 @@
                         Margin="10,10,1,10"
                         Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
-                        <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardNameTemplate"
                                    Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
-                        <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardNameTextbox"
                                  Text="{Binding Name}"
                                  Style="{StaticResource TextBoxInputTheme}"/>
@@ -211,11 +216,9 @@
                         Margin="10,10,1,10"
                         Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
-                        <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardDateTemplate"
                                    Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
-                        <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDateTextbox"
                                  Text="{Binding Date, Mode=OneWay}"
                                  Style="{StaticResource TextBoxInputTheme}"/>
@@ -228,11 +231,9 @@
                         Margin="10,10,1,10"
                         Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
-                        <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardImportantTemplate"
                                    Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
-                        <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardImportantTextbox"
                                  Text="{Binding IsImportant}"
                                  Style="{StaticResource TextBoxInputTheme}"/>
@@ -245,11 +246,9 @@
                         Margin="10,10,1,10"
                         Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
-                        <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="CardDoneTemplate"
                                    Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
-                        <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDoneTextbox"
                                  Text="{Binding IsCompleted}"
                                  Style="{StaticResource TextBoxInputTheme}"/>
@@ -263,13 +262,11 @@
                         Height="150"
                         Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
-                        <!--Шаблон заполнения "Создать список"-->
                         <TextBlock x:Name="CardDescriptionTemplate"
                                    Text=""
                                    VerticalAlignment="Top"
                                    Margin="10,10"
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
-                        <!--Поле ввода названия списка-->
                         <TextBox x:Name="CardDescriptionTextbox" 
                                  Text="{Binding Description}"
                                  Style="{StaticResource TextBoxInputTheme}" />

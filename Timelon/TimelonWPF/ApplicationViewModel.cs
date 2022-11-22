@@ -12,7 +12,9 @@ namespace TimelonWPF
 {
     public class ApplicationViewModel : INotifyPropertyChanged
     {
+
         private Card _selectedCard;
+
         private CardList _selectedList;
         private Manager _listManager;
         private ObservableCollection<CardList> _lists = new ObservableCollection<CardList>();
@@ -51,8 +53,12 @@ namespace TimelonWPF
                     {
                         Card completed = obj as Card;
                         if (!completed.IsCompleted)
-                        {       
-                            SelectedCard.IsCompleted = true;
+                        {
+                            completed.IsCompleted = true;
+                            SelectedList.Set(completed);
+
+                            DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+                            DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
                         }
                     }));
             }
@@ -111,8 +117,31 @@ namespace TimelonWPF
 
 
         public ObservableCollection<CardList> Lists { get { return _lists; } set { _lists = value; } }
-        public ObservableCollection<Card> DefaultCards { get { return _defaultCards; } set { _defaultCards = value; } }
-        public ObservableCollection<Card> DoneCards { get { return _doneCards; } set { _doneCards = value; } }
+        public ObservableCollection<Card> DefaultCards 
+        { 
+            get 
+            {
+                return _defaultCards;
+            } 
+            set 
+            {
+                _defaultCards = value;
+                OnPropertyChanged("DefaultCards");
+            } 
+        }
+
+        public ObservableCollection<Card> DoneCards 
+        { 
+            get 
+            {
+                return _doneCards;
+            } 
+            set 
+            {
+                _doneCards = value;
+                OnPropertyChanged("DoneCards");
+            } 
+        }
         public Manager ListManager { get { return _listManager; } set { _listManager = value; } }
 
         public Card SelectedCard
@@ -131,15 +160,8 @@ namespace TimelonWPF
             set
             {
                 _selectedList = value;
-                _defaultCards.Clear();
-                _doneCards.Clear();
-
-                foreach (Card item in SelectedList.GetListDefault())
-                    _defaultCards.Add(item);
-
-                foreach (Card item in SelectedList.GetListCompleted())
-                    _doneCards.Add(item);
-
+                DefaultCards = new ObservableCollection<Card>(_selectedList.GetListDefault());
+                DoneCards = new ObservableCollection<Card>(_selectedList.GetListCompleted());
                 OnPropertyChanged("SelectedList");
             }
         }
@@ -150,16 +172,14 @@ namespace TimelonWPF
 
             SelectedList = ListManager.All[0];
 
-            foreach (KeyValuePair<int, CardList> item in _listManager.All)
-                _lists.Add(item.Value);
+            Lists = new ObservableCollection<CardList>(ListManager.All.Values);
 
-            _selectedList.Set(Card.Make("Test1"));
-            _selectedList.Set(Card.Make("Test2"));
-            _selectedList.Set(Card.Make("Test3"));
+            SelectedList.Set(Card.Make("Test1"));
+            SelectedList.Set(Card.Make("Test2"));
+            SelectedList.Set(Card.Make("Test3"));
 
-
-            foreach (KeyValuePair<int, Card> item in SelectedList.All)
-                DefaultCards.Add(item.Value);
+            DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+            DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
 
         }
 

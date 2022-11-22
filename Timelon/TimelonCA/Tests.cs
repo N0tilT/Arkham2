@@ -15,7 +15,7 @@ namespace TimelonCA
 
             card.Description = "This is a custom new card";
 
-            Console.WriteLine(card);
+            Console.WriteLine(card.Date.Created);
             Console.WriteLine();
         }
 

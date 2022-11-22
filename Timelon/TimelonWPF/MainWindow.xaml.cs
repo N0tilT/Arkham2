@@ -27,13 +27,13 @@ namespace TimelonWPF
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxItem tmp = sender as ListBoxItem;
-            MenuPanel.SelectedItem = tmp;
+            if (CardInfoColumn.Width == new GridLength(240))
+                CardInfoColumn.Width = new GridLength(0);
         }
         private void CardButton_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxItem tmp = sender as ListBoxItem;
-            MenuPanel.SelectedItem = tmp;
+            if (CardInfoColumn.Width == new GridLength(0))
+                CardInfoColumn.Width = new GridLength(240);
         }
 
 
