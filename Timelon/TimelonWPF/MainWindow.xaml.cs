@@ -78,7 +78,26 @@ namespace TimelonWPF
             CardDescriptionTemplate.Visibility = Visibility.Hidden;
         }
 
+
         #endregion
 
+        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Image_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+            Canvas.SetZIndex(CloseButton, 1);
+        }
+
+        private void Image_MouseDown_2(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+                this.WindowState = WindowState.Maximized;
+            else
+            this.WindowState = WindowState.Normal;
+        }
     }
 }

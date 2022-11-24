@@ -47,11 +47,10 @@
             <!--Заглавие-->
             <Border x:Name ="Title">
                 <TextBlock x:Name="TitleText"
-                           Text="Timelon"
-                           Style="{StaticResource TitleTheme}"/>
+                           Style="{StaticResource TitleTheme}"><Run Text="Timelon"/></TextBlock>
             </Border>
 
-            
+
             <!--Меню списков-->
             <ListBox Grid.Row="1"
                      x:Name="MenuPanel"
@@ -183,7 +182,7 @@
                     </ListBox.ItemContainerStyle>
                 </ListBox>
             </StackPanel>
-            
+
 
 
             <!--Заглавие информации-->
@@ -276,8 +275,8 @@
 
                 </Border>
                 <!--Кнопка выполнить задачу-->
-                
-                
+
+
             </StackPanel>
             <Border CornerRadius="5"
                     Grid.Column="2"
@@ -292,7 +291,7 @@
                             CommandParameter="{Binding SelectedCard}"
                             Content="Выполнить задачу" />
             </Border>
-            
+
             <Border CornerRadius="5"
                     Grid.Column="2"
                     Grid.Row="2"
@@ -306,7 +305,7 @@
                             CommandParameter="{Binding SelectedCard}"
                             Content="Удалить задачу" />
             </Border>
-            
+
             <!--Поля ввода-->
             <!--Создать список-->
             <Border Grid.Row="2"
@@ -391,6 +390,18 @@
                     CommandParameter="{Binding ElementName=SearchTextbox}"
                     Style="{StaticResource SearchButtonTheme}">
             </Button>
+            <Image Name="CloseButton"  
+                   Margin="0,0,216,47.2" 
+                   Source="CLose.png" 
+                   MouseDown="Image_MouseDown"/>
+            <Image Name="HideButton" 
+                   Margin="41,0,175,59.2" 
+                   Source="Less2.png" 
+                   MouseDown="Image_MouseDown_1"/>
+            <Image Name="SizeButton" 
+                   Margin="24,0,199,47.2"
+                   Source="FS.png" 
+                   MouseDown="Image_MouseDown_2"/>
 
         </Grid>
 

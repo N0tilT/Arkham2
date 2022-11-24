@@ -182,5 +182,47 @@
     <Resource Include="Images\Checked_no.png" />
     <Resource Include="Images\Checked_yes.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Close_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Close_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Less.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Close_Kvadrat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="mashtabe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Size_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="kisscc0-checkbox-check-mark-x-mark-computer-icons-symbol-mono-reject-5ca5c43cdaef80.4312725815543675488968.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="png-transparent-cross-icon-square-icon-symbol-line-logo-rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="png-transparent-computer-icons-icon-design-close-icon-logo-circular-share-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="png-transparent-close-no-reject-evil-icons-user-interface-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="png-transparent-computer-icons-symbol-number-symbol-miscellaneous-number-alarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CLose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Less2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
