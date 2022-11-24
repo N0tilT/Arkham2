@@ -49,7 +49,7 @@ namespace TimelonCl.Data
         /// <returns>Новый список карт</returns>
         public static CardList Make(string name)
         {
-            return new CardList(UniqueId(), name, false);
+            return new CardList(UniqueId(), name);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace TimelonCl.Data
         /// <param name="name">Название списка</param>
         /// <param name="isEssential">Статус закрепления</param>
         /// <exception cref="ArgumentException"></exception>
-        public CardList(int id, string name, bool isEssential) : base(id, name)
+        public CardList(int id, string name, bool isEssential = false) : base(id, name)
         {
             IsEssential = isEssential;
         }
@@ -269,13 +269,20 @@ namespace TimelonCl.Data
             content = content.Trim().ToLower();
 
             List<Card> result = new List<Card>();
-            IEnumerable<KeyValuePair<int, Card>> source = All.AsQueryable().Where(
-                item => item.Value.Name.ToLower().Contains(content) ||
-                item.Value.Description.ToLower().Contains(content));
-
-            foreach (KeyValuePair<int, Card> card in source)
+            
+            foreach (KeyValuePair<int, Card> item in All)
             {
-                result.Add(card.Value);
+                if (!item.Value.Name.ToLower().Contains(content))
+                {
+                    continue;
+                }
+
+                if (!item.Value.Description.ToLower().Contains(content))
+                {
+                    continue;
+                }
+
+                result.Add(item.Value);
             }
 
             return result;
@@ -290,12 +297,20 @@ namespace TimelonCl.Data
         public List<Card> SearchByDateUpdated(DateTime minDate, DateTime maxDate)
         {
             List<Card> result = new List<Card>();
-            IEnumerable<KeyValuePair<int, Card>> source = All.AsQueryable().Where(
-                item => minDate <= item.Value.Date.Updated && maxDate >= item.Value.Date.Updated);
-
-            foreach (KeyValuePair<int, Card> card in source)
+            
+            foreach (KeyValuePair<int, Card> item in All)
             {
-                result.Add(card.Value);
+                if (minDate > item.Value.Date.Updated)
+                {
+                    continue;
+                }
+
+                if (maxDate < item.Value.Date.Updated)
+                {
+                    continue;
+                }
+
+                result.Add(item.Value);
             }
 
             return result;
