@@ -12,19 +12,120 @@ namespace TimelonWPF
 {
     public class ApplicationViewModel : INotifyPropertyChanged
     {
-
+        #region Fields
+        /// <summary>
+        /// Выбранная карта
+        /// </summary>
         private Card _selectedCard;
 
+        /// <summary>
+        /// Выбранный список карт
+        /// </summary>
         private CardList _selectedList;
+
+        /// <summary>
+        /// Текущий менеджер списков
+        /// </summary>
         private Manager _listManager;
+
+        /// <summary>
+        /// Коллекция списков
+        /// </summary>
         private ObservableCollection<CardList> _lists = new ObservableCollection<CardList>();
 
+        /// <summary>
+        /// Коллекция невыполненных карт, отсортированных по дате
+        /// </summary>
         private ObservableCollection<Card> _defaultCards = new ObservableCollection<Card>();
+
+        /// <summary>
+        /// Коллекция выполненных карт, отсортированных по дате
+        /// </summary>
         private ObservableCollection<Card> _doneCards = new ObservableCollection<Card>();
 
-        private ObservableCollection<Manager> _manager = new ObservableCollection<Manager>();
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// Доступ к коллекции списков
+        /// </summary>
+        public ObservableCollection<CardList> Lists { get { return _lists; } set { _lists = value; } }
+
+        /// <summary>
+        /// Доступ к менеджеру списков
+        /// </summary>
+        public Manager ListManager { get { return _listManager; } set { _listManager = value; } }
+
+        /// <summary>
+        /// Доступ к невыполненным задачам
+        /// </summary>
+        public ObservableCollection<Card> DefaultCards
+        {
+            get
+            {
+                return _defaultCards;
+            }
+            set
+            {
+                _defaultCards = value;
+                OnPropertyChanged("DefaultCards");
+            }
+        }
+        /// <summary>
+        /// Доступ к выполненным задачам
+        /// </summary>
+        public ObservableCollection<Card> DoneCards
+        {
+            get
+            {
+                return _doneCards;
+            }
+            set
+            {
+                _doneCards = value;
+                OnPropertyChanged("DoneCards");
+            }
+        }
+        /// <summary>
+        /// Доступ к выбранной карте
+        /// </summary>
+        public Card SelectedCard
+        {
+            get { return _selectedCard; }
+            set
+            {
+                _selectedCard = value;
+                OnPropertyChanged("SelectedCard");
+            }
+        }
+        /// <summary>
+        /// Доступ к выбранному списку
+        /// </summary>
+        public CardList SelectedList
+        {
+            get { return _selectedList; }
+            set
+            {
+                _selectedList = value;
+
+                //Перезаполняем коллекции карт выбранного списка
+                DefaultCards = new ObservableCollection<Card>(_selectedList.GetListDefault());
+                DoneCards = new ObservableCollection<Card>(_selectedList.GetListCompleted());
+
+                OnPropertyChanged("SelectedList");
+            }
+        }
+        #endregion
+
+        #region Commands
+        /// <summary>
+        /// Команда удаления карты из списка
+        /// </summary>
         private RelayCommand removeCommand;
+        
+        /// <summary>
+        /// Удаление карты из списка
+        /// </summary>
         public RelayCommand RemoveCommand
         {
             get
@@ -35,15 +136,23 @@ namespace TimelonWPF
                         Card rCard = obj as Card;
                         if (rCard != null)
                         {
-                            DefaultCards.Remove(rCard);
+                            if (!rCard.IsCompleted)
+                                DefaultCards.Remove(rCard);
+
+                            else DoneCards.Remove(rCard);
                         }
                     },
-                    (obj) => DefaultCards.Count > 0));
+                    (obj) => DefaultCards.Count > 0));  //Удаляем карты, только если они есть в списке
             }
         }
 
+        /// <summary>
+        /// Команда завершения задачи(карточки)
+        /// </summary>
         private RelayCommand cardDoneCommand;
-
+        /// <summary>
+        /// Выполнить задачу
+        /// </summary>
         public RelayCommand CardDoneCommand
         {
             get
@@ -55,7 +164,7 @@ namespace TimelonWPF
                         if (!completed.IsCompleted)
                         {
                             completed.IsCompleted = true;
-                            SelectedList.Set(completed);
+                            SelectedList.Set(completed);    //Обновляем карту в списке
 
                             DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
                             DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
@@ -64,8 +173,13 @@ namespace TimelonWPF
             }
         }
 
+        /// <summary>
+        /// Команда добавления нового списка
+        /// </summary>
         private RelayCommand addListCommand;
-
+        /// <summary>
+        /// Добавить новый список
+        /// </summary>
         public RelayCommand AddListCommand
         {
             get
@@ -82,8 +196,13 @@ namespace TimelonWPF
             }
         }
 
+        /// <summary>
+        /// Команда добавления новой карты
+        /// </summary>
         private RelayCommand addCardCommand;
-
+        /// <summary>
+        /// Добавить новую карту
+        /// </summary>
         public RelayCommand AddCardCommand
         {
             get
@@ -100,8 +219,13 @@ namespace TimelonWPF
             }
         }
 
+        /// <summary>
+        /// Команда поиска карты по содержимому
+        /// </summary>
         private RelayCommand searchCardCommand;
-
+        /// <summary>
+        /// Поиск карты по содержимому
+        /// </summary>
         public RelayCommand SearchCardCommand
         {
             get
@@ -114,77 +238,38 @@ namespace TimelonWPF
                     }));
             }
         }
+        #endregion
 
 
-        public ObservableCollection<CardList> Lists { get { return _lists; } set { _lists = value; } }
-        public ObservableCollection<Card> DefaultCards 
-        { 
-            get 
-            {
-                return _defaultCards;
-            } 
-            set 
-            {
-                _defaultCards = value;
-                OnPropertyChanged("DefaultCards");
-            } 
-        }
-
-        public ObservableCollection<Card> DoneCards 
-        { 
-            get 
-            {
-                return _doneCards;
-            } 
-            set 
-            {
-                _doneCards = value;
-                OnPropertyChanged("DoneCards");
-            } 
-        }
-        public Manager ListManager { get { return _listManager; } set { _listManager = value; } }
-
-        public Card SelectedCard
-        {
-            get { return _selectedCard; }
-            set
-            {
-                _selectedCard = value;
-                OnPropertyChanged("SelectedCard");
-            }
-        }
-
-        public CardList SelectedList
-        {
-            get { return _selectedList; }
-            set
-            {
-                _selectedList = value;
-                DefaultCards = new ObservableCollection<Card>(_selectedList.GetListDefault());
-                DoneCards = new ObservableCollection<Card>(_selectedList.GetListCompleted());
-                OnPropertyChanged("SelectedList");
-            }
-        }
-
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public ApplicationViewModel()
         {
+            //Загрузка данных из файла .xml
             ListManager = Manager.Instance;
 
+            //Изначально выбран первый список - по умолчанию "Задачи"
             SelectedList = ListManager.All[0];
 
+            //Загрузка списков в коллекцию
             Lists = new ObservableCollection<CardList>(ListManager.All.Values);
 
+            //Тестовые карты
             SelectedList.Set(Card.Make("Test1"));
             SelectedList.Set(Card.Make("Test2"));
             SelectedList.Set(Card.Make("Test3"));
 
+            //Загрузка выполненных и невыполненных задач в соответствующие коллекции
             DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
             DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
 
         }
 
 
-
+        /// <summary>
+        /// Определение интерфейса событий
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

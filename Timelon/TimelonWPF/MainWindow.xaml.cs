@@ -9,22 +9,32 @@ namespace TimelonWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
         static ApplicationViewModel viewModel = new ApplicationViewModel();
         public MainWindow()
         {
             InitializeComponent();
             DataContext = viewModel;
+
             Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
+            Window_Menu.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
 
         }
-
+        /// <summary>
+        /// Перетаскиваение окна по клику мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void LayoutRoot_MouseLeftButtonDown(object sender, EventArgs e)
         {
             DragMove();
         }
 
-
+        #region ButtonClick
+        /// <summary>
+        /// События скрытия или открытия информации о карте
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             if (CardInfoColumn.Width == new GridLength(240))
@@ -35,7 +45,7 @@ namespace TimelonWPF
             if (CardInfoColumn.Width == new GridLength(0))
                 CardInfoColumn.Width = new GridLength(240);
         }
-
+        #endregion
 
         #region TextChangedEvents
         //Изменение видимости текстовых полей для полей с шаблонами
@@ -81,23 +91,40 @@ namespace TimelonWPF
 
         #endregion
 
-        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        #region Window Manager Events
+        /// <summary>
+        /// Закрыть окно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseApp_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             this.Close();
         }
 
-        private void Image_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// Скрыть окно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HideWindow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
             Canvas.SetZIndex(CloseButton, 1);
         }
 
-        private void Image_MouseDown_2(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// Полный экран/оконный режим
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MinimizeWindow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (WindowState == WindowState.Normal)
                 this.WindowState = WindowState.Maximized;
             else
             this.WindowState = WindowState.Normal;
         }
+        #endregion
     }
 }
