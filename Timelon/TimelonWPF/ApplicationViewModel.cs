@@ -98,6 +98,7 @@ namespace TimelonWPF
                 OnPropertyChanged("SelectedCard");
             }
         }
+
         /// <summary>
         /// Доступ к выбранному списку
         /// </summary>
@@ -263,6 +264,7 @@ namespace TimelonWPF
             //Загрузка выполненных и невыполненных задач в соответствующие коллекции
             DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
             DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+
 
         }
 

@@ -64,7 +64,7 @@
                     <ColumnDefinition Width="240"/>
                     <ColumnDefinition/>
                     <!--Скрываемая панель информации о карточке-->
-                    <ColumnDefinition x:Name="CardInfoColumn" Width="240"/>
+                    <ColumnDefinition x:Name="CardInfoColumn" Width="0"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -265,9 +265,10 @@
                                      Style="{StaticResource TextBoxInputTheme}"/>
                         </Grid>
                     </Border>
-                    
+
                     <!--Дата создания карты-->
-                    <Border Grid.Row="2"
+                    <Border Grid.Row="1"
+                            Grid.Column="2"
                             Margin="10,10,1,10"
                             Style="{StaticResource TextBoxTemplateBorderTheme}">
                         <Grid>
@@ -275,7 +276,7 @@
                                    Text=""
                                    Style="{StaticResource TextBlockTemplateTheme}"/>
                             <TextBox x:Name="CardDateTextbox"
-                                 Text="{Binding Date, Mode=OneWay}"
+                                 Text="{Binding Date.Created, Mode=OneWay}"
                                  Style="{StaticResource TextBoxInputTheme}"/>
                         </Grid>
                     </Border>
@@ -326,12 +327,13 @@
                     </Border>
                 </StackPanel>
 
+                
                 <!--Кнопка выполнить задачу-->
                 <Border CornerRadius="5"
                         Grid.Column="2"
                         Grid.Row="1"
                         Background="#FF1C7628"
-                        Margin="10,0,0,-220"
+                        Margin="10,40,0,-200"
                         Height="35">
                     <Button Foreground="#CFCFCF"
                             Background="Transparent"
