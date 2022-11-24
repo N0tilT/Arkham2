@@ -143,7 +143,7 @@ namespace TimelonWPF
                             else DoneCards.Remove(rCard);
                         }
                     },
-                    (obj) => DefaultCards.Count > 0));  //Удаляем карты, только если они есть в списке
+                    (obj) => DefaultCards.Count > 0 || DoneCards.Count > 0));  //Удаляем карты, только если они есть в списке
             }
         }
 
