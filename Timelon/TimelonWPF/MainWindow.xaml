@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024"
         WindowStyle = "None"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True">
 
