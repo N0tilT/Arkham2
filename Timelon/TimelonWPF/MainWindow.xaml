@@ -176,11 +176,20 @@
                         </ListBox.ItemContainerStyle>
                     </ListBox>
                     <!--Разделитель завершённых и невыполненных-->
-                    <Border Height="20" Background="#FF2C2C2C">
+                    <StackPanel Orientation="Horizontal"
+                                Background="#FF2C2C2C"
+                                MouseDown="DoneCardsShow_MouseDown">
                         <TextBlock Text="Завершённые задачи"
                                Foreground="White"
                                Margin="5,0,0,0"/>
-                    </Border>
+                        <Polygon x:Name="CardsPanelArrowDown" 
+                                 Fill="LightBlue" Points="3, 3, 11, 14, 19, 3" 
+                                 Visibility="Hidden" />
+                        <Polygon x:Name="CardspanelArrowUp" 
+                                 Fill="LightBlue" Points="3, 14, 11, 3, 19, 14"  
+                                 Margin="-19,0,0,0" />
+                    </StackPanel>
+                        
                     <!--Завершённые-->
                     <ListBox x:Name="DoneCardsPanel"
                      Background="Transparent"

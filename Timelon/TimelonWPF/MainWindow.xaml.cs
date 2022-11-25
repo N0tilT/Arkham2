@@ -127,5 +127,22 @@ namespace TimelonWPF
             this.WindowState = WindowState.Normal;
         }
         #endregion
+
+        private void DoneCardsShow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (DoneCardsPanel.Visibility == Visibility.Hidden)
+            {
+                CardsPanelArrowDown.Visibility = Visibility.Hidden;
+                CardspanelArrowUp.Visibility = Visibility.Visible;
+                DoneCardsPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CardspanelArrowUp.Visibility = Visibility.Hidden;
+                CardsPanelArrowDown.Visibility = Visibility.Visible;
+                DoneCardsPanel.Visibility = Visibility.Hidden;
+
+            }
+        }
     }
 }
