@@ -138,9 +138,15 @@ namespace TimelonWPF
                         if (rCard != null)
                         {
                             if (!rCard.IsCompleted)
+                            {
                                 DefaultCards.Remove(rCard);
-
-                            else DoneCards.Remove(rCard);
+                                SelectedList.Remove(rCard.Id);
+                            }
+                            else
+                            {
+                                DoneCards.Remove(rCard);
+                                SelectedList.Remove(rCard.Id);
+                            }
                         }
                     },
                     (obj) => DefaultCards.Count > 0 || DoneCards.Count > 0));  //Удаляем карты, только если они есть в списке
@@ -255,11 +261,6 @@ namespace TimelonWPF
 
             //Загрузка списков в коллекцию
             Lists = new ObservableCollection<CardList>(ListManager.All.Values);
-
-            //Тестовые карты
-            SelectedList.Set(Card.Make("Test1"));
-            SelectedList.Set(Card.Make("Test2"));
-            SelectedList.Set(Card.Make("Test3"));
 
             //Загрузка выполненных и невыполненных задач в соответствующие коллекции
             DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());

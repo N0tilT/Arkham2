@@ -30,22 +30,22 @@
         <!--#region Manage Window-->
         <!--Кнопки управления окном-->
         <StackPanel Orientation="Horizontal"
-                        Grid.Column="3"
-                        HorizontalAlignment="Right">
+                    Grid.Column="3"
+                    HorizontalAlignment="Right">
 
             <Image Name="HideButton" 
-                       Margin="2"
-                       Source="Images\Less2.png" 
-                       MouseDown="HideWindow_MouseDown"/>
+                   Margin="2"
+                   Source="Images\Less2.png" 
+                   MouseDown="HideWindow_MouseDown"/>
 
             <Image Name="SizeButton" 
-                       Margin="4"
-                       Source="Images\FS.png" 
-                       MouseDown="MinimizeWindow_MouseDown"/>
+                   Margin="4"
+                   Source="Images\FS.png" 
+                   MouseDown="MinimizeWindow_MouseDown"/>
 
-            <Image Name="CloseButton"  
-                       Source="Images\CLose.png" 
-                       MouseDown="CloseApp_MouseDown"/>
+            <Image Name="CloseButton" 
+                   Source="Images\CLose.png" 
+                   MouseDown="CloseApp_MouseDown"/>
 
         </StackPanel>
         <!--#endregion-->

@@ -9,10 +9,11 @@ namespace TimelonWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        ApplicationViewModel viewModel = new ApplicationViewModel();
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ApplicationViewModel();
+            DataContext = viewModel;
 
             Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
             Window_Menu.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
@@ -98,6 +99,7 @@ namespace TimelonWPF
         /// <param name="e"></param>
         private void CloseApp_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            viewModel.ListManager.Sync();
             this.Close();
         }
 
