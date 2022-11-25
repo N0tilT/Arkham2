@@ -35,16 +35,16 @@
 
             <Image Name="HideButton" 
                        Margin="2"
-                       Source="Less2.png" 
+                       Source="Images\Less2.png" 
                        MouseDown="HideWindow_MouseDown"/>
 
             <Image Name="SizeButton" 
                        Margin="4"
-                       Source="FS.png" 
+                       Source="Images\FS.png" 
                        MouseDown="MinimizeWindow_MouseDown"/>
 
             <Image Name="CloseButton"  
-                       Source="CLose.png" 
+                       Source="Images\CLose.png" 
                        MouseDown="CloseApp_MouseDown"/>
 
         </StackPanel>
