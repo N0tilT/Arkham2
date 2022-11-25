@@ -64,7 +64,7 @@
                     <ColumnDefinition Width="240"/>
                     <ColumnDefinition/>
                     <!--Скрываемая панель информации о карточке-->
-                    <ColumnDefinition x:Name="CardInfoColumn" Width="0"/>
+                    <ColumnDefinition x:Name="CardInfoColumn" Width="240"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
