@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Xml.Serialization;
 
 namespace TimelonCl.Data
 {
     /// <summary>
     /// Контейнер данных дат для сериализации
     /// </summary>
-    [Serializable]
     public class DateTimeContainerData : DataContainer
     {
-        public DateTime Created { get; set; }
-        public DateTime? Updated { get; set; }
-        public DateTime? Planned { get; set; }
+        public DateTime Created;
+        public DateTime? Updated;
+        public DateTime? Planned;
     }
 
     /// <summary>
@@ -101,12 +99,9 @@ namespace TimelonCl.Data
             get => _updated;
             set
             {
-                if (value != null)
+                if (value != null && value < Created)
                 {
-                    if (value < _created)
-                    {
-                        throw new ArgumentOutOfRangeException("updated не может быть раньше, чем created");
-                    }
+                    throw new ArgumentOutOfRangeException("updated не может быть раньше, чем created");
                 }
 
                 _updated = value;
@@ -121,12 +116,9 @@ namespace TimelonCl.Data
             get => _planned;
             set
             {
-                if (value != null)
+                if (value != null && value < Created)
                 {
-                    if (value < _created)
-                    {
-                        throw new ArgumentOutOfRangeException("planned не может быть раньше, чем created");
-                    }
+                    throw new ArgumentOutOfRangeException("planned не может быть раньше, чем created");
                 }
 
                 _planned = value;
@@ -155,16 +147,12 @@ namespace TimelonCl.Data
     /// <summary>
     /// Контейнер данных карты для сериализации
     /// </summary>
-    [Serializable]
-    public class CardData : DataContainer
+    public class CardData : UniqueData
     {
-        [XmlAttribute]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTimeContainerData Date { get; set; }
-        public string Description { get; set; }
-        public bool IsImportant { get; set; }
-        public bool IsCompleted { get; set; }
+        public DateTimeContainerData Date;
+        public string Description;
+        public bool IsImportant;
+        public bool IsCompleted;
     }
 
     /// <summary>

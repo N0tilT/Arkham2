@@ -156,7 +156,7 @@ namespace TimelonCl
             {
                 if (ContainsList(cardList.Id))
                 {
-                    if (cardList.Name == GetList(cardList.Id).Name)
+                    if (GetList(cardList.Id).Equals(cardList))
                     {
                         continue;
                     }

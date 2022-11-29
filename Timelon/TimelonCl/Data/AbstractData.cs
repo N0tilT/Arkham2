@@ -6,6 +6,39 @@ using System.Xml.Serialization;
 namespace TimelonCl.Data
 {
     /// <summary>
+    /// Базовый контейнер данных для сериализации
+    /// </summary>
+    public abstract class DataContainer
+    {
+        /// <summary>
+        /// Получить подробное представление объекта в виде строки
+        /// Используется формат XML
+        /// </summary>
+        /// <returns>Строка с данными объекта</returns>
+        public override string ToString()
+        {
+            XmlSerializer serializer = new XmlSerializer(GetType());
+
+            using (StringWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, this);
+
+                return writer.ToString();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Контейнер данных уникального класса для сериализации
+    /// </summary>
+    public abstract class UniqueData : DataContainer
+    {
+        [XmlAttribute]
+        public int Id;
+        public string Name;
+    }
+
+    /// <summary>
     /// Абстрактный класс для хранения и генерации уникальных идентификаторов
     /// </summary>
     public abstract class Unique<T>
@@ -99,32 +132,10 @@ namespace TimelonCl.Data
                 _name = value.Trim();
             }
         }
-    }
 
-    [Serializable]
-    public abstract class DataContainer
-    {
-        public DataContainer() { }
-
-        /// <summary>
-        /// Сериализовать объект в xml строку
-        /// </summary>
-        /// <returns>Строка в xml формате</returns>
-        public string ToXmlString()
+        public bool Equals(Unique<T> unique)
         {
-            XmlSerializer serializer = new XmlSerializer(GetType());
-
-            using (StringWriter writer = new StringWriter())
-            {
-                serializer.Serialize(writer, this);
-
-                return writer.ToString();
-            }
-        }
-
-        public override string ToString()
-        {
-            return ToXmlString();
+            return unique.Id == Id && unique.Name == Name;
         }
     }
 }

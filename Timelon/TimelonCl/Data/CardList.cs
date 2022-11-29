@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace TimelonCl.Data
 {
     /// <summary>
-    /// Статус / направление сортировки
+    /// Статус сортировки
     /// </summary>
     public enum SortOrder
     {
@@ -27,14 +26,10 @@ namespace TimelonCl.Data
     /// <summary>
     /// Контейнер данных списка карт для сериализации
     /// </summary>
-    [Serializable]
-    public class CardListData : DataContainer
+    public class CardListData : UniqueData
     {
-        [XmlAttribute]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsEssential { get; set; }
-        public List<CardData> List { get; set; }
+        public bool IsEssential;
+        public List<CardData> List;
     }
 
     /// <summary>
@@ -192,14 +187,11 @@ namespace TimelonCl.Data
         /// по дате обновления список карт
         /// (только невыполненные обычные)
         /// </summary>
-        /// <param name="order">Направление сортировки</param>
+        /// <param name="order">Статус сортировки</param>
         /// <returns>Список карт</returns>
         public List<Card> GetListDefault(SortOrder order = SortOrder.Descending)
         {
-            if (order != Status)
-            {
-                Sort(order);
-            }
+            Sort(order);
 
             List<Card> result = new List<Card>();
 
@@ -216,14 +208,11 @@ namespace TimelonCl.Data
         /// и дате обновления список карт
         /// (только невыполненные важные)
         /// </summary>
-        /// <param name="order">Направление сортировки</param>
+        /// <param name="order">Статус сортировки</param>
         /// <returns>Список карт</returns>
         public List<Card> GetListImportant(SortOrder order = SortOrder.Descending)
         {
-            if (order != Status)
-            {
-                Sort(order);
-            }
+            Sort(order);
 
             List<Card> result = new List<Card>();
 
@@ -240,14 +229,11 @@ namespace TimelonCl.Data
         /// и дате обновления список карт
         /// (только выполненные)
         /// </summary>
-        /// <param name="order">Направление сортировки</param>
+        /// <param name="order">Статус сортировки</param>
         /// <returns>Список карт</returns>
         public List<Card> GetListCompleted(SortOrder order = SortOrder.Descending)
         {
-            if (order != Status)
-            {
-                Sort(order);
-            }
+            Sort(order);
 
             List<Card> result = new List<Card>();
 
@@ -351,7 +337,7 @@ namespace TimelonCl.Data
         /// <summary>
         /// Выбрать подходящий источник для указанного направления сортировки
         /// </summary>
-        /// <param name="order">Направление сортировки</param>
+        /// <param name="order">Статус сортировки</param>
         /// <returns>Источник</returns>
         private IEnumerable<KeyValuePair<int, Card>> Source(SortOrder order)
         {
@@ -393,9 +379,15 @@ namespace TimelonCl.Data
         /// Отсортировать списки идентификаторов
         /// TODO: Оценить скорость
         /// </summary>
-        /// <param name="order">Направление сортировки</param>
+        /// <param name="order">Статус сортировки</param>
         private void Sort(SortOrder order)
         {
+            if (order == Status)
+            {
+                // Списки уже отсортированы в указанном формате
+                return;
+            }
+
             _idListDefault.Clear();
             _idListImportant.Clear();
             _idListCompleted.Clear();
@@ -406,6 +398,11 @@ namespace TimelonCl.Data
             }
 
             Status = order;
+        }
+
+        public bool Equals(CardList list)
+        {
+            return base.Equals(list) && list.IsEssential == IsEssential;
         }
 
         public override string ToString()
