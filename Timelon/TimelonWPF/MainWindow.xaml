@@ -303,7 +303,7 @@
                                  Style="{StaticResource TextBoxInputTheme}"/>
                         </Grid>
                     </Border>
-                    
+
                     <!--Отметка о выполнении карты-->
                     <Border Grid.Row="2"
                             Margin="10,10,1,10"

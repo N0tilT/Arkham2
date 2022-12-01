@@ -44,6 +44,8 @@ namespace TimelonWPF
         {
             if (CardInfoColumn.Width == new GridLength(0))
                 CardInfoColumn.Width = new GridLength(240);
+            DoneCardsPanel.SelectedItem = null;
+            CardsPanel.SelectedItem = null;
         }
         #endregion
 
