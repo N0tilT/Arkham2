@@ -75,16 +75,6 @@ namespace TimelonWPF
             CardDateTemplate.Visibility = Visibility.Hidden;
         }
 
-        private void CardImportantTextbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CardImportantTemplate.Visibility = Visibility.Hidden;
-        }
-
-        private void CardDoneTextbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CardDoneTemplate.Visibility = Visibility.Hidden;
-        }
-
         private void CardDescriptionTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             CardDescriptionTemplate.Visibility = Visibility.Hidden;
