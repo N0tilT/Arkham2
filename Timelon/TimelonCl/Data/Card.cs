@@ -179,13 +179,15 @@ namespace TimelonCl.Data
         /// <returns>Карта со случайными данными</returns>
         public static Card Random()
         {
+            ExtendedRandom random = Randomizer.Random;
+            
             return new Card(
                 UniqueId(),
-                Util.NextString(4, 8),
-                new DateTimeContainer(Util.NextDateTime()),
-                Util.NextString(16, 32),
-                Util.NextBool(),
-                Util.NextBool()
+                random.NextString(4, 8),
+                new DateTimeContainer(random.NextDateTime()),
+                random.NextString(16, 32),
+                random.NextBool(),
+                random.NextBool()
             );
         }
 

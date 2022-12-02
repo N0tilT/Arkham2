@@ -46,7 +46,7 @@
     <Compile Include="Data\CardList.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Data\AbstractData.cs" />
-    <Compile Include="Util.cs" />
+    <Compile Include="Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,12 +9,12 @@ namespace TimelonCA
         {
             // Инициализация менеджера как можно раньше
             Manager manager = Manager.Instance;
-            Tests tests = new Tests();
+            ConsoleTest test = new ConsoleTest();
 
-            tests.TestCustomCard();
-            tests.TestRandomCard();
-            tests.TestCardList();
-            tests.TestCardListManager();
+            // Запуск цепочки тестирования в консоли
+            test.TestRandomCard();
+            test.TestCardList();
+            test.TestCardListManager();
 
             Console.ReadKey();
         }

@@ -5,20 +5,14 @@ using TimelonCl.Data;
 
 namespace TimelonCA
 {
-    class Tests
+    /// <summary>
+    /// Класс консольного тестирования
+    /// </summary>
+    class ConsoleTest
     {
-        public void TestCustomCard()
-        {
-            Console.WriteLine("TestCustomCard:");
-
-            Card card = Card.Make("customName");
-
-            card.Description = "This is a custom new card";
-
-            Console.WriteLine(card);
-            Console.WriteLine();
-        }
-
+        /// <summary>
+        /// Запустить тест создания случайной карты
+        /// </summary>
         public void TestRandomCard()
         {
             Console.WriteLine("TestRandomCard:");
@@ -31,6 +25,9 @@ namespace TimelonCA
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Запустить тест создания случайного списка карт и сортировки
+        /// </summary>
         public void TestCardList()
         {
             Console.WriteLine("TestCardList:");
@@ -42,13 +39,10 @@ namespace TimelonCA
                 list.Set(Card.Random());
             }
 
-            // Все карточки
-            Console.WriteLine(list);
-
             Console.WriteLine();
             Console.WriteLine("DEFAULT LIST UNSORTED:");
 
-            // Несортировка по дате последнего обновления
+            // В произвольном порядке
             foreach (Card card in list.GetListDefault(SortOrder.Unsorted))
             {
                 Console.WriteLine(card);
@@ -75,6 +69,9 @@ namespace TimelonCA
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Запустить тест создания случайных списков карт в менеджере и работы с данными
+        /// </summary>
         public void TestCardListManager()
         {
             Console.WriteLine("TestCardListManager:");
@@ -90,7 +87,7 @@ namespace TimelonCA
 
             for (int i = 0; i < 3; i++)
             {
-                CardList list = CardList.Make(Util.NextString(8, 16));
+                CardList list = CardList.Make(Randomizer.Random.NextString(8, 16));
 
                 for (int j = 0; j < 5; j++)
                 {
