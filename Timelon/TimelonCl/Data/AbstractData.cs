@@ -6,6 +6,14 @@ using System.Xml.Serialization;
 namespace TimelonCl.Data
 {
     /// <summary>
+    /// Интерфейс, обозначающий принадлежность к идентифицируемому виду
+    /// </summary>
+    public interface IUniqueIdentifiable
+    {
+        //
+    }
+
+    /// <summary>
     /// Базовый контейнер данных для сериализации
     /// </summary>
     public abstract class DataContainer
@@ -41,7 +49,7 @@ namespace TimelonCl.Data
     /// <summary>
     /// Абстрактный класс для хранения и генерации уникальных идентификаторов
     /// </summary>
-    public abstract class Unique<T>
+    public abstract class Unique<IUniqueIdentifiable>
     {
         /// <summary>
         /// Счетчик
@@ -101,7 +109,7 @@ namespace TimelonCl.Data
         public int Id
         {
             get => _id;
-            protected set
+            private set
             {
                 if (value < 0)
                 {
@@ -133,7 +141,7 @@ namespace TimelonCl.Data
             }
         }
 
-        public bool Equals(Unique<T> unique)
+        public bool Equals(Unique<IUniqueIdentifiable> unique)
         {
             return unique.Id == Id && unique.Name == Name;
         }

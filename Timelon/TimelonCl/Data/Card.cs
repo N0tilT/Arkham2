@@ -158,7 +158,7 @@ namespace TimelonCl.Data
     /// <summary>
     /// Карта
     /// </summary>
-    public class Card : Unique<Card>
+    public class Card : Unique<Card>, IUniqueIdentifiable
     {
         /// <summary>
         /// Создать новую карту

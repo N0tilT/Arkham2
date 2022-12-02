@@ -35,7 +35,7 @@ namespace TimelonCl.Data
     /// <summary>
     /// Список карт
     /// </summary>
-    public class CardList : Unique<CardList>
+    public class CardList : Unique<CardList>, IUniqueIdentifiable
     {
         /// <summary>
         /// Создать новый список карт
