@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
+using TimelonCl.Data;
 
-namespace TimelonCl
+namespace TimelonCA
 {
     /// <summary>
     /// Дополненный генератор псевдо-случайных чисел
@@ -44,16 +44,6 @@ namespace TimelonCl
         }
 
         /// <summary>
-        /// Получить следующий случайный индекс заданной коллекции
-        /// </summary>
-        /// <param name="col">Коллекция</param>
-        /// <returns>Случайный индекс</returns>
-        public int NextCollectionIndex(ICollection col)
-        {
-            return Next(col.Count);
-        }
-
-        /// <summary>
         /// Получить следующие случайные дату и время в заданном промежутке
         /// </summary>
         /// <param name="minDate">Начало</param>
@@ -88,7 +78,7 @@ namespace TimelonCl
     }
 
     /// <summary>
-    /// Глобальная точка доступа к генератору псевдо-случайных чисел
+    /// Точка доступа к генератору псевдо-случайных чисел
     /// </summary>
     public static class Randomizer
     {
@@ -101,5 +91,40 @@ namespace TimelonCl
         /// Доступ к дополненному генератору псевдо-случайных чисел
         /// </summary>
         public static ExtendedRandom Random => _random;
+
+        /// <summary>
+        /// Создать случайную карту
+        /// </summary>
+        /// <returns>Карта со случайными данными</returns>
+        public static Card RandomCard()
+        {
+            Card card = Card.Make(
+                Random.NextString(4, 8),
+                Random.NextDateTime()
+            );
+
+            card.Description = Random.NextString(16, 32);
+            card.IsImportant = Random.NextBool();
+            card.IsCompleted = Random.NextBool();
+
+            return card;
+        }
+
+        /// <summary>
+        /// Создать случайный список карт
+        /// </summary>
+        /// <param name="cardCount">Количество карт в списке</param>
+        /// <returns>Случайный список карт</returns>
+        public static CardList RandomCardList(int cardCount)
+        {
+            CardList list = CardList.Make(Random.NextString(8, 16));
+
+            for (int i = 0; i < cardCount; i++)
+            {
+                list.Set(RandomCard());
+            }
+
+            return list;
+        }
     }
 }

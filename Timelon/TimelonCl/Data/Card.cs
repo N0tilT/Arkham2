@@ -174,24 +174,6 @@ namespace TimelonCl.Data
         }
 
         /// <summary>
-        /// Создать новую случайную карту
-        /// </summary>
-        /// <returns>Карта со случайными данными</returns>
-        public static Card Random()
-        {
-            ExtendedRandom random = Randomizer.Random;
-            
-            return new Card(
-                UniqueId(),
-                random.NextString(4, 8),
-                new DateTimeContainer(random.NextDateTime()),
-                random.NextString(16, 32),
-                random.NextBool(),
-                random.NextBool()
-            );
-        }
-
-        /// <summary>
         /// Создать объект из контейнера с данными
         /// </summary>
         /// <param name="data">Контейнер с данными</param>

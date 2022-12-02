@@ -19,7 +19,7 @@ namespace TimelonCA
 
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine(Card.Random());
+                Console.WriteLine(Randomizer.RandomCard());
             }
 
             Console.WriteLine();
@@ -32,7 +32,7 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCardList:");
 
-            CardList list = CardList.Random(20);
+            CardList list = Randomizer.RandomCardList(20);
 
             Console.WriteLine();
             Console.WriteLine("DEFAULT LIST UNSORTED:");
@@ -80,7 +80,7 @@ namespace TimelonCA
 
             for (int i = 0; i < 3; i++)
             {
-                manager.SetList(CardList.Random(5));
+                manager.SetList(Randomizer.RandomCardList(5));
             }
 
             manager.Sync();
