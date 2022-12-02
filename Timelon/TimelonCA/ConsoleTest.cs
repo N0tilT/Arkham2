@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TimelonCl;
 using TimelonCl.Data;
 
@@ -91,6 +92,54 @@ namespace TimelonCA
             }
 
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Замерить время выполнения основных операций списка карт
+        /// </summary>
+        public void MeasureCardListOperationsTime()
+        {
+            Console.WriteLine("MeasureCardListOperations:");
+
+            Stopwatch watch = new Stopwatch();
+
+            watch.Start();
+            CardList list = Randomizer.RandomCardList(100000);
+            watch.Stop();
+
+            Console.WriteLine($"Создание случайного списка карт (100000): {watch.Elapsed}");
+
+            watch.Restart();
+            list.GetListDefault(SortOrder.Unsorted);
+            watch.Stop();
+
+            Console.WriteLine($"Сортировка в произвольном порядке (100000): {watch.Elapsed}");
+
+            watch.Restart();
+            list.GetListDefault(SortOrder.Ascending);
+            watch.Stop();
+
+            Console.WriteLine($"Сортировка по возрастанию (100000): {watch.Elapsed}");
+
+            watch.Restart();
+            list.GetListDefault(SortOrder.Descending);
+            watch.Stop();
+
+            Console.WriteLine($"Сортировка по убыванию (100000): {watch.Elapsed}");
+
+            watch.Restart();
+            list.SearchByContent(Randomizer.Random.NextString(4, 8));
+            watch.Stop();
+
+            Console.WriteLine($"Поиск по части названия или описания карты (100000): {watch.Elapsed}");
+
+            DateTime date = Randomizer.Random.NextDateTime();
+
+            watch.Restart();
+            list.SearchByDateUpdated(date, date.AddDays(120));
+            watch.Stop();
+
+            Console.WriteLine($"Поиск по дате обновления карты (100000): {watch.Elapsed}");
         }
     }
 }
