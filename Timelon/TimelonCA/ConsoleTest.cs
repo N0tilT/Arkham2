@@ -11,7 +11,7 @@ namespace TimelonCA
     class ConsoleTest
     {
         /// <summary>
-        /// Запустить тест создания случайной карты
+        /// Запустить тест создания случайных карт
         /// </summary>
         public void TestRandomCard()
         {
@@ -32,12 +32,7 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCardList:");
 
-            CardList list = CardList.Make("customName");
-
-            for (int i = 0; i < 20; i++)
-            {
-                list.Set(Card.Random());
-            }
+            CardList list = CardList.Random(20);
 
             Console.WriteLine();
             Console.WriteLine("DEFAULT LIST UNSORTED:");
@@ -76,8 +71,6 @@ namespace TimelonCA
         {
             Console.WriteLine("TestCardListManager:");
 
-            List<CardList> all = new List<CardList>();
-
             Manager manager = Manager.Instance;
 
             // Данные загружаются из файла
@@ -87,16 +80,7 @@ namespace TimelonCA
 
             for (int i = 0; i < 3; i++)
             {
-                CardList list = CardList.Make(Randomizer.Random.NextString(8, 16));
-
-                for (int j = 0; j < 5; j++)
-                {
-                    list.Set(Card.Random());
-                }
-
-                all.Add(list);
-
-                manager.SetList(list);
+                manager.SetList(CardList.Random(5));
             }
 
             manager.Sync();

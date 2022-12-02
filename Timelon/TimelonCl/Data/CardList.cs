@@ -48,6 +48,22 @@ namespace TimelonCl.Data
         }
 
         /// <summary>
+        /// Создать новый случайный список карт
+        /// </summary>
+        /// <returns>Список карт со случайными картами</returns>
+        public static CardList Random(int cardCount)
+        {
+            CardList list = Make(Randomizer.Random.NextString(8, 16));
+
+            for (int i = 0; i < cardCount; i++)
+            {
+                list.Set(Card.Random());
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// Создать объект из контейнера с данными
         /// </summary>
         /// <param name="data">Контейнер с данными</param>
