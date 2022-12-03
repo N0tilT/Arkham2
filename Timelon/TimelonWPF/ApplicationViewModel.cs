@@ -63,6 +63,9 @@ namespace TimelonWPF
         /// </summary>
         public Manager ListManager { get { return _listManager; } set { _listManager = value; } }
 
+        /// <summary>
+        /// Доступ к важным задачам
+        /// </summary>
         public ObservableCollection<Card> ImportantCards
         {
             get
@@ -141,9 +144,13 @@ namespace TimelonWPF
         #endregion
 
         #region Commands
-
+        /// <summary>
+        /// Команда отметки задачи(карточки) как важной
+        /// </summary>
         private RelayCommand cardImportantCommand;
-
+        /// <summary>
+        /// Отметить задачу как важную
+        /// </summary>
         public RelayCommand CardImportantCommand
         {
             get
@@ -167,8 +174,13 @@ namespace TimelonWPF
                     }));
             }
         }
+        /// <summary>
+        /// Команда отметки задачи(карточки) как не важной
+        /// </summary>
         private RelayCommand cardUndoImportantCommand;
-
+        /// <summary>
+        /// Отменить отметку о важности
+        /// </summary>
         public RelayCommand CardUndoImportantCommand
         {
             get
@@ -182,6 +194,64 @@ namespace TimelonWPF
                             if (iCard.IsImportant)
                             {
                                 iCard.IsImportant = false;
+                                SelectedList.Set(iCard);
+
+                                ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
+                                DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+                                DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+                            }
+                        }
+                    }));
+            }
+        }
+
+        /// <summary>
+        /// Команда завершения задачи(карточки)
+        /// </summary>
+        private RelayCommand cardDoneCommand;
+        /// <summary>
+        /// Выполнить задачу
+        /// </summary>
+        public RelayCommand CardDoneCommand
+        {
+            get
+            {
+                return cardDoneCommand ??
+                    (cardDoneCommand = new RelayCommand(obj =>
+                    {
+                        Card completed = obj as Card;
+                        if (!completed.IsCompleted)
+                        {
+                            completed.IsCompleted = true;
+                            SelectedList.Set(completed);    //Обновляем карту в списке
+
+                            ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
+                            DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+                            DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+                        }
+                    }));
+            }
+        }
+        /// <summary>
+        /// Команда восстановления задачи(карточки) из выполненных в невыполненные
+        /// </summary>
+        private RelayCommand cardRecoverCommand;
+        /// <summary>
+        /// Восстановить задачу(карту) в невыполненные
+        /// </summary>
+        public RelayCommand CardRecoverCommand
+        {
+            get
+            {
+                return cardRecoverCommand ??
+                    (cardRecoverCommand = new RelayCommand(obj =>
+                    {
+                        Card iCard = obj as Card;
+                        if (iCard != null)
+                        {
+                            if (iCard.IsCompleted)
+                            {
+                                iCard.IsCompleted = false;
                                 SelectedList.Set(iCard);
 
                                 ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
@@ -232,58 +302,6 @@ namespace TimelonWPF
             }
         }
 
-        /// <summary>
-        /// Команда завершения задачи(карточки)
-        /// </summary>
-        private RelayCommand cardDoneCommand;
-        /// <summary>
-        /// Выполнить задачу
-        /// </summary>
-        public RelayCommand CardDoneCommand
-        {
-            get
-            {
-                return cardDoneCommand ??
-                    (cardDoneCommand = new RelayCommand(obj =>
-                    {
-                        Card completed = obj as Card;
-                        if (!completed.IsCompleted)
-                        {
-                            completed.IsCompleted = true;
-                            SelectedList.Set(completed);    //Обновляем карту в списке
-
-                            ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
-                            DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
-                            DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
-                        }
-                    }));
-            }
-        }
-        private RelayCommand cardRecoverCommand;
-
-        public RelayCommand CardRecoverCommand
-        {
-            get
-            {
-                return cardRecoverCommand ??
-                    (cardRecoverCommand = new RelayCommand(obj =>
-                    {
-                        Card iCard = obj as Card;
-                        if (iCard != null)
-                        {
-                            if (iCard.IsCompleted)
-                            {
-                                iCard.IsCompleted = false;
-                                SelectedList.Set(iCard);
-
-                                ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
-                                DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
-                                DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
-                            }
-                        }
-                    }));
-            }
-        }
 
         /// <summary>
         /// Команда добавления нового списка
