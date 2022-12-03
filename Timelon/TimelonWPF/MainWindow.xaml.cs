@@ -47,6 +47,34 @@ namespace TimelonWPF
             DoneCardsPanel.SelectedItem = null;
             CardsPanel.SelectedItem = null;
         }
+        private void AddListButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddListTextbox.Text = "";
+        }
+        private void AddCardButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddCardTextbox.Text = "";
+        }
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTextbox.Text = "";
+        }
+        private void DoneCardsShow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (DoneCardsPanel.Visibility == Visibility.Hidden)
+            {
+                CardsPanelArrowDown.Visibility = Visibility.Hidden;
+                CardspanelArrowUp.Visibility = Visibility.Visible;
+                DoneCardsPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CardspanelArrowUp.Visibility = Visibility.Hidden;
+                CardsPanelArrowDown.Visibility = Visibility.Visible;
+                DoneCardsPanel.Visibility = Visibility.Hidden;
+
+            }
+        }
         #endregion
 
         #region TextChangedEvents
@@ -64,10 +92,6 @@ namespace TimelonWPF
         private void AddCardTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TemplateCard.Visibility = AddCardTextbox.Text == "" ? Visibility.Visible : Visibility.Hidden;
-        }
-        private void CardNameTextbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CardNameTemplate.Visibility = Visibility.Hidden;
         }
 
         private void CardDateTextbox_TextChanged(object sender, TextChangedEventArgs e)
@@ -120,21 +144,6 @@ namespace TimelonWPF
         }
         #endregion
 
-        private void DoneCardsShow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (DoneCardsPanel.Visibility == Visibility.Hidden)
-            {
-                CardsPanelArrowDown.Visibility = Visibility.Hidden;
-                CardspanelArrowUp.Visibility = Visibility.Visible;
-                DoneCardsPanel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                CardspanelArrowUp.Visibility = Visibility.Hidden;
-                CardsPanelArrowDown.Visibility = Visibility.Visible;
-                DoneCardsPanel.Visibility = Visibility.Hidden;
-
-            }
-        }
+        
     }
 }

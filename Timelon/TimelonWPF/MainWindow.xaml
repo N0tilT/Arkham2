@@ -123,6 +123,63 @@
                 <!--Меню карточек-->
                 <StackPanel Grid.Row="1"
                         Grid.Column="1">
+                    
+                    <!--Важные-->
+                    <ListBox x:Name="ImportantCardsPanel"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemsSource="{Binding ImportantCards}"
+                             SelectedItem="{Binding SelectedCard}"
+                             GotFocus="CardButton_Click">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"
+                                       FontSize="14"
+                                   Style="{StaticResource CardTheme}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+
+                                <!--<Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <RadioButton Focusable="False"
+                                                     Margin="{TemplateBinding Padding}" 
+                                                     Foreground="{TemplateBinding Foreground}"
+                                                     IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
+                                            <ContentPresenter/>
+                                        </RadioButton>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="LimeGreen"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="Black"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>-->
+
+                                <Setter Property="Background" Value="LightSteelBlue"/>
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Padding" Value="5"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                    
                     <!--Невыполненные-->
                     <ListBox x:Name="CardsPanel"
                      Background="Transparent"
@@ -196,11 +253,11 @@
 
                     <!--Завершённые-->
                     <ListBox x:Name="DoneCardsPanel"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     ItemsSource="{Binding DoneCards}"
-                     SelectedItem="{Binding SelectedCard}"
-                         GotFocus="CardButton_Click">
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ItemsSource="{Binding DoneCards}"
+                             SelectedItem="{Binding SelectedCard}"
+                             GotFocus="CardButton_Click">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding  Name}"
@@ -254,10 +311,10 @@
 
                 <!--#region CardInfo-->
                 <!--Заглавие информации-->
-                <TextBlock Text="Информация о задаче"
-                       Grid.Column="2"
-                       FontSize="20"
-                       Style="{StaticResource TitleTheme}"/>
+                <TextBlock Text="{Binding SelectedCard.Name}"
+                           Grid.Column="2"
+                           FontSize="22"
+                           Style="{StaticResource TitleTheme}"/>
 
                 <!--Меню информации о карточке-->
                 <StackPanel x:Name="CardInfo"
@@ -267,20 +324,6 @@
                             DataContext="{Binding SelectedCard}">
 
                     <!--Название карты-->
-                    <Border Grid.Row="2"
-                            Margin="10,10,1,10"
-                            Style="{StaticResource TextBoxTemplateBorderTheme}">
-                        <Grid>
-                            <TextBlock x:Name="CardNameTemplate"
-                                       Text=""
-                                       FontSize="14"
-                                       Style="{StaticResource TextBlockTemplateTheme}"/>
-                            <TextBox x:Name="CardNameTextbox"
-                                     Text="{Binding Name}"
-                                     FontSize="14"
-                                     Style="{StaticResource TextBoxInputTheme}"/>
-                        </Grid>
-                    </Border>
 
                     <!--Дата создания карты-->
                     <Border Grid.Row="1"
@@ -289,12 +332,12 @@
                             Style="{StaticResource TextBoxTemplateBorderTheme}">
                         <Grid>
                             <TextBlock x:Name="CardDateTemplate"
-                                   Text=""
+                                       Text=""
                                        FontSize="14"
-                                   Style="{StaticResource TextBlockTemplateTheme}"/>
+                                       Style="{StaticResource TextBlockTemplateTheme}"/>
                             <TextBox x:Name="CardDateTextbox"
-                                 Text="{Binding Date.Created, Mode=OneWay}"
-                                 FontSize="14"
+                                     Text="{Binding Date.Created, Mode=OneWay}"
+                                     FontSize="14"
                                      Style="{StaticResource TextBoxInputTheme}"/>
                         </Grid>
                     </Border>
@@ -307,11 +350,13 @@
                         <CheckBox Grid.Column="0" 
                                   x:Name="CardImportantCheck" IsChecked="{Binding IsImportant}"
                                   Content="Важное"
+                                  IsEnabled="False"
                                   FontSize="14"
                                   Foreground="White"/>
                         <CheckBox Grid.Column="1" 
                                   x:Name="CardDoneCheck" IsChecked="{Binding IsCompleted}"
                                   Content="Выполнено" 
+                                  IsEnabled="False"
                                   FontSize="14"
                                   Foreground="White"/>
                     </Grid>
@@ -340,30 +385,84 @@
                     </Border>
                 </StackPanel>
 
+                <StackPanel Margin="10,40,0,0"
+                            Grid.Column="2"
+                            Grid.Row="1"
+                            VerticalAlignment="Center">
 
-                <!--Кнопка выполнить задачу-->
-                <Border CornerRadius="5"
-                        Grid.Column="2"
-                        Grid.Row="1"
-                        Background="#FF1C7628"
-                        Margin="10,40,0,-20"
-                        Height="35">
-                    <Button Foreground="#CFCFCF"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Command="{Binding CardDoneCommand}"
-                            CommandParameter="{Binding SelectedCard}"
-                            Content="Выполнить задачу"
-                            FontSize="14" FontWeight="Bold" />
-                </Border>
+                    <!--Кнопка выполнить задачу-->
+                    <Border CornerRadius="5"
+                            Background="#FF1C7628"
+                            Height="35"
+                            Margin="5">
+                        <Button Foreground="#CFCFCF"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding CardDoneCommand}"
+                                CommandParameter="{Binding SelectedCard}"
+                                Content="Выполнить задачу"
+                                FontSize="14" FontWeight="Bold" />
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal">
+                        <!--Кнопка отметить задачу как важную-->
+                        <Border CornerRadius="5"
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Background="#FFBD7039"
+                                Height="35"
+                                Margin="5">
+                            
+                            <Button Foreground="#CFCFCF"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding CardImportantCommand}"
+                                    CommandParameter="{Binding SelectedCard}"
+                                    Content="Отметить как важное"
+                                    FontSize="14" FontWeight="Bold"/>
+                            
+                        </Border>
+                        <!--Отменить отметку о важности-->
+                        <Border CornerRadius="5"
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Background="#FFBD4539"
+                                Height="35">
+                            <Button Foreground="#CFCFCF"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding CardUndoImportantCommand}"
+                                    CommandParameter="{Binding SelectedCard}"
+                                    Content="Отменить"
+                                    FontSize="13" FontWeight="Bold" />
+                        </Border>
+                    </StackPanel>
+                    
+                    <!--Кнопка восстановить задачу (сделать невыполненной) -->
+                    <Border CornerRadius="5"
+                            Grid.Column="2"
+                            Grid.Row="1"
+                            Background="#FF232689"
+                            Height="35"
+                            Margin="5">
+                        <Button Foreground="#CFCFCF"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding CardRecoverCommand}"
+                                CommandParameter="{Binding SelectedCard}"
+                                Content="Восстановить задачу"
+                                FontSize="14" FontWeight="Bold" />
+                    </Border>
+                </StackPanel>
+                
 
                 <!--Кнопка удалить задачу-->
                 <Border CornerRadius="5"
-                    Grid.Column="2"
-                    Grid.Row="2"
-                    Background="#FF952424"
-                    Margin="10,20,0,20"
-                    Height="35">
+                        Grid.Column="2"
+                        Grid.Row="2"
+                        Background="#FF952424"
+                        Margin="10,20,0,20"
+                        Height="35">
                     <Button Foreground="#CFCFCF"
                             Background="Transparent"
                             BorderThickness="0"
@@ -378,8 +477,8 @@
                 <!--Поля ввода-->
                 <!--Создать список-->
                 <Border Grid.Row="2"
-                    Margin="10,20,30,20"
-                    Style="{StaticResource TextBoxTemplateBorderTheme}">
+                        Margin="10,20,30,20"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон заполнения "Создать спсисок"-->
                         <TextBlock x:Name="TemplateList"
@@ -389,6 +488,7 @@
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="AddListTextbox"
                                  FontSize="15"
+                                 Margin="0,-3,0,0"
                                  TextChanged="AddListTextbox_TextChanged"
                                  Style="{StaticResource TextBoxInputTheme}"/>
 
@@ -399,16 +499,16 @@
 
                 <!--Кнопка создания списка-->
                 <Button x:Name="AddListButton"
-                    Grid.Row="2"
-                    Command="{Binding AddListCommand}"
-                    CommandParameter="{Binding ElementName=AddListTextbox}"
-                    Style="{StaticResource AddButtonTheme}" Margin="0,27,5,28"/>
+                        Grid.Row="2"
+                        Command="{Binding AddListCommand}"
+                        CommandParameter="{Binding ElementName=AddListTextbox}"
+                        Style="{StaticResource AddButtonTheme}" Margin="0,27,5,28"/>
 
                 <!--Создать карточку дела-->
                 <Border Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="40,20,80,20"
-                    Style="{StaticResource TextBoxTemplateBorderTheme}">
+                        Grid.Column="1"
+                        Margin="40,20,80,20"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон создания задачи-->
                         <TextBlock x:Name="TemplateCard"
@@ -419,6 +519,7 @@
                         <!--Поле ввода названия задачи-->
                         <TextBox x:Name="AddCardTextbox"
                                  FontSize="15"
+                                 Margin="0,-3,0,0"
                                  TextChanged="AddCardTextbox_TextChanged"
                                  Style="{StaticResource TextBoxInputTheme}"/>
 
@@ -429,17 +530,17 @@
 
                 <!--Кнопка добавления дела-->
                 <Button x:Name="AddCardButton"
-                    Grid.Column="1"
-                    Grid.Row="2"
-                    Margin="0,27,50,28"
-                    Command="{Binding AddCardCommand}"
-                    CommandParameter="{Binding ElementName=AddCardTextbox}"
-                    Style="{StaticResource AddButtonTheme}"/>
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Margin="0,27,50,28"
+                        Command="{Binding AddCardCommand}"
+                        CommandParameter="{Binding ElementName=AddCardTextbox}"
+                        Style="{StaticResource AddButtonTheme}"/>
 
                 <!--Поиск-->
                 <Border Grid.Column="1"
-                    Margin="40,20,80,20"
-                    Style="{StaticResource TextBoxTemplateBorderTheme}">
+                        Margin="40,20,80,20"
+                        Style="{StaticResource TextBoxTemplateBorderTheme}">
                     <Grid>
                         <!--Шаблон поиска-->
                         <TextBlock x:Name="TemplateSearch"
@@ -449,6 +550,7 @@
                         <!--Текстовое поле ввода для поиска-->
                         <TextBox x:Name="SearchTextbox"
                                  FontSize="15"
+                                 Margin="0,-3,0,0"
                                  TextChanged="SearchTextbox_TextChanged"
                                  Style="{StaticResource TextBoxInputTheme}"/>
 
@@ -459,11 +561,11 @@
 
                 <!--Кнопка поиска-->
                 <Button x:Name="SearchButton"
-                    Grid.Column="1"
-                    Margin="0,28,50,27"
-                    Command="{Binding SearchCardCommand}"
-                    CommandParameter="{Binding ElementName=SearchTextbox}"
-                    Style="{StaticResource SearchButtonTheme}">
+                        Grid.Column="1"
+                        Margin="0,28,50,27"
+                        Command="{Binding SearchCardCommand}"
+                        CommandParameter="{Binding ElementName=SearchTextbox}"
+                        Style="{StaticResource SearchButtonTheme}">
                 </Button>
                 <!--#endregion-->
 

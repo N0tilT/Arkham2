@@ -35,6 +35,11 @@ namespace TimelonWPF
         private ObservableCollection<CardList> _lists = new ObservableCollection<CardList>();
 
         /// <summary>
+        /// Коллекция важых карт, отсортированных по дате
+        /// </summary>
+        private ObservableCollection<Card> _importantCards = new ObservableCollection<Card>();
+
+        /// <summary>
         /// Коллекция невыполненных карт, отсортированных по дате
         /// </summary>
         private ObservableCollection<Card> _defaultCards = new ObservableCollection<Card>();
@@ -47,6 +52,7 @@ namespace TimelonWPF
         #endregion
 
         #region Properties
+
         /// <summary>
         /// Доступ к коллекции списков
         /// </summary>
@@ -56,6 +62,19 @@ namespace TimelonWPF
         /// Доступ к менеджеру списков
         /// </summary>
         public Manager ListManager { get { return _listManager; } set { _listManager = value; } }
+
+        public ObservableCollection<Card> ImportantCards
+        {
+            get
+            {
+                return _importantCards;
+            }
+            set
+            {
+                _importantCards = value;
+                OnPropertyChanged("ImportantCards");
+            }
+        }
 
         /// <summary>
         /// Доступ к невыполненным задачам
@@ -111,8 +130,10 @@ namespace TimelonWPF
                 _selectedList = value;
 
                 //Перезаполняем коллекции карт выбранного списка
+                ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
                 DefaultCards = new ObservableCollection<Card>(_selectedList.GetListDefault());
                 DoneCards = new ObservableCollection<Card>(_selectedList.GetListCompleted());
+
 
                 OnPropertyChanged("SelectedList");
             }
@@ -120,6 +141,58 @@ namespace TimelonWPF
         #endregion
 
         #region Commands
+
+        private RelayCommand cardImportantCommand;
+
+        public RelayCommand CardImportantCommand
+        {
+            get
+            {
+                return cardImportantCommand ??
+                    (cardImportantCommand = new RelayCommand(obj =>
+                    {
+                        Card iCard = obj as Card;
+                        if (iCard != null)
+                        {
+                            if (!iCard.IsImportant)
+                            {
+                                iCard.IsImportant = true;
+                                SelectedList.Set(iCard);
+
+                                ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
+                                DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+                                DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+                            }
+                        }
+                    }));
+            }
+        }
+        private RelayCommand cardUndoImportantCommand;
+
+        public RelayCommand CardUndoImportantCommand
+        {
+            get
+            {
+                return cardUndoImportantCommand ??
+                    (cardUndoImportantCommand = new RelayCommand(obj =>
+                    {
+                        Card iCard = obj as Card;
+                        if (iCard != null)
+                        {
+                            if (iCard.IsImportant)
+                            {
+                                iCard.IsImportant = false;
+                                SelectedList.Set(iCard);
+
+                                ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
+                                DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+                                DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+                            }
+                        }
+                    }));
+            }
+        }
+
         /// <summary>
         /// Команда удаления карты из списка
         /// </summary>
@@ -138,19 +211,24 @@ namespace TimelonWPF
                         Card rCard = obj as Card;
                         if (rCard != null)
                         {
-                            if (!rCard.IsCompleted)
-                            {
-                                DefaultCards.Remove(rCard);
-                                SelectedList.Remove(rCard.Id);
-                            }
-                            else
+                            if (rCard.IsCompleted)
                             {
                                 DoneCards.Remove(rCard);
                                 SelectedList.Remove(rCard.Id);
                             }
+                            else if(rCard.IsImportant)
+                            {
+                                ImportantCards.Remove(rCard);
+                                SelectedList.Remove(rCard.Id);
+                            }
+                            else
+                            {
+                                DefaultCards.Remove(rCard);
+                                SelectedList.Remove(rCard.Id);
+                            }
                         }
                     },
-                    (obj) => DefaultCards.Count > 0 || DoneCards.Count > 0));  //Удаляем карты, только если они есть в списке
+                    (obj) => DefaultCards.Count > 0 || DoneCards.Count > 0 || ImportantCards.Count > 0));  //Удаляем карты, только если они есть в списке
             }
         }
 
@@ -174,8 +252,34 @@ namespace TimelonWPF
                             completed.IsCompleted = true;
                             SelectedList.Set(completed);    //Обновляем карту в списке
 
+                            ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
                             DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
                             DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+                        }
+                    }));
+            }
+        }
+        private RelayCommand cardRecoverCommand;
+
+        public RelayCommand CardRecoverCommand
+        {
+            get
+            {
+                return cardRecoverCommand ??
+                    (cardRecoverCommand = new RelayCommand(obj =>
+                    {
+                        Card iCard = obj as Card;
+                        if (iCard != null)
+                        {
+                            if (iCard.IsCompleted)
+                            {
+                                iCard.IsCompleted = false;
+                                SelectedList.Set(iCard);
+
+                                ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
+                                DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
+                                DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
+                            }
                         }
                     }));
             }
@@ -264,6 +368,7 @@ namespace TimelonWPF
             Lists = new ObservableCollection<CardList>(ListManager.All.Values);
 
             //Загрузка выполненных и невыполненных задач в соответствующие коллекции
+            ImportantCards = new ObservableCollection<Card>(_selectedList.GetListImportant());
             DefaultCards = new ObservableCollection<Card>(SelectedList.GetListDefault());
             DoneCards = new ObservableCollection<Card>(SelectedList.GetListCompleted());
 
