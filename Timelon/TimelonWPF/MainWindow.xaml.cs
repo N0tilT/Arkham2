@@ -9,7 +9,8 @@ namespace TimelonWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        ApplicationViewModel viewModel = new ApplicationViewModel();
+        private ApplicationViewModel viewModel = new ApplicationViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -17,19 +18,20 @@ namespace TimelonWPF
 
             Title.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
             Window_Menu.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(LayoutRoot_MouseLeftButtonDown);
-
         }
+
         /// <summary>
         /// Перетаскиваение окна по клику мыши
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void LayoutRoot_MouseLeftButtonDown(object sender, EventArgs e)
+        private void LayoutRoot_MouseLeftButtonDown(object sender, EventArgs e)
         {
             DragMove();
         }
 
         #region ButtonClick
+
         /// <summary>
         /// События скрытия или открытия информации о карте
         /// </summary>
@@ -40,6 +42,7 @@ namespace TimelonWPF
             if (CardInfoColumn.Width == new GridLength(240))
                 CardInfoColumn.Width = new GridLength(0);
         }
+
         private void CardButton_Click(object sender, RoutedEventArgs e)
         {
             if (CardInfoColumn.Width == new GridLength(0))
@@ -47,18 +50,22 @@ namespace TimelonWPF
             DoneCardsPanel.SelectedItem = null;
             CardsPanel.SelectedItem = null;
         }
+
         private void AddListButton_Click(object sender, RoutedEventArgs e)
         {
             AddListTextbox.Text = "";
         }
+
         private void AddCardButton_Click(object sender, RoutedEventArgs e)
         {
             AddCardTextbox.Text = "";
         }
+
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             SearchTextbox.Text = "";
         }
+
         private void DoneCardsShow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (DoneCardsPanel.Visibility == Visibility.Hidden)
@@ -72,12 +79,13 @@ namespace TimelonWPF
                 CardspanelArrowUp.Visibility = Visibility.Hidden;
                 CardsPanelArrowDown.Visibility = Visibility.Visible;
                 DoneCardsPanel.Visibility = Visibility.Hidden;
-
             }
         }
-        #endregion
+
+        #endregion ButtonClick
 
         #region TextChangedEvents
+
         //Изменение видимости текстовых полей для полей с шаблонами
         private void SearchTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -104,10 +112,10 @@ namespace TimelonWPF
             CardDescriptionTemplate.Visibility = Visibility.Hidden;
         }
 
-
-        #endregion
+        #endregion TextChangedEvents
 
         #region Window Manager Events
+
         /// <summary>
         /// Закрыть окно
         /// </summary>
@@ -140,10 +148,9 @@ namespace TimelonWPF
             if (WindowState == WindowState.Normal)
                 this.WindowState = WindowState.Maximized;
             else
-            this.WindowState = WindowState.Normal;
+                this.WindowState = WindowState.Normal;
         }
-        #endregion
 
-        
+        #endregion Window Manager Events
     }
 }

@@ -16,14 +16,14 @@
         <!--Основное окно-->
         <!--#region GridDefs-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
+            <RowDefinition Height="30" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <!--Заполнение панели управления окном-->
         <Rectangle x:Name="Window_Menu" Grid.Row="0" Grid.ColumnSpan="3">
             <Rectangle.Fill>
-                <SolidColorBrush Color="White"/>
+                <SolidColorBrush Color="White" />
             </Rectangle.Fill>
         </Rectangle>
         <!--#endregion-->
@@ -34,20 +34,19 @@
                     Grid.Column="3"
                     HorizontalAlignment="Right">
 
-            <Image Name="HideButton" 
+            <Image Name="HideButton"
                    Margin="2"
-                   Source="Images\Less2.png" 
-                   MouseDown="HideWindow_MouseDown"/>
+                   Source="Images\Less2.png"
+                   MouseDown="HideWindow_MouseDown" />
 
-            <Image Name="SizeButton" 
+            <Image Name="SizeButton"
                    Margin="4"
-                   Source="Images\FS.png" 
-                   MouseDown="MinimizeWindow_MouseDown"/>
+                   Source="Images\FS.png"
+                   MouseDown="MinimizeWindow_MouseDown" />
 
-            <Image Name="CloseButton" 
-                   Source="Images\CLose.png" 
-                   MouseDown="CloseApp_MouseDown"/>
-
+            <Image Name="CloseButton"
+                   Source="Images\CLose.png"
+                   MouseDown="CloseApp_MouseDown" />
         </StackPanel>
         <!--#endregion-->
 
@@ -62,40 +61,39 @@
 
                 <!--#region Grid Defs-->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="240"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="240" />
+                    <ColumnDefinition />
                     <!--Скрываемая панель информации о карточке-->
-                    <ColumnDefinition x:Name="CardInfoColumn" Width="240"/>
+                    <ColumnDefinition x:Name="CardInfoColumn" Width="240" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="75"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75" />
+                    <RowDefinition />
+                    <RowDefinition Height="75" />
                 </Grid.RowDefinitions>
 
                 <!--Фон для списка карточек-->
-                <Rectangle Grid.Column="0" Grid.Row="0"  Grid.RowSpan="3"/>
+                <Rectangle Grid.Column="0" Grid.Row="0"  Grid.RowSpan="3" />
                 <!--Фон для списка карточек-->
                 <Rectangle Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#272537" Offset="1" />
                             <GradientStop Color="#FF565966" Offset="0" />
-
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
 
                 <!--Фон для информации о карточке-->
-                <Rectangle Grid.Column="2" Grid.RowSpan="4"/>
+                <Rectangle Grid.Column="2" Grid.RowSpan="4" />
                 <!--#endregion-->
 
                 <!--#region Title-->
                 <!--Заглавие-->
                 <Border x:Name ="Title">
                     <TextBlock x:Name="TitleText"
-                           Style="{StaticResource TitleTheme}"><Run Text="Timelon"/></TextBlock>
+                           Style="{StaticResource TitleTheme}"><Run Text="Timelon" /></TextBlock>
                 </Border>
                 <!--#endregion-->
 
@@ -112,8 +110,7 @@
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"
                                        FontSize="14"
-                                 Style="{StaticResource MenuButtonTheme}"/>
-
+                                 Style="{StaticResource MenuButtonTheme}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -123,7 +120,7 @@
                 <!--Меню карточек-->
                 <StackPanel Grid.Row="1"
                         Grid.Column="1">
-                    
+
                     <!--Важные-->
                     <ListBox x:Name="ImportantCardsPanel"
                              Background="Transparent"
@@ -135,7 +132,7 @@
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"
                                        FontSize="14"
-                                   Style="{StaticResource CardTheme}"/>
+                                   Style="{StaticResource CardTheme}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemContainerStyle>
@@ -144,42 +141,42 @@
                                 <!--<Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
-                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                    <Border x:Name="brd" Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}">
                                         <RadioButton Focusable="False"
-                                                     Margin="{TemplateBinding Padding}" 
+                                                     Margin="{TemplateBinding Padding}"
                                                      Foreground="{TemplateBinding Foreground}"
                                                      IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
-                                            <ContentPresenter/>
+                                            <ContentPresenter />
                                         </RadioButton>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="LimeGreen"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                            <Setter Property="BorderBrush" Value="Black"/>
+                                            <Setter Property="Background" Value="LimeGreen" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="Black" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>-->
 
-                                <Setter Property="Background" Value="LightSteelBlue"/>
-                                <Setter Property="Margin" Value="5"/>
-                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Background" Value="LightSteelBlue" />
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="Padding" Value="5" />
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="BorderBrush" Value="Black" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </ListBox.ItemContainerStyle>
                     </ListBox>
-                    
+
                     <!--Невыполненные-->
                     <ListBox x:Name="CardsPanel"
                      Background="Transparent"
@@ -191,7 +188,7 @@
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"
                                        FontSize="14"
-                                   Style="{StaticResource CardTheme}"/>
+                                   Style="{StaticResource CardTheme}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemContainerStyle>
@@ -200,36 +197,36 @@
                                 <!--<Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
-                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                    <Border x:Name="brd" Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}">
                                         <RadioButton Focusable="False"
-                                                     Margin="{TemplateBinding Padding}" 
+                                                     Margin="{TemplateBinding Padding}"
                                                      Foreground="{TemplateBinding Foreground}"
                                                      IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
-                                            <ContentPresenter/>
+                                            <ContentPresenter />
                                         </RadioButton>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="LimeGreen"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                            <Setter Property="BorderBrush" Value="Black"/>
+                                            <Setter Property="Background" Value="LimeGreen" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="Black" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>-->
 
-                                <Setter Property="Background" Value="LightSteelBlue"/>
-                                <Setter Property="Margin" Value="5"/>
-                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Background" Value="LightSteelBlue" />
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="Padding" Value="5" />
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="BorderBrush" Value="Black" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -242,12 +239,12 @@
                         <TextBlock Text="Завершённые задачи"
                                    Foreground="White"
                                    FontSize="13"
-                                   Margin="5,0,0,0"/>
-                        <Polygon x:Name="CardsPanelArrowDown" 
-                                 Fill="LightBlue" Points="3, 3, 11, 14, 19, 3" 
+                                   Margin="5,0,0,0" />
+                        <Polygon x:Name="CardsPanelArrowDown"
+                                 Fill="LightBlue" Points="3, 3, 11, 14, 19, 3"
                                  Visibility="Hidden" />
-                        <Polygon x:Name="CardspanelArrowUp" 
-                                 Fill="LightBlue" Points="3, 14, 11, 3, 19, 14"  
+                        <Polygon x:Name="CardspanelArrowUp"
+                                 Fill="LightBlue" Points="3, 14, 11, 3, 19, 14"
                                  Margin="-19,0,0,0" />
                     </StackPanel>
 
@@ -262,7 +259,7 @@
                             <DataTemplate>
                                 <TextBlock Text="{Binding  Name}"
                                        FontSize="14"
-                                   Style="{StaticResource CardTheme}"/>
+                                   Style="{StaticResource CardTheme}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemContainerStyle>
@@ -271,36 +268,36 @@
                                 <!--<Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <Border x:Name="brd" Background="{TemplateBinding Background}" 
-                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                        <Border x:Name="brd" Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}">
                                         <RadioButton Focusable="False"
-                                                     Margin="{TemplateBinding Padding}" 
+                                                     Margin="{TemplateBinding Padding}"
                                                      Foreground="{TemplateBinding Foreground}"
                                                      IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
-                                            <ContentPresenter/>
+                                            <ContentPresenter />
                                         </RadioButton>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="LimeGreen"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                            <Setter Property="BorderBrush" Value="Black"/>
+                                            <Setter Property="Background" Value="LimeGreen" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="Black" />
                                         </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>-->
 
-                                <Setter Property="Background" Value="LightSteelBlue"/>
-                                <Setter Property="Margin" Value="5"/>
-                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Background" Value="LightSteelBlue" />
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="Padding" Value="5" />
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="BorderBrush" Value="Black" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -314,7 +311,7 @@
                 <TextBlock Text="{Binding SelectedCard.Name}"
                            Grid.Column="2"
                            FontSize="22"
-                           Style="{StaticResource TitleTheme}"/>
+                           Style="{StaticResource TitleTheme}" />
 
                 <!--Меню информации о карточке-->
                 <StackPanel x:Name="CardInfo"
@@ -334,31 +331,31 @@
                             <TextBlock x:Name="CardDateTemplate"
                                        Text=""
                                        FontSize="14"
-                                       Style="{StaticResource TextBlockTemplateTheme}"/>
+                                       Style="{StaticResource TextBlockTemplateTheme}" />
                             <TextBox x:Name="CardDateTextbox"
                                      Text="{Binding Date.Created, Mode=OneWay}"
                                      FontSize="14"
-                                     Style="{StaticResource TextBoxInputTheme}"/>
+                                     Style="{StaticResource TextBoxInputTheme}" />
                         </Grid>
                     </Border>
 
                     <Grid Margin="10,0,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Column="0" 
+                        <CheckBox Grid.Column="0"
                                   x:Name="CardImportantCheck" IsChecked="{Binding IsImportant}"
                                   Content="Важное"
                                   IsEnabled="False"
                                   FontSize="14"
-                                  Foreground="White"/>
-                        <CheckBox Grid.Column="1" 
+                                  Foreground="White" />
+                        <CheckBox Grid.Column="1"
                                   x:Name="CardDoneCheck" IsChecked="{Binding IsCompleted}"
-                                  Content="Выполнено" 
+                                  Content="Выполнено"
                                   IsEnabled="False"
                                   FontSize="14"
-                                  Foreground="White"/>
+                                  Foreground="White" />
                     </Grid>
 
                     <!--Отметка о важности карты-->
@@ -376,8 +373,8 @@
                                        FontSize="14"
                                        VerticalAlignment="Top"
                                        Margin="10,10"
-                                       Style="{StaticResource TextBlockTemplateTheme}"/>
-                            <TextBox x:Name="CardDescriptionTextbox" 
+                                       Style="{StaticResource TextBlockTemplateTheme}" />
+                            <TextBox x:Name="CardDescriptionTextbox"
                                      Text="{Binding Description}"
                                      FontSize="14"
                                      Style="{StaticResource TextBoxInputTheme}" />
@@ -412,15 +409,14 @@
                                 Background="#FFBD7039"
                                 Height="35"
                                 Margin="5">
-                            
+
                             <Button Foreground="#CFCFCF"
                                     Background="Transparent"
                                     BorderThickness="0"
                                     Command="{Binding CardImportantCommand}"
                                     CommandParameter="{Binding SelectedCard}"
                                     Content="Отметить как важное"
-                                    FontSize="14" FontWeight="Bold"/>
-                            
+                                    FontSize="14" FontWeight="Bold" />
                         </Border>
                         <!--Отменить отметку о важности-->
                         <Border CornerRadius="5"
@@ -437,7 +433,7 @@
                                     FontSize="13" FontWeight="Bold" />
                         </Border>
                     </StackPanel>
-                    
+
                     <!--Кнопка восстановить задачу (сделать невыполненной) -->
                     <Border CornerRadius="5"
                             Grid.Column="2"
@@ -454,7 +450,6 @@
                                 FontSize="14" FontWeight="Bold" />
                     </Border>
                 </StackPanel>
-                
 
                 <!--Кнопка удалить задачу-->
                 <Border CornerRadius="5"
@@ -469,7 +464,7 @@
                             Command="{Binding RemoveCommand}"
                             CommandParameter="{Binding SelectedCard}"
                             Content="Удалить задачу"
-                            FontSize="14" FontWeight="Bold"/>
+                            FontSize="14" FontWeight="Bold" />
                 </Border>
                 <!--#endregion-->
 
@@ -484,17 +479,14 @@
                         <TextBlock x:Name="TemplateList"
                                    Text="Создать список"
                                    FontSize="15"
-                                   Style="{StaticResource TextBlockTemplateTheme}"/>
+                                   Style="{StaticResource TextBlockTemplateTheme}" />
                         <!--Поле ввода названия списка-->
                         <TextBox x:Name="AddListTextbox"
                                  FontSize="15"
                                  Margin="0,-3,0,0"
                                  TextChanged="AddListTextbox_TextChanged"
-                                 Style="{StaticResource TextBoxInputTheme}"/>
-
-
+                                 Style="{StaticResource TextBoxInputTheme}" />
                     </Grid>
-
                 </Border>
 
                 <!--Кнопка создания списка-->
@@ -502,7 +494,7 @@
                         Grid.Row="2"
                         Command="{Binding AddListCommand}"
                         CommandParameter="{Binding ElementName=AddListTextbox}"
-                        Style="{StaticResource AddButtonTheme}" Margin="0,27,5,28"/>
+                        Style="{StaticResource AddButtonTheme}" Margin="0,27,5,28" />
 
                 <!--Создать карточку дела-->
                 <Border Grid.Row="2"
@@ -514,18 +506,15 @@
                         <TextBlock x:Name="TemplateCard"
                                    Text="Добавить задачу"
                                    FontSize="15"
-                                   Style="{StaticResource TextBlockTemplateTheme}"/>
+                                   Style="{StaticResource TextBlockTemplateTheme}" />
 
                         <!--Поле ввода названия задачи-->
                         <TextBox x:Name="AddCardTextbox"
                                  FontSize="15"
                                  Margin="0,-3,0,0"
                                  TextChanged="AddCardTextbox_TextChanged"
-                                 Style="{StaticResource TextBoxInputTheme}"/>
-
-
+                                 Style="{StaticResource TextBoxInputTheme}" />
                     </Grid>
-
                 </Border>
 
                 <!--Кнопка добавления дела-->
@@ -535,7 +524,7 @@
                         Margin="0,27,50,28"
                         Command="{Binding AddCardCommand}"
                         CommandParameter="{Binding ElementName=AddCardTextbox}"
-                        Style="{StaticResource AddButtonTheme}"/>
+                        Style="{StaticResource AddButtonTheme}" />
 
                 <!--Поиск-->
                 <Border Grid.Column="1"
@@ -546,17 +535,14 @@
                         <TextBlock x:Name="TemplateSearch"
                                    Text="Поиск"
                                    FontSize="15"
-                                   Style="{StaticResource TextBlockTemplateTheme}"/>
+                                   Style="{StaticResource TextBlockTemplateTheme}" />
                         <!--Текстовое поле ввода для поиска-->
                         <TextBox x:Name="SearchTextbox"
                                  FontSize="15"
                                  Margin="0,-3,0,0"
                                  TextChanged="SearchTextbox_TextChanged"
-                                 Style="{StaticResource TextBoxInputTheme}"/>
-
-
+                                 Style="{StaticResource TextBoxInputTheme}" />
                     </Grid>
-
                 </Border>
 
                 <!--Кнопка поиска-->
@@ -568,10 +554,7 @@
                         Style="{StaticResource SearchButtonTheme}">
                 </Button>
                 <!--#endregion-->
-
             </Grid>
-
         </Border>
     </Grid>
-
 </Window>

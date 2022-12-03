@@ -255,7 +255,7 @@ namespace TimelonCl.Data
             content = content.Trim().ToLower();
 
             List<Card> result = new List<Card>();
-            
+
             foreach (KeyValuePair<int, Card> item in All)
             {
                 if (!item.Value.Name.ToLower().Contains(content))
@@ -283,7 +283,7 @@ namespace TimelonCl.Data
         public List<Card> SearchByDateUpdated(DateTime minDate, DateTime maxDate)
         {
             List<Card> result = new List<Card>();
-            
+
             foreach (KeyValuePair<int, Card> item in All)
             {
                 if (minDate > item.Value.Date.Updated)
