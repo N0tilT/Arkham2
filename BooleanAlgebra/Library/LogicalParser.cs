@@ -93,6 +93,12 @@ namespace Library
                 return false;
             }
         }
+        /// <summary>
+        /// Подсчёт количества различных букв - 
+        /// переменных логического выражения
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public int Counter(string input)
         {
             string[] symb;
@@ -118,6 +124,11 @@ namespace Library
 
             return counter;
         }
+        /// <summary>
+        /// Удаление повторяющихся букв
+        /// </summary>
+        /// <param name="Letters"></param>
+        /// <returns></returns>
         private List<string> ChekSim(List<string> Letters)
         {
             for (int i = 0; i < Letters.Count; i++)

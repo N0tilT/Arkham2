@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class MainLibrary
+    public class BooleanSensors
     {
         // Английский алфавит
         public const int COUNT_MIN = 1;
@@ -179,7 +179,7 @@ namespace Library
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TruthTable(int count)
         {
-            if (count < MainLibrary.COUNT_MIN || count > MainLibrary.COUNT_MAX)
+            if (count < BooleanSensors.COUNT_MIN || count > BooleanSensors.COUNT_MAX)
             {
                 throw new ArgumentOutOfRangeException();
             }

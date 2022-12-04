@@ -19,14 +19,13 @@ namespace Test
             //    return;
             //}
 
-            //TestTruthTable(count);
-            //TestParser("A * ( B -> C ) + C <-> - A");
+            TestParser("A * ( B -> C ) + C <-> - A");
             //TestEvaluationTruthTable(3);
             //TestEvaluationInputFunction();
-            //TestNormalForms();
+            TestNormalForms();
             //TestSDNF();
             //TestSKNF();
-            TestComparison();
+            //TestComparison();
         }
 
         private static void TestTruthTable(int count)
@@ -92,7 +91,7 @@ namespace Test
         {
             LogicalParser parser = new LogicalParser();
             LogicalEvaluate eval = new LogicalEvaluate();
-            string function = "A + B";
+            string function = "A -> B";
             Console.WriteLine("TestNormalForms():");
             int n = parser.Counter(function);
             Console.WriteLine("Введите количество переменных: " + n);

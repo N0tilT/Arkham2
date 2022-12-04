@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace Library
 {
+    /// <summary>
+    /// Класс построения нормальных форм логической функции
+    /// </summary>
     static public class LogicalNormalForm
     {
+        /// <summary>
+        /// Построение СДНФ
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="result"></param>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
         static public string SDNF(TruthTable table, Sensor result, List<string> tokens)
         {
         string answer="( ";
@@ -50,6 +60,13 @@ namespace Library
             return answer;
         }
 
+        /// <summary>
+        /// Построение СКНФ
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="result"></param>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
         static public string SKNF(TruthTable table, Sensor result, List<string> tokens)
         {
             string answer = "( ";
