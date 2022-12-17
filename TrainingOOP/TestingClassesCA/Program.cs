@@ -15,8 +15,8 @@ namespace TestingClassesCA
             Console.WriteLine("_____\nТестирование класса Student\n_____");
             test.TestStudentProps();
 
-            //Console.WriteLine("_____\nТестирование класса Teacher\n_____");
-            //test.TeacherTest(); 
+            Console.WriteLine("_____\nТестирование класса Teacher\n_____");
+            test.TeacherTest();
 
             //Console.WriteLine("_____\nТестирование класса Complex\n_____");
             //test.TestComplex();
