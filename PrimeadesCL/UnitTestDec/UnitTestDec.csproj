@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PrimeadesCL\PrimeadesCL.csproj">
+    <ProjectReference Include="..\PrimeadesCL\PrimeadesClasses.csproj">
       <Project>{055bee53-49dd-4612-9688-b56f737d352e}</Project>
-      <Name>PrimeadesCL</Name>
+      <Name>PrimeadesClasses</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

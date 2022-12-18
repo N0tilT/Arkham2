@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeadesCL", "PrimeadesCL\PrimeadesCL.csproj", "{055BEE53-49DD-4612-9688-B56F737D352E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeadesClasses", "PrimeadesCL\PrimeadesClasses.csproj", "{055BEE53-49DD-4612-9688-B56F737D352E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeadesCA", "PrimeadesCA\PrimeadesCA.csproj", "{C9F47C68-02AF-4FB1-9DA5-B6CE5D661073}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeadesConsoleApp", "PrimeadesCA\PrimeadesConsoleApp.csproj", "{C9F47C68-02AF-4FB1-9DA5-B6CE5D661073}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeadesWF", "PrimeadesWF\PrimeadesWF.csproj", "{6E4DE826-BA84-4267-BFE7-FD68BF6EE7C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeadesWinForms", "PrimeadesWF\PrimeadesWinForms.csproj", "{6E4DE826-BA84-4267-BFE7-FD68BF6EE7C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDec", "UnitTestDec\UnitTestDec.csproj", "{EFF7A0A9-2B75-4FB9-A548-8D1FA0500E43}"
 	ProjectSection(ProjectDependencies) = postProject

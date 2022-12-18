@@ -51,21 +51,23 @@ namespace PrimeadesWF
             this.panelMainContainer.Controls.Add(this.textBoxDividers);
             this.panelMainContainer.Controls.Add(this.labelAnswers);
             this.panelMainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMainContainer.Location = new System.Drawing.Point(0, 171);
+            this.panelMainContainer.Location = new System.Drawing.Point(0, 210);
+            this.panelMainContainer.Margin = new System.Windows.Forms.Padding(4);
             this.panelMainContainer.Name = "panelMainContainer";
-            this.panelMainContainer.Padding = new System.Windows.Forms.Padding(10);
-            this.panelMainContainer.Size = new System.Drawing.Size(349, 390);
+            this.panelMainContainer.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.panelMainContainer.Size = new System.Drawing.Size(465, 480);
             this.panelMainContainer.TabIndex = 0;
             // 
             // textBoxDividers
             // 
             this.textBoxDividers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxDividers.Font = new System.Drawing.Font("Franklin Gothic Medium", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxDividers.Location = new System.Drawing.Point(10, 39);
+            this.textBoxDividers.Location = new System.Drawing.Point(13, 49);
+            this.textBoxDividers.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDividers.Multiline = true;
             this.textBoxDividers.Name = "textBoxDividers";
             this.textBoxDividers.ReadOnly = true;
-            this.textBoxDividers.Size = new System.Drawing.Size(329, 341);
+            this.textBoxDividers.Size = new System.Drawing.Size(439, 419);
             this.textBoxDividers.TabIndex = 2;
             // 
             // labelAnswers
@@ -73,9 +75,10 @@ namespace PrimeadesWF
             this.labelAnswers.AutoSize = true;
             this.labelAnswers.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelAnswers.Font = new System.Drawing.Font("Franklin Gothic Medium", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelAnswers.Location = new System.Drawing.Point(10, 10);
+            this.labelAnswers.Location = new System.Drawing.Point(13, 12);
+            this.labelAnswers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAnswers.Name = "labelAnswers";
-            this.labelAnswers.Size = new System.Drawing.Size(112, 29);
+            this.labelAnswers.Size = new System.Drawing.Size(140, 37);
             this.labelAnswers.TabIndex = 2;
             this.labelAnswers.Text = "Делители:";
             // 
@@ -86,8 +89,9 @@ namespace PrimeadesWF
             this.panel2.Controls.Add(this.panelInput);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(349, 171);
+            this.panel2.Size = new System.Drawing.Size(465, 210);
             this.panel2.TabIndex = 0;
             // 
             // panelButtons
@@ -96,19 +100,21 @@ namespace PrimeadesWF
             this.panelButtons.Controls.Add(this.buttonCalculate);
             this.panelButtons.Controls.Add(this.buttonHelp);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelButtons.Location = new System.Drawing.Point(0, 92);
+            this.panelButtons.Location = new System.Drawing.Point(0, 113);
+            this.panelButtons.Margin = new System.Windows.Forms.Padding(4);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Padding = new System.Windows.Forms.Padding(10);
-            this.panelButtons.Size = new System.Drawing.Size(349, 79);
+            this.panelButtons.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.panelButtons.Size = new System.Drawing.Size(465, 97);
             this.panelButtons.TabIndex = 0;
             // 
             // buttonCalculate
             // 
             this.buttonCalculate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonCalculate.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalculate.Location = new System.Drawing.Point(10, 10);
+            this.buttonCalculate.Location = new System.Drawing.Point(13, 12);
+            this.buttonCalculate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(214, 59);
+            this.buttonCalculate.Size = new System.Drawing.Size(286, 73);
             this.buttonCalculate.TabIndex = 1;
             this.buttonCalculate.Text = "Узнать делители";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -118,9 +124,10 @@ namespace PrimeadesWF
             // 
             this.buttonHelp.Dock = System.Windows.Forms.DockStyle.Right;
             this.buttonHelp.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonHelp.Location = new System.Drawing.Point(224, 10);
+            this.buttonHelp.Location = new System.Drawing.Point(299, 12);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(115, 59);
+            this.buttonHelp.Size = new System.Drawing.Size(153, 73);
             this.buttonHelp.TabIndex = 2;
             this.buttonHelp.Text = "Справка";
             this.buttonHelp.UseVisualStyleBackColor = true;
@@ -133,18 +140,20 @@ namespace PrimeadesWF
             this.panelInput.Controls.Add(this.labelNumberInput);
             this.panelInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelInput.Location = new System.Drawing.Point(0, 0);
+            this.panelInput.Margin = new System.Windows.Forms.Padding(4);
             this.panelInput.Name = "panelInput";
-            this.panelInput.Padding = new System.Windows.Forms.Padding(10);
-            this.panelInput.Size = new System.Drawing.Size(349, 171);
+            this.panelInput.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.panelInput.Size = new System.Drawing.Size(465, 210);
             this.panelInput.TabIndex = 1;
             // 
             // textBoxInput
             // 
             this.textBoxInput.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxInput.Font = new System.Drawing.Font("Franklin Gothic Medium", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxInput.Location = new System.Drawing.Point(10, 39);
+            this.textBoxInput.Location = new System.Drawing.Point(13, 49);
+            this.textBoxInput.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(329, 34);
+            this.textBoxInput.Size = new System.Drawing.Size(439, 40);
             this.textBoxInput.TabIndex = 0;
             // 
             // labelNumberInput
@@ -152,20 +161,22 @@ namespace PrimeadesWF
             this.labelNumberInput.AutoSize = true;
             this.labelNumberInput.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelNumberInput.Font = new System.Drawing.Font("Franklin Gothic Medium", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelNumberInput.Location = new System.Drawing.Point(10, 10);
+            this.labelNumberInput.Location = new System.Drawing.Point(13, 12);
+            this.labelNumberInput.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNumberInput.Name = "labelNumberInput";
-            this.labelNumberInput.Size = new System.Drawing.Size(160, 29);
+            this.labelNumberInput.Size = new System.Drawing.Size(201, 37);
             this.labelNumberInput.TabIndex = 1;
             this.labelNumberInput.Text = "Введите число";
             // 
             // FormDividers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 561);
+            this.ClientSize = new System.Drawing.Size(465, 690);
             this.Controls.Add(this.panelMainContainer);
             this.Controls.Add(this.panel2);
-            this.MinimumSize = new System.Drawing.Size(320, 600);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(421, 728);
             this.Name = "FormDividers";
             this.Text = "Узнать делители числа";
             this.panelMainContainer.ResumeLayout(false);

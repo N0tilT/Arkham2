@@ -4,6 +4,9 @@ using PrimeadesCL;
 
 namespace UnitTestDec
 {
+    /// <summary>
+    /// Класс для Unit-тестирования для различных наборов входных данных 
+    /// </summary>
     [TestClass]
     public class UnitTest1
     {
@@ -22,8 +25,5 @@ namespace UnitTestDec
             Assert.AreEqual("114 0 0 5 ", ForTest.WorkPrimes(1234));
 
         }
-
-
-
     }
 }

@@ -1,150 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrimeadesCL
 {
-
-    /// <summary>
-    /// Класс обработки массива.
-    /// Содержит функции заполнения массива и нахождения максимальных десятков 
-    /// с максимальным и минимальным количеством простых чисел
-    /// </summary>
-    public class ArrayHandler
-    {
-        /// <summary>
-        /// Функция заполнения списка целыми числами от 1 до N
-        /// </summary>
-        /// <param name="N">Входное число, последнее в списке</param>
-        /// <returns>Список целых чисел от 1 до N</returns>
-        public static List<int> ArrayFiller(int N)
-        {
-            List<int> array = new List<int>();
-
-            //Формирование массива целых чисел 1..N
-            for (int i = 1; i <= N; i++)
-            {
-                array.Add(i);
-            }
-            array[0] = 0;
-            return array;
-        }
-        
-        /// <summary>
-        /// Функция подсчёта простых чисел на сегменте
-        /// </summary>
-        /// <param name="Primes">Список целых чисел, в котором непростые заменены на ноль</param>
-        /// <param name="Segment">рассматриваемый сегмент чисел</param>
-        /// <returns>Список, индексы которого обозначают номер сегмента,
-        /// а значение - количество простых чисел на нём.</returns>
-        public static List<int> CountPrimesOnSegment(List<int> Primes,int Segment)
-        {
-            List<int> Answer = new List<int>() {0}; //Индекс - номер сегмента, значение - количество простых на сегменте
-            int index = 0;
-            for (int i = 0; i < Primes.Count; i++)
-            {
-                if (Primes[i] != 0)
-                    Answer[index]++;
-
-                if ((i+1) % Segment == 0)
-                {
-                    index++;
-                    Answer.Add(0);
-                }
-                
-            }
-
-
-            return Answer;
-        }
-
-        /// <summary>
-        /// Функция определения отрезка максимальной длины, в котором нет простых чисел
-        /// </summary>
-        /// <param name="NewArray"> Список целых чисел, в котором непростые числа заменены на ноль</param>
-        /// <returns>Список, содержащий информацию об отрезке
-        /// [0 Первое число отрезка
-        /// 1 Последнее число отрезка
-        /// 2 Количество чисел между первым и последним числом отрезка]
-        /// </returns>
-        public static List<int> Segment(List<int> NewArray)
-        {
-            //sigma[первое простое число, второе простое число, длина отрезка]
-            List<int> sigma = new List<int> { 0, 0, 0 };
-            int CurLen, FirstNumIndex=0;
-            //Считаем расстояние между ненулевыми элементами списка простых чисел
-            for (int i = 0; i < NewArray.Count; i++)
-                if (NewArray[i] != 0)
-                {
-                    CurLen = i - FirstNumIndex;
-                    if (CurLen > sigma[2]) { sigma[2] = CurLen-1; sigma[0]= FirstNumIndex + 1; sigma[1] = i+1; }
-                    FirstNumIndex = i;
-                }
-            return sigma;
-        }
-
-        /// <summary>
-        /// Функция нахождения максимальных отрезков чисел
-        /// с максимальным и минимальным количеством простых чисел
-        /// </summary>
-        /// 
-        /// <param name="array">Список простых чисел, 
-        /// в котором все непростые числа заменены на 0</param>
-        /// <param name="segment">рассматриваемый отрезок чисел</param>
-        /// 
-        /// <returns>
-        /// Список, содержащий информацию о максимальных 
-        /// отрезках с максимальным и минимальным количеством простых чисел 
-        /// 
-        /// [0 максимальный сегмент с минимальным количеством простых чисел,
-        /// 1 минимальное количество простых чисел,
-        /// 2 минимальный сегмент с максимальным количеством простых чисел,
-        /// 3 максимальное количество простых чисел] 
-        /// </returns>
-        public static List<int> SplitPrimes(List<int> array, int segment)
-        {
-            //Решение проблемы работы с некратным количеством сегментов, умещающихся в N
-            if (array.Count() % segment == segment - 1 && segment!=1) array.Add(array.Count() + 1);
-
-            //minmax[segment с минимумом, минимум, segment с максимумом,максимум]
-            List<int> minmax = new List<int> { 0, segment, 0, 0 }; 
-
-            int counter = 0; //Счётчик простых чисел в segment
-
-            //Проходим по массиву, и каждые segment шагов
-            //сравниваем counter c максимумом и минимумом
-            for (int i = 0; i < array.Count; i++)
-            {
-                if ((i + 1) % segment == 0)
-                {
-                    //Проверка на максимум
-                    if (counter >= minmax[3])
-                    {
-                        minmax[2] = i / segment;
-                        minmax[3] = counter;
-                    }
-
-                    //Проверка на минимум
-                    if (counter <= minmax[1])
-                    {
-                        minmax[0] = i / segment;
-                        minmax[1] = counter;
-                    }
-
-                    //Обнуление счётчика для нового segment
-                    counter = 0;
-                }
-                //Подсчёт простого числа
-                if (array[i] != 0) counter++;
-
-            }
-            return minmax;
-        }
-    }
-    
     /// <summary>
     /// Класс работы с простыми числами. 
     /// Содержит функцию поиска простых чисел в списке методом решета Эратосфена
@@ -202,6 +61,7 @@ namespace PrimeadesCL
             EratosfenHandleArray();
             return PrimeArray;
         }
+        
         /// <summary>
         /// Функция обработки списка целых чисел решетом Эратосфена
         /// </summary>
@@ -228,6 +88,148 @@ namespace PrimeadesCL
             for (int i = start + prime; i < PrimeArray.Count(); i += prime) PrimeArray[i] = 0;
         }
     }
+
+    /// <summary>
+    /// Класс обработки массива простых чисел.
+    /// Содержит функции заполнения массива и нахождения максимальных десятков 
+    /// с максимальным и минимальным количеством простых чисел
+    /// </summary>
+    public class ArrayHandler
+    {
+        /// <summary>
+        /// Функция заполнения списка целыми числами от 1 до N
+        /// </summary>
+        /// <param name="N">Входное число, последнее в списке</param>
+        /// <returns>Список целых чисел от 1 до N</returns>
+        public static List<int> ArrayFiller(int N)
+        {
+            List<int> array = new List<int>();
+
+            //Формирование массива целых чисел 1..N
+            for (int i = 1; i <= N; i++)
+            {
+                array.Add(i);
+            }
+            array[0] = 0;
+            return array;
+        }
+
+        /// <summary>
+        /// Функция подсчёта простых чисел на сегменте
+        /// </summary>
+        /// <param name="Primes">Список целых чисел, в котором непростые заменены на ноль</param>
+        /// <param name="Segment">рассматриваемый сегмент чисел</param>
+        /// <returns>Список, индексы которого обозначают номер сегмента,
+        /// а значение - количество простых чисел на нём.</returns>
+        public static List<int> CountPrimesOnSegment(List<int> Primes, int Segment)
+        {
+            List<int> Answer = new List<int>() { 0 }; //Индекс - номер сегмента, значение - количество простых на сегменте
+            int index = 0;
+            for (int i = 0; i < Primes.Count; i++)
+            {
+                if (Primes[i] != 0)
+                    Answer[index]++;
+
+                if ((i + 1) % Segment == 0)
+                {
+                    index++;
+                    Answer.Add(0);
+                }
+
+            }
+
+
+            return Answer;
+        }
+
+        /// <summary>
+        /// Функция определения отрезка максимальной длины, в котором нет простых чисел
+        /// </summary>
+        /// <param name="NewArray"> Список целых чисел, в котором непростые числа заменены на ноль</param>
+        /// <returns>Список, содержащий информацию об отрезке
+        /// [0 Первое число отрезка
+        /// 1 Последнее число отрезка
+        /// 2 Количество чисел между первым и последним числом отрезка]
+        /// </returns>
+        public static List<int> Segment(List<int> NewArray)
+        {
+            //sigma[первое простое число, второе простое число, длина отрезка]
+            List<int> sigma = new List<int> { 0, 0, 0 };
+            int CurLen, FirstNumIndex = 0;
+            //Считаем расстояние между ненулевыми элементами списка простых чисел
+            for (int i = 0; i < NewArray.Count; i++)
+                if (NewArray[i] != 0)
+                {
+                    CurLen = i - FirstNumIndex;
+                    if (CurLen > sigma[2]) { sigma[2] = CurLen - 1; sigma[0] = FirstNumIndex + 1; sigma[1] = i + 1; }
+                    FirstNumIndex = i;
+                }
+            return sigma;
+        }
+
+        /// <summary>
+        /// Функция нахождения максимальных отрезков чисел
+        /// с максимальным и минимальным количеством простых чисел
+        /// </summary>
+        /// 
+        /// <param name="array">Список простых чисел, 
+        /// в котором все непростые числа заменены на 0</param>
+        /// <param name="segment">рассматриваемый отрезок чисел</param>
+        /// 
+        /// <returns>
+        /// Список, содержащий информацию о максимальных 
+        /// отрезках с максимальным и минимальным количеством простых чисел 
+        /// 
+        /// [0 максимальный сегмент с минимальным количеством простых чисел,
+        /// 1 минимальное количество простых чисел,
+        /// 2 минимальный сегмент с максимальным количеством простых чисел,
+        /// 3 максимальное количество простых чисел] 
+        /// </returns>
+        public static List<int> SplitPrimes(List<int> array, int segment)
+        {
+            //Решение проблемы работы с некратным количеством сегментов, умещающихся в N
+            if (array.Count() % segment == segment - 1 && segment != 1) array.Add(array.Count() + 1);
+
+            //minmax[segment с минимумом, минимум, segment с максимумом,максимум]
+            List<int> minmax = new List<int> { 0, segment, 0, 0 };
+
+            int counter = 0; //Счётчик простых чисел в segment
+
+            //Проходим по массиву, и каждые segment шагов
+            //сравниваем counter c максимумом и минимумом
+            for (int i = 0; i < array.Count; i++)
+            {
+                if ((i + 1) % segment == 0)
+                {
+                    //Проверка на максимум
+                    if (counter >= minmax[3])
+                    {
+                        minmax[2] = i / segment;
+                        minmax[3] = counter;
+                    }
+
+                    //Проверка на минимум
+                    if (counter <= minmax[1])
+                    {
+                        minmax[0] = i / segment;
+                        minmax[1] = counter;
+                    }
+
+                    //Обнуление счётчика для нового segment
+                    counter = 0;
+                }
+                //Подсчёт простого числа
+                if (array[i] != 0) counter++;
+
+            }
+            return minmax;
+        }
+    }
+
+    /// <summary>
+    /// Вспомогательны класс для тестирования программы.
+    /// Содержит функции для формирования строки ответа и функцию для проерки работы программы
+    /// </summary>
     public class ForTest
     {
         /// <summary>
